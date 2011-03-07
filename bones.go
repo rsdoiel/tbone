@@ -20,6 +20,10 @@ import (
 	"fmt"
 )
 
+const (
+	VERSION = `0.0.1-a`
+)
+
 // Assemble a map of attribute names and values
 func AssembleAttributes(attributes map[string]string) string {
 	out := new(bytes.Buffer)
