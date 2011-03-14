@@ -216,6 +216,9 @@ var bones = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
+		if (typeof attributes === "string" && attributes.indexOf("=") < 0) {
+			attributes = {'href' : attributes};			
+		}
 		return '<a' + this.assemble_attributes(attributes) + '>' + innerHTML + '</a>';
 	},
 	

@@ -67,6 +67,9 @@ assert.equal(src, '<p>hello world</p>', "Should have a wrapping p tag.:" + src);
 src = web.A("", null);
 assert.equal(src, '<a></a>', "Should have an empty wrapping anchor tag:" + src);
 
+src = web.A("here", "http://example.com");
+assert.equal(src, '<a href="http://example.com">here</a>', "Should have a basic link to example.com:" + src);
+
 src = web.A("here", {"href" : "http://example.com"});
 assert.equal(src, '<a href="http://example.com">here</a>', "Should have a basic link to example.com:" + src);
 
