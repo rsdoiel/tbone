@@ -509,41 +509,45 @@ Span = function (innerHTML, attributes) {
 
 
 // Defined some exports if running under NodeJS
-if (exports !== undefined) {
-	exports.trim = trim;
-	exports.assemble_attributes = assemble_attributes;
-	exports.Html = Html;
-	exports.Head = Head;
-	exports.Title = Title;
-	exports.Link = Link;
-	exports.Body = Body;
-	exports.H1 = H1;
-	exports.H2 = H2;
-	exports.H3 = H3;
-	exports.H4 = H4;
-	exports.H5 = H5;
-	exports.H6 = H6;
-	exports.P = P;
-	exports.A = A;
-	exports.Ul = Ul;
-	exports.Ol = Ol;
-	exports.Li = Li;
-	exports.Dl = Dl;
-	exports.Dt = Dt;
-	exports.Dd = Dd;
-	exports.Table = Table;
-	exports.Th = Th;
-	exports.Tr = Tr;
-	exports.Td = Td;
-	exports.Form = Form;
-	exports.Input = Input;
-	exports.TextArea = TextArea;
-	exports.Select = Select;
-	exports.Option = Option;
-	exports.Label = Label;
-	exports.Script = Script;
-	exports.Pre = Pre;
-	exports.DemoCode = DemoCode;
-	exports.Div = Div;
-	exports.Span = Span;
-}
+(function () {
+	try {
+		exports.trim = trim;
+		exports.assemble_attributes = assemble_attributes;
+		exports.Html = Html;
+		exports.Head = Head;
+		exports.Title = Title;
+		exports.Link = Link;
+		exports.Body = Body;
+		exports.H1 = H1;
+		exports.H2 = H2;
+		exports.H3 = H3;
+		exports.H4 = H4;
+		exports.H5 = H5;
+		exports.H6 = H6;
+		exports.P = P;
+		exports.A = A;
+		exports.Ul = Ul;
+		exports.Ol = Ol;
+		exports.Li = Li;
+		exports.Dl = Dl;
+		exports.Dt = Dt;
+		exports.Dd = Dd;
+		exports.Table = Table;
+		exports.Th = Th;
+		exports.Tr = Tr;
+		exports.Td = Td;
+		exports.Form = Form;
+		exports.Input = Input;
+		exports.TextArea = TextArea;
+		exports.Select = Select;
+		exports.Option = Option;
+		exports.Label = Label;
+		exports.Script = Script;
+		exports.Pre = Pre;
+		exports.DemoCode = DemoCode;
+		exports.Div = Div;
+		exports.Span = Span;
+	} catch(err) {
+		// Skip since we're not running NodeJS
+	}
+})();
