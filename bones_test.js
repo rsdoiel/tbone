@@ -11,7 +11,7 @@
 var assert = require('assert'),
     web = require('./bones');
 
-console.log("[test-bones.js] start ...");
+console.log("[bones_test.js] start ...");
 
 attr = web.assemble_attributes();
 assert.equal(attr, '', 'Should have an empty attribute string.');
