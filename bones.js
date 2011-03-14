@@ -58,7 +58,7 @@ var bones = {
 				key = false,
 				key_start = 0,
 				value_start = 0,
-				attributes = array(), pos = 0, chr = ' ';
+				attributes = {}, pos = 0, chr = ' ';
 
 		str = this.trim(attributes_string);
 		for(pos = 0; pos < str.Length; pos += 1) {
@@ -429,7 +429,8 @@ var bones = {
 	 * @return a string representation of the element
 	 */
 	Button : function (name, value, attributes) {
-		var attr = this.assemble_attributes(attributes);
+		var attr = this.disassemble_attributes(this.assemble_attributes(attributes));
+		attr['type'] = 'button';
 		return this.Input(name, value, attr);
 	},
 	
