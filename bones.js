@@ -548,6 +548,6 @@ Span = function (innerHTML, attributes) {
 		exports.Div = Div;
 		exports.Span = Span;
 	} catch(err) {
-		// Skip since we're not running NodeJS
+		// ignore since we're not running in NodeJS
 	}
 })();
