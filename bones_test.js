@@ -16,13 +16,13 @@ console.log("[bones_test.js] start ...");
 attr = web.assemble_attributes();
 assert.equal(attr, '', 'Should have an empty attribute string.');
 
-attr = assemble_attributes('class="myclass"');
+attr = web.assemble_attributes('class="myclass"');
 assert.equal(attr, ' class="myclass"', 'Should have class="myclass" [' + attr + '] from string');
 
-attr = assemble_attributes({'class' : 'myclass'});
+attr = web.assemble_attributes({'class' : 'myclass'});
 assert.equal(attr, ' class="myclass"', 'Should have class="myclass" [' + attr + '] from assoc. array');
 
-attr = assemble_attributes({'checked' : null, 'id' : 'mything'});
+attr = web.assemble_attributes({'checked' : null, 'id' : 'mything'});
 assert.equal(attr, ' checked id="mything"', 'Should have checked id="mything" [' + attr + '] from assoc. array');
 
 src = web.Html('');
