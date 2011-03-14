@@ -47,6 +47,42 @@ var bones = {
 			return ' ' + this.trim(attributes);
 		}
 	}, /* END: assemble_attributes() */
+
+	/**
+	 * disassemble_attributes - parse an attribute string (e.g. 'class="myclass" id="fred"') into an associative array.
+	 * @param attributes_string - a list of attributes in string form.
+	 * @return an object representation of the attributes.
+	 */
+	disassemble_attributes : function (attributes_string) {
+		var in_quote = false,
+				key = false,
+				key_start = 0,
+				value_start = 0,
+				attributes = array(), pos = 0, chr = ' ';
+
+		str = this.trim(attributes_string);
+		for(pos = 0; pos < str.Length; pos += 1) {
+			chr = str.substr(pos, 1);
+			if (in_quote) {
+				// Have we exited quote
+				if (chr == in_quote) {
+					attributes[key] = str.substr(value_start, pos - value_start);
+					in_quote = false;
+					value = 0;
+					key = false;
+					key_start = pos + 1;
+				} else if (chr == '\\' && str.substr(pos + 1, 1) == in_quote) {
+					pos += 1;
+				}
+			} else if (chr == '"' || chr == "'") {
+				in_quote = chr;
+				value_start = pos + 1;
+			} else if (chr == '=') {
+				key = this.trim(str.substr(key_start, pos - key_start));
+			}
+		}
+		return attributes;
+	}, /* END: disassemble_attributes() */
 	
 	/**
 	 * Html - for the outer HTML and Doctype wrapper for an HTML page.
@@ -383,6 +419,18 @@ var bones = {
 			value = '';
 		}
 		return '<input name="' + name + '" value="' + value + '"' + this.assemble_attributes(attributes) + ' />';
+	},
+	
+	/**
+	 * Button - create an input button 
+	 * @param name - the name of the button
+	 * @param value - the value of the button
+	 * @attributes - a string or object of key/values representing attributes
+	 * @return a string representation of the element
+	 */
+	Button : function (name, value, attributes) {
+		var attr = this.assemble_attributes(attributes);
+		return this.Input(name, value, attr);
 	},
 	
 	/**
