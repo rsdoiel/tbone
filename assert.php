@@ -6,6 +6,9 @@
  *
  * copyright (c) 2010 all rights reserved
  *
+ * Released under New the BSD License.
+ * See: http://opensource.org/licenses/bsd-license.php
+ *
  * Notes: this should work in the browser or under NodeJS, test-bones.js is designed to run under NodeJS
  */
 
