@@ -562,6 +562,19 @@ var bones = {
 		}
 		return '<span' + this.assemble_attributes(attributes) + '>' + innerHTML + '</span>';
 	},
+
+	/**
+	 * Menu - an HTML5 Menu element
+	 * @param label
+	 * @param innerHTML
+	 * @param attributes
+	 * @return a string representation of the element
+	 */
+	Menu : function (label, innerHTML, attributes) {
+		var attr = this.disassemble_attributes(this.assemble_attributes(attributes));
+		attr.label = label;
+		return '<menu ' + this.assemble_attributes(attr) + '>' + innerHTML + '</menu>';
+	}
 };
 
 
@@ -604,6 +617,7 @@ var bones = {
 		exports.DemoCode = bones.DemoCode;
 		exports.Div = bones.Div;
 		exports.Span = bones.Span;
+		exports.Menu = bones.Menu;
 	} catch(err) {
 		// ignore since we're not running in NodeJS
 	}
