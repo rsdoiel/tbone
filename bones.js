@@ -571,9 +571,7 @@ var bones = {
 	 * @return a string representation of the element
 	 */
 	Menu : function (label, innerHTML, attributes) {
-		var attr = this.disassemble_attributes(this.assemble_attributes(attributes));
-		attr.label = label;
-		return '<menu ' + this.assemble_attributes(attr) + '>' + innerHTML + '</menu>';
+		return '<menu label="' + label + '"' + this.assemble_attributes(attributes) + '>' + innerHTML + '</menu>';
 	}
 };
 
