@@ -572,6 +572,19 @@ var bones = {
 	 */
 	Menu : function (label, innerHTML, attributes) {
 		return '<menu label="' + label + '"' + this.assemble_attributes(attributes) + '>' + innerHTML + '</menu>';
+	},
+	
+	/**
+	 * Center - render a center tag
+	 * @param innerHTML - the contents of tag
+	 * @param attributes - a string or object of key/values representing attributes
+	 * @return a string representation of the element
+	 */
+	Center : function (innerHTML, attributes) {
+		if (innerHTML === undefined) {
+			innerHTML = '';
+		}
+		return '<center' + this.assemble_attributes(attributes) + '>' + innerHTML + '</center>';
 	}
 };
 
@@ -616,6 +629,7 @@ var bones = {
 		exports.Div = bones.Div;
 		exports.Span = bones.Span;
 		exports.Menu = bones.Menu;
+		exports.Center = bones.Center;
 	} catch(err) {
 		// ignore since we're not running in NodeJS
 	}
