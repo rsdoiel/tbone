@@ -328,7 +328,7 @@ var bones = {
 	},
 	
 	/**
-	 * Dd - render an html data definition element
+	 * Dd - render an html definition defined element
 	 * @param innerHTML - the contents of tag
 	 * @param attributes - a string or object of key/values representing attributes
 	 * @return a string representation of the element
