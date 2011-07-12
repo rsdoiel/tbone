@@ -575,6 +575,16 @@ var bones = {
 	},
 	
 	/**
+	 * Img - image element
+	 * @param src
+	 * @param attributes
+	 * @return a string representation of the element
+	 */
+	Img : function (src, attributes) {
+		return '<img src="' + src + '"' + this.assemble_attributes(attributes) + '/>';
+	},
+	
+	/**
 	 * Center - render a center tag
 	 * @param innerHTML - the contents of tag
 	 * @param attributes - a string or object of key/values representing attributes
@@ -638,6 +648,7 @@ var bones = {
 		exports.Div = bones.Div;
 		exports.Span = bones.Span;
 		exports.Menu = bones.Menu;
+		exports.Img = bones.Img;
 		exports.Center = bones.Center;
 	} catch(err) {
 		// ignore since we're not running in NodeJS
