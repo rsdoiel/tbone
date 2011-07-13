@@ -328,7 +328,7 @@ var bones = {
 	},
 	
 	/**
-	 * Dd - render an html data definition element
+	 * Dd - render an html definition defined element
 	 * @param innerHTML - the contents of tag
 	 * @param attributes - a string or object of key/values representing attributes
 	 * @return a string representation of the element
@@ -575,6 +575,16 @@ var bones = {
 	},
 	
 	/**
+	 * Img - image element
+	 * @param src
+	 * @param attributes
+	 * @return a string representation of the element
+	 */
+	Img : function (src, attributes) {
+		return '<img src="' + src + '"' + this.assemble_attributes(attributes) + '/>';
+	},
+	
+	/**
 	 * Center - render a center tag
 	 * @param innerHTML - the contents of tag
 	 * @param attributes - a string or object of key/values representing attributes
@@ -585,6 +595,14 @@ var bones = {
 			innerHTML = '';
 		}
 		return '<center' + this.assemble_attributes(attributes) + '>' + innerHTML + '</center>';
+	},
+	/**
+	 * Br - render a br tag
+	 * @param attributes - a string or object of key/values representing attributes
+	 * @return a string representation of the element
+	 */
+	Br : function (innerHTML, attributes) {
+		return '<br' + this.assemble_attributes(attributes) + '/>';
 	}
 };
 
@@ -606,6 +624,7 @@ var bones = {
 		exports.H5 = bones.H5;
 		exports.H6 = bones.H6;
 		exports.P = bones.P;
+		exports.Br = bones.Br;
 		exports.A = bones.A;
 		exports.Ul = bones.Ul;
 		exports.Ol = bones.Ol;
@@ -629,6 +648,7 @@ var bones = {
 		exports.Div = bones.Div;
 		exports.Span = bones.Span;
 		exports.Menu = bones.Menu;
+		exports.Img = bones.Img;
 		exports.Center = bones.Center;
 	} catch(err) {
 		// ignore since we're not running in NodeJS
