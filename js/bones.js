@@ -33,17 +33,20 @@ var bones = {
 	 * @return a string representation of the attributes.
 	 */
 	assemble_attributes : function (attributes) {
-		if (attributes == undefined) {
+		var attr = '', key;
+
+		if (attributes === undefined) {
 			return '';
 		} else if (typeof attributes === 'object') {
-			var attr = '';
 			for (key in attributes) {
-				value = attributes[key];
-				if (attributes[key] !== null) {
-					attr += ' ' + key + '="' + this.trim(attributes[key]) + '"';
-				} else {
-					attr += ' ' + key;
-				}
+                if (typeof key !== "function") {
+					value = attributes[key];
+				    if (attributes[key] !== null) {
+					    attr += ' ' + key + '="' + this.trim(attributes[key]) + '"';
+				    } else {
+					    attr += ' ' + key;
+				    }
+                }
 			}
 			return ' ' + this.trim(attr);
 		} else {
@@ -433,7 +436,7 @@ var bones = {
 	 */
 	Button : function (name, value, attributes) {
 		var attr = this.disassemble_attributes(this.assemble_attributes(attributes));
-		attr['type'] = 'button';
+		attr.type = 'button';
 		return this.Input(name, value, attr);
 	},
 	
