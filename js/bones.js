@@ -438,13 +438,13 @@ var bones = {
 	},
 	
 	/**
-	 * TextArea - render an html textarea element
+	 * Textarea - render an html textarea element
 	 * @param name - the name of a textarea
 	 * @param value - the default value of the textarea
 	 * @param attributes - a string or object of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	TextArea : function (name, value, attributes) {
+	Textarea : function (name, value, attributes) {
 		if (value === undefined) {
 			value = '';
 		}
