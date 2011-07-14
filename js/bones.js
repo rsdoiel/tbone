@@ -629,46 +629,51 @@ var bones = {
 };
 
 // Defined some exports if running under NodeJS
-if (exports !== undefined) {
-	exports.Factory = bones.Factory;
-	exports.trim = bones.trim;
-	exports.assemble_attributes = bones.assemble_attributes;
-	exports.Html = bones.Html;
-	exports.Head = bones.Head;
-	exports.Title = bones.Title;
-	exports.Link = bones.Link;
-	exports.Body = bones.Body;
-	exports.H1 = bones.H1;
-	exports.H2 = bones.H2;
-	exports.H3 = bones.H3;
-	exports.H4 = bones.H4;
-	exports.H5 = bones.H5;
-	exports.H6 = bones.H6;
-	exports.P = bones.P;
-	exports.Br = bones.Br;
-	exports.A = bones.A;
-	exports.Ul = bones.Ul;
-	exports.Ol = bones.Ol;
-	exports.Li = bones.Li;
-	exports.Dl = bones.Dl;
-	exports.Dt = bones.Dt;
-	exports.Dd = bones.Dd;
-	exports.Table = bones.Table;
-	exports.Th = bones.Th;
-	exports.Tr = bones.Tr;
-	exports.Td = bones.Td;
-	exports.Form = bones.Form;
-	exports.Input = bones.Input;
-	exports.Textarea = bones.Textarea;
-	exports.Select = bones.Select;
-	exports.Option = bones.Option;
-	exports.Label = bones.Label;
-	exports.Script = bones.Script;
-	exports.Pre = bones.Pre;
-	exports.DemoCode = bones.DemoCode;
-	exports.Div = bones.Div;
-	exports.Span = bones.Span;
-	exports.Menu = bones.Menu;
-	exports.Img = bones.Img;
-	exports.Center = bones.Center;
-} // END: defining exports
+try {
+	if (exports !== undefined) {
+		exports.Factory = bones.Factory;
+		exports.trim = bones.trim;
+		exports.assemble_attributes = bones.assemble_attributes;
+		exports.Html = bones.Html;
+		exports.Head = bones.Head;
+		exports.Title = bones.Title;
+		exports.Link = bones.Link;
+		exports.Body = bones.Body;
+		exports.H1 = bones.H1;
+		exports.H2 = bones.H2;
+		exports.H3 = bones.H3;
+		exports.H4 = bones.H4;
+		exports.H5 = bones.H5;
+		exports.H6 = bones.H6;
+		exports.P = bones.P;
+		exports.Br = bones.Br;
+		exports.A = bones.A;
+		exports.Ul = bones.Ul;
+		exports.Ol = bones.Ol;
+		exports.Li = bones.Li;
+		exports.Dl = bones.Dl;
+		exports.Dt = bones.Dt;
+		exports.Dd = bones.Dd;
+		exports.Table = bones.Table;
+		exports.Th = bones.Th;
+		exports.Tr = bones.Tr;
+		exports.Td = bones.Td;
+		exports.Form = bones.Form;
+		exports.Input = bones.Input;
+		exports.Textarea = bones.Textarea;
+		exports.Select = bones.Select;
+		exports.Option = bones.Option;
+		exports.Label = bones.Label;
+		exports.Script = bones.Script;
+		exports.Pre = bones.Pre;
+		exports.DemoCode = bones.DemoCode;
+		exports.Div = bones.Div;
+		exports.Span = bones.Span;
+		exports.Menu = bones.Menu;
+		exports.Img = bones.Img;
+		exports.Center = bones.Center;
+	} // END: defining exports
+} catch(err) {
+	// Ignore if exports not supported. E.g. in the browser
+};
+
