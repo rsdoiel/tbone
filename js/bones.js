@@ -18,6 +18,25 @@
 
 var bones = {
 	/**
+	 * Factory - attach the bones functions to an object.
+	 * @params self - the object to have the functions attached to.
+	 */
+	Factory : function (self) {
+		var ky;
+
+		if (self === undefined) {
+			var self = {};
+		}
+		for (ky in this) {
+			if (typeof this[ky] === 'function' &&
+				self[ky] === undefined) {
+				self[ky] = this[ky];
+			}
+		}
+		return self;
+	}, // End: Factory()
+
+	/**
 	 * trim - a convenience function to trim the whitespace from the 
 	 * start and end of a string.
 	 * @param s - the string to trim
@@ -611,6 +630,7 @@ var bones = {
 
 // Defined some exports if running under NodeJS
 if (exports !== undefined) {
+	exports.Factory = bones.Factory;
 	exports.trim = bones.trim;
 	exports.assemble_attributes = bones.assemble_attributes;
 	exports.Html = bones.Html;

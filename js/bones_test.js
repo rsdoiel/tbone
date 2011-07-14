@@ -11,10 +11,25 @@
  * Notes: runs under NodeJS
  */
 
-var assert = require('assert'),
+var sys = require('sys'),
+	assert = require('assert'),
     web = require('./bones');
 
 console.log("[bones_test.js] start ...");
+
+// Test the factory method
+(function () {
+	var ky, o1 = {}, o2;
+	o2 = web.Factory(o1);
+    for (ky in web) {
+    	if (ky !== 'Factory' && typeof web[ky] === "function") {
+    		assert.ok(typeof o1[ky] === "function", "Should have o1 w/function " + ky);
+    		assert.ok(typeof o2[ky] === "function", "Should have o2 w/function " + ky);
+    	}
+    }
+})();
+
+
 
 attr = web.assemble_attributes();
 assert.equal(attr, '', 'Should have an empty attribute string.');
