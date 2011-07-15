@@ -1,20 +1,20 @@
 <?php
 /**
- * bones.php - an ultra simple programatic template library.
- * It provides trivial construction of HTML elements with
- * a simple way inner HTML and attributes.
- * 
+ * bones is a simple library for assembling valid HTML. It is available in
+ * three languages - Go, JavaScript and PHP.
+ *
  * Inspiration "Behind the Code: Avoiding Spaghetti" by Jason Grosman
  * http://www.npr.org/blogs/inside/2011/02/02/126312263/behind-the-code-avoiding-spaghetti-html
  *
  * HTML markup reference was http://en.wikipedia.org/wiki/HTML_element#HTML401
  *
- * @author R. S. Doiel, <rsdoiel@gmail.com>
+ * author R. S. Doiel, <rsdoiel@gmail.com>
  *
  * copyright (c) 2011 all rights reserved
  *
- * Released under the BSD License.
+ * Released under New the BSD License.
  * See: http://opensource.org/licenses/bsd-license.php
+ *
  */
 
 class Bones {

@@ -1,4 +1,6 @@
-// bones.go - a simple library for assembling valid HTML content
+//
+// bones is a simple library for assembling valid HTML. It is available in
+// three languages - Go, JavaScript and PHP.
 //
 // Inspiration "Behind the Code: Avoiding Spaghetti" by Jason Grosman
 // http://www.npr.org/blogs/inside/2011/02/02/126312263/behind-the-code-avoiding-spaghetti-html
@@ -394,3 +396,8 @@ func IFrame (innerHTML string, attributes map[string]string) (string) {
 func HGroup (innerHTML string, attributes map[string]string) (string) {
 	return AssembleTag("hgroup", innerHTML, attributes)
 }
+
+func Center (innerHTML string, attributes map[string]string) (string) {
+	return AssembleTag("center", innerHTML, attributes)
+}
+

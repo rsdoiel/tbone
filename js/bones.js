@@ -1,5 +1,6 @@
 /**
- * bones.js - a simple library for assembling valid HTML content
+ * bones is a simple library for assembling valid HTML. It is available in
+ * three languages - Go, JavaScript and PHP.
  *
  * Inspiration "Behind the Code: Avoiding Spaghetti" by Jason Grosman
  * http://www.npr.org/blogs/inside/2011/02/02/126312263/behind-the-code-avoiding-spaghetti-html

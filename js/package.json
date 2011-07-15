@@ -1,0 +1,8 @@
+{
+	"name" : "bones",
+	"version" : "0.0.1",
+	"description" : "A simple library to generate valid HTML",
+	"main" : "./bones.js",
+	"dependencies" : {},
+	"engines" : { "node":"*" }
+}
