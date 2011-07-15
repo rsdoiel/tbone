@@ -44,19 +44,19 @@ attr = tb.assemble_attributes({'checked' : null, 'id' : 'mything'});
 assert.equal(attr, ' checked id="mything"', 'Should have checked id="mything" [' + attr + '] from assoc. array');
 
 src = tb.Html('');
-assert.equal(b.trim(src), tb.trim('<!DOCTYPE html>' + "\n" + '<html lang="en">' + "\n" + '</html>' + "\n"), "Should have an html wrapper:" + src);
+assert.equal(tb.trim(src), tb.trim('<!DOCTYPE html>' + "\n" + '<html lang="en">' + "\n" + '</html>' + "\n"), "Should have an html wrapper:" + src);
 
 src = tb.Head('');
-assert.equal(b.trim(src), tb.trim('<head>' + "\n" + '</head>' + "\n"), "Should have a head elments:" + src);
+assert.equal(tb.trim(src), tb.trim('<head>' + "\n" + '</head>' + "\n"), "Should have a head elments:" + src);
 
 src = tb.Title('hello world');
-assert.equal(b.trim(src), tb.trim('<title>hello world</title>'), "Should have hello world title:" + src);
+assert.equal(tb.trim(src), tb.trim('<title>hello world</title>'), "Should have hello world title:" + src);
 
 src = tb.Link('');
-assert.equal(b.trim(src), tb.trim('<link />'), "Should have <link />:" + src);
+assert.equal(tb.trim(src), tb.trim('<link />'), "Should have <link />:" + src);
 
 src = tb.Body('');
-assert.equal(b.trim(src), tb.trim('<body>' + "\n" + '</body>' + "\n"), "Should have body block.:" + src);
+assert.equal(tb.trim(src), tb.trim('<body>' + "\n" + '</body>' + "\n"), "Should have body block.:" + src);
 
 src = tb.H1('hello world');
 assert.equal(src, '<h1>hello world</h1>', "Should have h1:" + src);

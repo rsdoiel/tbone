@@ -14,12 +14,11 @@
  * Released under New the BSD License.
  * See: http://opensource.org/licenses/bsd-license.php
  *
- * Notes: this should work in the browser or under NodeJS, test-tbone.js is designed to run under NodeJS
  */
 
 var tbone = {
 	/**
-	 * Factory - attach the bones functions to an object.
+	 * Factory - attach the tbone functions to an object.
 	 * @params self - the object to have the functions attached to.
 	 */
 	Factory : function (self) {

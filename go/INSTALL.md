@@ -11,7 +11,7 @@ TBone is a go library.  It uses the basic Makefile method of installation docume
 
 1) git clone https://github.com/rsdoiel/tbone.git
 
-2) Change directory to the bones folder and run Make 
+2) Change directory to the tbone folder and run Make 
 	
 	cd tbone/go
 	make;make test
