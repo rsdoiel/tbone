@@ -55,7 +55,7 @@ var bones = {
 	assemble_attributes : function (attributes) {
 		var attr = '', key;
 
-		if (attributes === undefined) {
+		if (attributes === undefined || attributes == null) {
 			return '';
 		} else if (typeof attributes === 'object') {
 			for (key in attributes) {
