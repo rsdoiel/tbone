@@ -1,5 +1,5 @@
 //
-// bones is a simple library for assembling valid HTML. It is available in
+// tbone is a simple library for assembling valid HTML. It is available in
 // three languages - Go, JavaScript and PHP.
 //
 // Inspiration "Behind the Code: Avoiding Spaghetti" by Jason Grosman
@@ -14,7 +14,7 @@
 // Released under New the BSD License.
 // See: http://opensource.org/licenses/bsd-license.php
 //
-package bones
+package tbone
 
 import (
 	"strings"

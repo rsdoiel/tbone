@@ -1,4 +1,4 @@
-// test bones.go - a simple library for assembling valid HTML content
+// test tbone.go - a simple library for assembling valid HTML content
 //
 // Inspiration "Behind the Code: Avoiding Spaghetti" by Jason Grosman
 // http://www.npr.org/blogs/inside/2011/02/02/126312263/behind-the-code-avoiding-spaghetti-html
@@ -12,7 +12,7 @@
 // Released under the New BSD License.
 // See: http://opensource.org/licenses/bsd-license.php
 //
-package bones
+package tbone
 
 import (
 	"testing"

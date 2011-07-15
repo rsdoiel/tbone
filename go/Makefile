@@ -1,7 +1,7 @@
 include $(GOROOT)/src/Make.inc
 
-TARG=bones
+TARG=tbone
 GOFILES=\
-		bones.go\
+		tbone.go\
 
 include $(GOROOT)/src/Make.pkg

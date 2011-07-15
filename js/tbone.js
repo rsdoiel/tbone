@@ -1,5 +1,5 @@
 /**
- * bones is a simple library for assembling valid HTML. It is available in
+ * tbone is a simple library for assembling valid HTML. It is available in
  * three languages - Go, JavaScript and PHP.
  *
  * Inspiration "Behind the Code: Avoiding Spaghetti" by Jason Grosman
@@ -14,10 +14,10 @@
  * Released under New the BSD License.
  * See: http://opensource.org/licenses/bsd-license.php
  *
- * Notes: this should work in the browser or under NodeJS, test-bones.js is designed to run under NodeJS
+ * Notes: this should work in the browser or under NodeJS, test-tbone.js is designed to run under NodeJS
  */
 
-var bones = {
+var tbone = {
 	/**
 	 * Factory - attach the bones functions to an object.
 	 * @params self - the object to have the functions attached to.
@@ -632,47 +632,47 @@ var bones = {
 // Defined some exports if running under NodeJS
 try {
 	if (exports !== undefined) {
-		exports.Factory = bones.Factory;
-		exports.trim = bones.trim;
-		exports.assemble_attributes = bones.assemble_attributes;
-		exports.Html = bones.Html;
-		exports.Head = bones.Head;
-		exports.Title = bones.Title;
-		exports.Link = bones.Link;
-		exports.Body = bones.Body;
-		exports.H1 = bones.H1;
-		exports.H2 = bones.H2;
-		exports.H3 = bones.H3;
-		exports.H4 = bones.H4;
-		exports.H5 = bones.H5;
-		exports.H6 = bones.H6;
-		exports.P = bones.P;
-		exports.Br = bones.Br;
-		exports.A = bones.A;
-		exports.Ul = bones.Ul;
-		exports.Ol = bones.Ol;
-		exports.Li = bones.Li;
-		exports.Dl = bones.Dl;
-		exports.Dt = bones.Dt;
-		exports.Dd = bones.Dd;
-		exports.Table = bones.Table;
-		exports.Th = bones.Th;
-		exports.Tr = bones.Tr;
-		exports.Td = bones.Td;
-		exports.Form = bones.Form;
-		exports.Input = bones.Input;
-		exports.Textarea = bones.Textarea;
-		exports.Select = bones.Select;
-		exports.Option = bones.Option;
-		exports.Label = bones.Label;
-		exports.Script = bones.Script;
-		exports.Pre = bones.Pre;
-		exports.DemoCode = bones.DemoCode;
-		exports.Div = bones.Div;
-		exports.Span = bones.Span;
-		exports.Menu = bones.Menu;
-		exports.Img = bones.Img;
-		exports.Center = bones.Center;
+		exports.Factory = tbone.Factory;
+		exports.trim = tbone.trim;
+		exports.assemble_attributes = tbone.assemble_attributes;
+		exports.Html = tbone.Html;
+		exports.Head = tbone.Head;
+		exports.Title = tbone.Title;
+		exports.Link = tbone.Link;
+		exports.Body = tbone.Body;
+		exports.H1 = tbone.H1;
+		exports.H2 = tbone.H2;
+		exports.H3 = tbone.H3;
+		exports.H4 = tbone.H4;
+		exports.H5 = tbone.H5;
+		exports.H6 = tbone.H6;
+		exports.P = tbone.P;
+		exports.Br = tbone.Br;
+		exports.A = tbone.A;
+		exports.Ul = tbone.Ul;
+		exports.Ol = tbone.Ol;
+		exports.Li = tbone.Li;
+		exports.Dl = tbone.Dl;
+		exports.Dt = tbone.Dt;
+		exports.Dd = tbone.Dd;
+		exports.Table = tbone.Table;
+		exports.Th = tbone.Th;
+		exports.Tr = tbone.Tr;
+		exports.Td = tbone.Td;
+		exports.Form = tbone.Form;
+		exports.Input = tbone.Input;
+		exports.Textarea = tbone.Textarea;
+		exports.Select = tbone.Select;
+		exports.Option = tbone.Option;
+		exports.Label = tbone.Label;
+		exports.Script = tbone.Script;
+		exports.Pre = tbone.Pre;
+		exports.DemoCode = tbone.DemoCode;
+		exports.Div = tbone.Div;
+		exports.Span = tbone.Span;
+		exports.Menu = tbone.Menu;
+		exports.Img = tbone.Img;
+		exports.Center = tbone.Center;
 	} // END: defining exports
 } catch(err) {
 	// Ignore if exports not supported. E.g. in the browser
