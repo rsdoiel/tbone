@@ -18,23 +18,28 @@
 
 var tbone = {
 	/**
-	 * Factory - attach the tbone functions to an object.
+	 * Mixin - attach the tbone functions to an object.
 	 * @params self - the object to have the functions attached to.
+	 * If self is undefined Mixin turns into a Factory object.
 	 */
-	Factory : function (self) {
+	Mixin : function (self) {
 		var ky;
 
 		if (self === undefined) {
 			var self = {};
 		}
 		for (ky in this) {
-			if (typeof this[ky] === 'function' &&
-				self[ky] === undefined) {
-				self[ky] = this[ky];
+			if (typeof this[ky] === 'function' && 
+				ky !== "Mixin") {
+				if (self[ky] === undefined) {
+					self[ky] = this[ky];
+				} else {
+					self["tb" + ky] = this[ky];
+				}
 			}
 		}
 		return self;
-	}, // End: Factory()
+	}, // End: Mixin()
 
 	/**
 	 * trim - a convenience function to trim the whitespace from the 
@@ -631,7 +636,7 @@ var tbone = {
 // Defined some exports if running under NodeJS
 try {
 	if (exports !== undefined) {
-		exports.Factory = tbone.Factory;
+		exports.Mixin = tbone.Mixin;
 		exports.trim = tbone.trim;
 		exports.assemble_attributes = tbone.assemble_attributes;
 		exports.Html = tbone.Html;
@@ -676,4 +681,5 @@ try {
 } catch(err) {
 	// Ignore if exports not supported. E.g. in the browser
 };
+
 
