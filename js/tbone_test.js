@@ -30,6 +30,9 @@ console.log("[tbone_test.js] start ...");
 })();
 
 
+assert.equal(tb.Capitalize("this is it"),"This Is It", "Should capitalize each word delimited by a space: " + tb.Capitalize("this is it"));
+assert.equal(tb.Capitalize("this is it",0),"This is it", "Should capitalize first word delimited by a space: " + tb.Capitalize("this is it", 0));
+assert.equal(tb.Capitalize("this is it",[0,2]),"This is It", "Should capitalize first and third word delimited by a space: " + tb.Capitalize("this is it",[0,2]));
 
 attr = tb.AssembleAttributes();
 assert.equal(attr, '', 'Should have an empty attribute string.');

@@ -50,6 +50,35 @@ var tbone = {
 	Trim : function (s) {
 		return s.replace(/\s+$/,'').replace(/^\s+/,'');
 	}, /* End: Trim() */
+
+	/**
+	 * Capitalize - capitalize words delimited by a space
+	 * @param s - the string to capitalize
+	 * @param positions - one or more word positions to capitalize.
+	 * @return a capitalized string
+	 */
+	Capitalize : function (s, positions) {
+		var i, p, words = s.split(" ");
+		console.log("DEBUG typeof: " + typeof positions);
+		if (positions === undefined) {
+			positions = [];
+			for (i = 0; i < words.length; i += 1) {
+				positions.push(i);
+			}
+		} else if (typeof positions === 'number') {
+			p = positions;
+			positions = [];
+			positions.push(p);
+		}
+		
+		for (p = 0; p < positions.length; p += 1) {
+			i = positions[p];
+			if (words[i] !== undefined) {
+				words[i] = words[i].substr(0,1).toUpperCase() + words[i].substr(1);
+			}
+		}
+		return words.join(" ");
+	}, /* End: Capitalize() */
 	
 	/**
 	 * AssembleAttributes - formats a valid set of attribute strings.
@@ -638,6 +667,7 @@ try {
 	if (exports !== undefined) {
 		exports.Mixin = tbone.Mixin;
 		exports.Trim = tbone.Trim;
+		exports.Capitalize = tbone.Capitalize;
 		exports.AssembleAttributes = tbone.AssembleAttributes;
 		exports.Html = tbone.Html;
 		exports.Head = tbone.Head;
