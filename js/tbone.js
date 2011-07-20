@@ -59,7 +59,7 @@ var tbone = {
 	 */
 	Capitalize : function (s, positions) {
 		var i, p, words = s.split(" ");
-		console.log("DEBUG typeof: " + typeof positions);
+
 		if (positions === undefined) {
 			positions = [];
 			for (i = 0; i < words.length; i += 1) {
