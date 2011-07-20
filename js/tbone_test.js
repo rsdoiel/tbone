@@ -20,9 +20,9 @@ console.log("[tbone_test.js] start ...");
 // Test the factory method
 (function () {
 	var ky, o1 = {}, o2;
-	o2 = tb.Factory(o1);
+	o2 = tb.Mixin(o1);
 	for (ky in tb) {
-		if (ky !== 'Factory' && typeof tb[ky] === "function") {
+		if (ky !== 'Mixin' && typeof tb[ky] === "function") {
 			assert.ok(typeof o1[ky] === "function", "Should have o1 w/function " + ky);
 			assert.ok(typeof o2[ky] === "function", "Should have o2 w/function " + ky);
 		}
@@ -31,32 +31,32 @@ console.log("[tbone_test.js] start ...");
 
 
 
-attr = tb.assemble_attributes();
+attr = tb.AssembleAttributes();
 assert.equal(attr, '', 'Should have an empty attribute string.');
 
-attr = tb.assemble_attributes('class="myclass"');
+attr = tb.AssembleAttributes('class="myclass"');
 assert.equal(attr, ' class="myclass"', 'Should have class="myclass" [' + attr + '] from string');
 
-attr = tb.assemble_attributes({'class' : 'myclass'});
+attr = tb.AssembleAttributes({'class' : 'myclass'});
 assert.equal(attr, ' class="myclass"', 'Should have class="myclass" [' + attr + '] from assoc. array');
 
-attr = tb.assemble_attributes({'checked' : null, 'id' : 'mything'});
+attr = tb.AssembleAttributes({'checked' : null, 'id' : 'mything'});
 assert.equal(attr, ' checked id="mything"', 'Should have checked id="mything" [' + attr + '] from assoc. array');
 
 src = tb.Html('');
-assert.equal(tb.trim(src), tb.trim('<!DOCTYPE html>' + "\n" + '<html lang="en">' + "\n" + '</html>' + "\n"), "Should have an html wrapper:" + src);
+assert.equal(tb.Trim(src), tb.Trim('<!DOCTYPE html>' + "\n" + '<html lang="en">' + "\n" + '</html>' + "\n"), "Should have an html wrapper:" + src);
 
 src = tb.Head('');
-assert.equal(tb.trim(src), tb.trim('<head>' + "\n" + '</head>' + "\n"), "Should have a head elments:" + src);
+assert.equal(tb.Trim(src), tb.Trim('<head>' + "\n" + '</head>' + "\n"), "Should have a head elments:" + src);
 
 src = tb.Title('hello world');
-assert.equal(tb.trim(src), tb.trim('<title>hello world</title>'), "Should have hello world title:" + src);
+assert.equal(tb.Trim(src), tb.Trim('<title>hello world</title>'), "Should have hello world title:" + src);
 
 src = tb.Link('');
-assert.equal(tb.trim(src), tb.trim('<link />'), "Should have <link />:" + src);
+assert.equal(tb.Trim(src), tb.Trim('<link />'), "Should have <link />:" + src);
 
 src = tb.Body('');
-assert.equal(tb.trim(src), tb.trim('<body>' + "\n" + '</body>' + "\n"), "Should have body block.:" + src);
+assert.equal(tb.Trim(src), tb.Trim('<body>' + "\n" + '</body>' + "\n"), "Should have body block.:" + src);
 
 src = tb.H1('hello world');
 assert.equal(src, '<h1>hello world</h1>', "Should have h1:" + src);

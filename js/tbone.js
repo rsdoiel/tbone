@@ -39,58 +39,58 @@ var tbone = {
 			}
 		}
 		return self;
-	}, // End: Mixin()
+	}, /* End: Mixin() */
 
 	/**
-	 * trim - a convenience function to trim the whitespace from the 
+	 * Trim - a convenience function to Trim the whitespace from the 
 	 * start and end of a string.
-	 * @param s - the string to trim
-	 * @return a trimmed string
+	 * @param s - the string to Trim
+	 * @return a Trimmed string
 	 */
-	trim : function (s) {
+	Trim : function (s) {
 		return s.replace(/\s+$/,'').replace(/^\s+/,'');
-	},
+	}, /* End: Trim() */
 	
 	/**
-	 * assemble_attributes - formats a valid set of attribute strings.
+	 * AssembleAttributes - formats a valid set of attribute strings.
 	 * @param attributes - either an associative array or formatted string.
 	 * @return a string representation of the attributes.
 	 */
-	assemble_attributes : function (attributes) {
+	AssembleAttributes : function (attributes) {
 		var attr = '', key;
 
-		if (attributes === undefined || attributes == null) {
+		if (attributes === undefined || attributes === null) {
 			return '';
 		} else if (typeof attributes === 'object') {
 			for (key in attributes) {
                 if (typeof key !== "function") {
 					value = attributes[key];
 				    if (attributes[key] !== null) {
-					    attr += ' ' + key + '="' + this.trim(attributes[key]) + '"';
+					    attr += ' ' + key + '="' + this.Trim(attributes[key]) + '"';
 				    } else {
 					    attr += ' ' + key;
 				    }
                 }
 			}
-			return ' ' + this.trim(attr);
+			return ' ' + this.Trim(attr);
 		} else {
-			return ' ' + this.trim(attributes);
+			return ' ' + this.Trim(attributes);
 		}
-	}, /* END: assemble_attributes() */
+	}, /* END: AssembleAttributes() */
 
 	/**
-	 * disassemble_attributes - parse an attribute string (e.g. 'class="myclass" id="fred"') into an associative array.
+	 * DisassembleAttributes - parse an attribute string (e.g. 'class="myclass" id="fred"') into an associative array.
 	 * @param attributes_string - a list of attributes in string form.
 	 * @return an object representation of the attributes.
 	 */
-	disassemble_attributes : function (attributes_string) {
+	DisassembleAttributes : function (attributes_string) {
 		var in_quote = false,
 				key = false,
 				key_start = 0,
 				value_start = 0,
 				attributes = {}, pos = 0, chr = ' ';
 
-		str = this.trim(attributes_string);
+		str = this.Trim(attributes_string);
 		for(pos = 0; pos < str.Length; pos += 1) {
 			chr = str.substr(pos, 1);
 			if (in_quote) {
@@ -108,11 +108,11 @@ var tbone = {
 				in_quote = chr;
 				value_start = pos + 1;
 			} else if (chr == '=') {
-				key = this.trim(str.substr(key_start, pos - key_start));
+				key = this.Trim(str.substr(key_start, pos - key_start));
 			}
 		}
 		return attributes;
-	}, /* END: disassemble_attributes() */
+	}, /* END: DisassembleAttributes() */
 	
 	/**
 	 * Html - for the outer HTML and Doctype wrapper for an HTML page.
@@ -125,7 +125,7 @@ var tbone = {
 			attributes = 'lang="en"';
 		}
 		return '<!DOCTYPE html>' + "\n" +
-		'<html' + this.assemble_attributes(attributes) + '>' + "\n" + innerHTML + '</html>';
+		'<html' + this.AssembleAttributes(attributes) + '>' + "\n" + innerHTML + '</html>';
 	}, /* END: Html() */
 	
 	/**
@@ -138,7 +138,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<head' + this.assemble_attributes(attributes) + '>' + "\n" + innerHTML + '</head>' + "\n";
+		return '<head' + this.AssembleAttributes(attributes) + '>' + "\n" + innerHTML + '</head>' + "\n";
 	},
 	
 	/**
@@ -151,7 +151,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<title' + this.assemble_attributes(attributes) + '>' + innerHTML + '</title>';
+		return '<title' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</title>';
 	},
 	
 	/**
@@ -164,7 +164,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<link' + this.assemble_attributes(attributes) + ' />';
+		return '<link' + this.AssembleAttributes(attributes) + ' />';
 	},
 	
 	/**
@@ -177,7 +177,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<body' + this.assemble_attributes(attributes) + '>' + "\n" + innerHTML + '</body>';
+		return '<body' + this.AssembleAttributes(attributes) + '>' + "\n" + innerHTML + '</body>';
 	},
 	
 	/**
@@ -190,7 +190,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<h1' + this.assemble_attributes(attributes) + '>' + innerHTML + '</h1>';
+		return '<h1' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</h1>';
 	},
 	
 	/**
@@ -203,7 +203,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<h2' + this.assemble_attributes(attributes) + '>' + innerHTML + '</h2>';
+		return '<h2' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</h2>';
 	},
 	
 	/**
@@ -216,7 +216,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<h3' + this.assemble_attributes(attributes) + '>' + innerHTML + '</h3>';
+		return '<h3' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</h3>';
 	},
 	
 	/**
@@ -229,7 +229,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<h4' + this.assemble_attributes(attributes) + '>' + innerHTML + '</h4>';
+		return '<h4' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</h4>';
 	},
 	
 	/**
@@ -242,7 +242,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<h5' + this.assemble_attributes(attributes) + '>' + innerHTML + '</h5>';
+		return '<h5' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</h5>';
 	},
 	
 	/**
@@ -255,7 +255,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<h6' + this.assemble_attributes(attributes) + '>' + innerHTML + '</h6>';
+		return '<h6' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</h6>';
 	},
 	
 	/**
@@ -266,9 +266,9 @@ var tbone = {
 	 */
 	P : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
-			return '<p' + this.assemble_attributes(attributes) + '>';
+			return '<p' + this.AssembleAttributes(attributes) + '>';
 		} else {
-			return '<p' + this.assemble_attributes(attributes) + '>' + innerHTML + '</p>';
+			return '<p' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</p>';
 		}
 	},
 	
@@ -285,7 +285,7 @@ var tbone = {
 		if (typeof attributes === "string" && attributes.indexOf("=") < 0) {
 			attributes = {'href' : attributes};			
 		}
-		return '<a' + this.assemble_attributes(attributes) + '>' + innerHTML + '</a>';
+		return '<a' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</a>';
 	},
 	
 	/**
@@ -298,7 +298,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<ul' + this.assemble_attributes(attributes) + '>' + innerHTML + '</ul>';
+		return '<ul' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</ul>';
 	},
 	
 	
@@ -312,7 +312,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<ol' + this.assemble_attributes(attributes) + '>' + innerHTML + '</ol>';
+		return '<ol' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</ol>';
 	},
 	
 	/**
@@ -325,7 +325,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<li' + this.assemble_attributes(attributes) + '>' + innerHTML + '</li>';
+		return '<li' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</li>';
 	},
 	
 	/**
@@ -338,7 +338,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<dl' + this.assemble_attributes(attributes) + '>' + innerHTML + '</dl>';
+		return '<dl' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</dl>';
 	},
 	
 	/**
@@ -351,7 +351,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<dt' + this.assemble_attributes(attributes) + '>' + innerHTML + '</dt>';
+		return '<dt' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</dt>';
 	},
 	
 	/**
@@ -364,7 +364,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<dd' + this.assemble_attributes(attributes) + '>' + innerHTML + '</dd>';
+		return '<dd' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</dd>';
 	},
 	
 	/**
@@ -377,7 +377,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<table' + this.assemble_attributes(attributes) + '>' + innerHTML + '</table>';
+		return '<table' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</table>';
 	},
 	
 	/**
@@ -390,7 +390,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<th' + this.assemble_attributes(attributes) + '>' + 
+		return '<th' + this.AssembleAttributes(attributes) + '>' + 
 			innerHTML + '</th>';
 	},
 	
@@ -404,7 +404,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<tr' + this.assemble_attributes(attributes) + '>' + 
+		return '<tr' + this.AssembleAttributes(attributes) + '>' + 
 			innerHTML + '</tr>';
 	},
 	
@@ -418,7 +418,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<td' + this.assemble_attributes(attributes) + '>' + innerHTML + '</td>';
+		return '<td' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</td>';
 	},
 	
 	/**
@@ -431,7 +431,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<form' + this.assemble_attributes(attributes) + '>' + innerHTML + '</form>';
+		return '<form' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</form>';
 	},
 	
 	/**
@@ -448,7 +448,7 @@ var tbone = {
 		if (value === undefined) {
 			value = '';
 		}
-		return '<input name="' + name + '" value="' + value + '"' + this.assemble_attributes(attributes) + ' />';
+		return '<input name="' + name + '" value="' + value + '"' + this.AssembleAttributes(attributes) + ' />';
 	},
 	
 	/**
@@ -459,7 +459,7 @@ var tbone = {
 	 * @return a string representation of the element
 	 */
 	Button : function (name, value, attributes) {
-		var attr = this.disassemble_attributes(this.assemble_attributes(attributes));
+		var attr = this.DisassembleAttributes(this.AssembleAttributes(attributes));
 		attr.type = 'button';
 		return this.Input(name, value, attr);
 	},
@@ -475,7 +475,7 @@ var tbone = {
 		if (value === undefined) {
 			value = '';
 		}
-		return '<textarea name="' + name + '"' + this.assemble_attributes(attributes) + '>' + value + '</textarea>';
+		return '<textarea name="' + name + '"' + this.AssembleAttributes(attributes) + '>' + value + '</textarea>';
 	},
 	
 	/**
@@ -492,7 +492,7 @@ var tbone = {
 		if (name === undefined) {
 			name = '';
 		}
-		return '<select name="' + name + '"' + this.assemble_attributes(attributes) + '>' + innerHTML + '</select>';
+		return '<select name="' + name + '"' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</select>';
 	},
 	
 	/**
@@ -508,7 +508,7 @@ var tbone = {
 		if (label === undefined) {
 			label = '';
 		}
-		return '<option value="' + value + '"' + this.assemble_attributes(attributes) + '>' + label + '</option>';
+		return '<option value="' + value + '"' + this.AssembleAttributes(attributes) + '>' + label + '</option>';
 	},
 	
 	/**
@@ -521,7 +521,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<label' + this.assemble_attributes(attributes) + '>' + innerHTML + '</label>';
+		return '<label' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</label>';
 	},
 	
 	/**
@@ -532,9 +532,9 @@ var tbone = {
 	 */
 	Script : function (url, code, attributes) {
 		if (url !== undefined) {
-			return '<script type="JavaScript" rel="text/javascript" src="' + url + '"' + this.assemble_attributes(attributes) + '></script>';
+			return '<script type="JavaScript" rel="text/javascript" src="' + url + '"' + this.AssembleAttributes(attributes) + '></script>';
 		} else {
-			return '<script type="JavaScript" rel="text/javascript"' + this.assemble_attributes(attributes) + '>' + code + '</script>';
+			return '<script type="JavaScript" rel="text/javascript"' + this.AssembleAttributes(attributes) + '>' + code + '</script>';
 		}
 	},
 	
@@ -548,7 +548,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<pre' + this.assemble_attributes(attributes) + '>' + innerHTML + '</pre>';
+		return '<pre' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</pre>';
 	},
 	
 	/**
@@ -561,7 +561,7 @@ var tbone = {
 		if (code_source === undefined) {
 			code_source = '';
 		}
-		return '<code' + this.assemble_attributes(attributes) + '>' + Pre( "\n" + code_source + "\n") + '</code>';
+		return '<code' + this.AssembleAttributes(attributes) + '>' + Pre( "\n" + code_source + "\n") + '</code>';
 	},
 	
 	/**
@@ -574,7 +574,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<div' + this.assemble_attributes(attributes) + '>' + innerHTML + '</div>';
+		return '<div' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</div>';
 	},
 	
 	/**
@@ -587,7 +587,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<span' + this.assemble_attributes(attributes) + '>' + innerHTML + '</span>';
+		return '<span' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</span>';
 	},
 
 	/**
@@ -598,7 +598,7 @@ var tbone = {
 	 * @return a string representation of the element
 	 */
 	Menu : function (label, innerHTML, attributes) {
-		return '<menu label="' + label + '"' + this.assemble_attributes(attributes) + '>' + innerHTML + '</menu>';
+		return '<menu label="' + label + '"' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</menu>';
 	},
 	
 	/**
@@ -608,7 +608,7 @@ var tbone = {
 	 * @return a string representation of the element
 	 */
 	Img : function (src, attributes) {
-		return '<img src="' + src + '"' + this.assemble_attributes(attributes) + '/>';
+		return '<img src="' + src + '"' + this.AssembleAttributes(attributes) + '/>';
 	},
 	
 	/**
@@ -621,7 +621,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<center' + this.assemble_attributes(attributes) + '>' + innerHTML + '</center>';
+		return '<center' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</center>';
 	},
 	/**
 	 * Br - render a br tag
@@ -629,7 +629,7 @@ var tbone = {
 	 * @return a string representation of the element
 	 */
 	Br : function (innerHTML, attributes) {
-		return '<br' + this.assemble_attributes(attributes) + '/>';
+		return '<br' + this.AssembleAttributes(attributes) + '/>';
 	}
 };
 
@@ -637,8 +637,8 @@ var tbone = {
 try {
 	if (exports !== undefined) {
 		exports.Mixin = tbone.Mixin;
-		exports.trim = tbone.trim;
-		exports.assemble_attributes = tbone.assemble_attributes;
+		exports.Trim = tbone.Trim;
+		exports.AssembleAttributes = tbone.AssembleAttributes;
 		exports.Html = tbone.Html;
 		exports.Head = tbone.Head;
 		exports.Title = tbone.Title;
