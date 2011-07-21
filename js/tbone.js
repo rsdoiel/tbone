@@ -95,7 +95,7 @@ var tbone = {
 			for (key in attributes) {
                 if (typeof key !== "function") {
 					value = attributes[key];
-				    if (attributes[key] !== undefined) {
+				    if (typeof attributes[key] === 'string') {
 					    attr += ' ' + key + '="' + this.Trim(attributes[key]) + '"';
 				    } else {
 					    attr += ' ' + key;
@@ -317,7 +317,7 @@ var tbone = {
 		if (typeof attributes === "string" && attributes.indexOf("=") < 0) {
 			attributes = {'href' : attributes};			
 		}
-		return '<a' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</a>';
+		return this.Trim('<a' + this.AssembleAttributes(attributes)) + '>' + innerHTML + '</a>';
 	},
 	
 	/**
@@ -826,7 +826,7 @@ var tbone = {
         if (innerHTML === undefined) {
             innerHTML = '';
         }
-        return '<legend' + this.AssembleAttributes(attributes) + '>' + innerHTML .'</legend>';
+        return '<legend' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</legend>';
     }, /* END: Legend() */
 
     /**
@@ -835,7 +835,7 @@ var tbone = {
      * @param attributes - a string or hash of key/values representing attributes
      * @return a string representation of the element
      */
-    NoScript : function (innerHTML = NULL , attributes ) {
+    NoScript : function (innerHTML, attributes ) {
         if (innerHTML === undefined) {
             innerHTML = '';
         }
@@ -848,7 +848,7 @@ var tbone = {
      * @param attributes - a string or hash of key/values representing attributes
      * @return a string representation of the element
      */
-    Address : function (innerHTML = NULL , attributes ) {
+    Address : function (innerHTML, attributes ) {
         if (innerHTML === undefined) {
             innerHTML = '';
         }
@@ -910,10 +910,13 @@ var tbone = {
      * @param attributes - (optional) a string or hash of key/values representing attributes
      * @return a string representation of the element
      */
-    Abbr : function (abbreviation, full_form = '', attributes ) {
+    Abbr : function (abbreviation, full_form, attributes ) {
         if (abbreviation === undefined) {
             abbreviation = '';
         }
+	if (full_form === undefined) {
+		full_form = '';
+	}
         if (attributes === undefined) {
             attributes = [];
         } else if (is_string(attributes)) {
@@ -1044,7 +1047,7 @@ var tbone = {
         if (innerHTML === undefined) {
             innerHTML = '';
         }
-        return '<i' + this.AssembleAttributes(attributes) + '>' + innerHTML '</i>';
+        return '<i' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</i>';
     }, /* END: I() */
 	
     /**
@@ -1175,7 +1178,7 @@ var tbone = {
         if (innerHTML === undefined) {
             innerHTML = '';
         }
-    	return '<map' + this.AssembleAttributes(attributes) + '>' + innerHTML '</map>';
+    	return '<map' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</map>';
     }, /* END: Map() */
 	
     /**

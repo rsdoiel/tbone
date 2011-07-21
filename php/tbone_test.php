@@ -24,7 +24,7 @@ $attr = AssembleAttributes(array('checked' => NULL, 'id' => 'mything'));
 $assert->equal($attr, ' checked id="mything"', 'Should have checked id="mything" [' . $attr . '] from assoc. array');
 
 $src = Html('');
-$assert->equal(trim($src), trim('<!DOCTYPE html>' . PHP_EOL . '<html lang="en"></html>' . PHP_EOL), "Should have an html wrapper: [$src]");
+$assert->equal(trim($src), trim('<!DOCTYPE html>' . PHP_EOL . '<html lang="en"></html>'), "Should have an html wrapper: [$src]");
 
 $src = Head('');
 $assert->equal(trim($src), trim('<head></head>' . PHP_EOL), "Should have a head elments [$src]");
@@ -68,8 +68,8 @@ $assert->equal($src, '<a></a>', "Should have an empty wrapping anchor tag [$src]
 $src = A("here", 'http://example.com');
 $assert->equal($src, '<a href="http://example.com">here</a>', "Should have a basic link to example.com [$src]");
 
-$src = A("here", 'http://example.com', 'title="test"');
-$assert->equal($src, '<a title="test" href="http://example.com">here</a>', "Should have a basic link to example.com [$src]");
+$src = A("here", array( 'href' => 'http://example.com', 'title' => "test"));
+$assert->equal($src, '<a href="http://example.com" title="test">here</a>', "Should have a link to example.com with a title [$src]");
 
 $src = Ul('');
 $assert->equal($src, '<ul></ul>', "Should have a ul wrapper [$src]");
@@ -80,7 +80,7 @@ $assert->equal($src, '<ol></ol>', "Should have a ol wrapper [$src]");
 $src = Li('');
 $assert->equal($src, '<li></li>', "Should have a li wrapper [$src]");
 
-$src = Dl('');
+$src = tbDl('');
 $assert->equal($src, '<dl></dl>', "Should have a dl wrapper [$src]");
 
 $src = Dt('');
@@ -114,10 +114,11 @@ $src = Label('');
 $assert->equal($src, '<label></label>', "Should have a simple label wrapper [$src]");
 
 $src = Script();
-$assert->equal($src, '<script type="text/javascript"></script>', "Should have an empty script tag. Expected: [<script type=\"text/javascript\"></script>] got:[$src]");
+$assert->equal($src, '<script type="JavaScript" rel="text/javascript"></script>', "Should have an empty script tag. Expected: [<script type=\"JavaScript\" rel=\"text/javascript\"></script>] got:[$src]");
 
 $str = ' one="1" two="2"';
 $attributes = DisassembleAttributes($str);
+$assert->ok(is_array($attributes), "Should get an associative array back from DisassembleAttributes()");
 $assert->equal($attributes['one'], '1', "One should be 1: " . print_r($attributes, true));
 $assert->equal($attributes['two'], '2', "Two should be 2:" . print_r($attributes, true));
 

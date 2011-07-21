@@ -25,21 +25,20 @@ define("TBONE_VERSION",2);
  * @return a string representation of the attributes.
  */
 function AssembleAttributes ($attributes = NULL) {
-    var $attr = '', $key;
-
 	if ($attributes === NULL) {
 		return '';
 	} else if (is_array($attributes)) {
+		$attr = ''; 
 		foreach ($attributes as $key => $value) {
 		    if (isset($attributes[$key])) {
-			    $attr .= ' ' . $key . '="' . trim($attributes[$key]) . '"';
+			    $attr .= ' ' . $key . '="' . trim($value) . '"';
 		    } else {
 			    $attr .= ' ' . $key;
 		    }
 		}
-		return ' ' + trim($attr);
+		return ' ' . trim($attr);
 	} else {
-		return ' ' + trim($attributes);
+		return ' ' . trim($attributes);
 	}
 } /* END: AssembleAttributes() */
 
@@ -50,31 +49,33 @@ function AssembleAttributes ($attributes = NULL) {
  * @return an object representation of the attributes.
  */
 function DisassembleAttributes($attributes_string) {
-	var $in_quote = false,
-		$key = false,
-		$key_start = 0,
-		$value_start = 0,
-		$attributes = array(), $pos = 0, $chr = ' ', $str;
-
+	$in_quote = false;
+	$key = false;
+	$key_start = 0;
+	$value_start = 0;
+	$attributes = array();
+	$pos = 0;
+	$chr = '';
 	$str = trim($attributes_string);
+
 	for ($pos = 0; $pos < strlen($str); $pos += 1) {
-		$chr = substr($pos, 1);
+		$chr = substr($str, $pos, 1);
 		if ($in_quote) {
 			// Have we exited quote
 			if ($chr == $in_quote) {
-				$attributes[$key] = substr($value_start, $pos - $value_start);
+				$attributes[$key] = substr($str, $value_start, $pos - $value_start);
 				$in_quote = false;
 				$value = 0;
 				$key = false;
 				$key_start = $pos + 1;
-			} else if ($chr == '\\' && substr($pos + 1, 1) == $in_quote) {
+			} else if ($chr == '\\' && substr($str, $pos + 1, 1) == $in_quote) {
 				$pos += 1;
 			}
 		} else if ($chr == '"' || $chr == "'") {
 			$in_quote = $chr;
 			$value_start = $pos + 1;
 		} else if ($chr == '=') {
-			$key = trim(substr($key_start, $pos - $key_start));
+			$key = trim(substr($str, $key_start, $pos - $key_start));
 		}
 	}
 	return $attributes;
@@ -87,11 +88,14 @@ function DisassembleAttributes($attributes_string) {
  * @return a string representation of the HTML page.
  */
 function Html($innerHTML = NULL, $attributes = NULL) {
+	if ($innerHTML === NULL) {
+		$innerHTML = "";
+	}
 	if ($attributes === NULL) {
-		$attributes = 'lang="en"';
+		$attributes = array('lang' => "en");
 	}
 	return '<!DOCTYPE html>' . PHP_EOL .
-	'<html' . AssembleAttributes($attributes) . '>' . PHP_EOL . innerHTML . '</html>';
+	'<html' . AssembleAttributes($attributes) . '>' . $innerHTML . '</html>';
 } /* END: Html() */
 
 /**
@@ -104,7 +108,7 @@ function Head($innerHTML = NULL, $attributes = NULL) {
 	if ($innerHTML === NULL) {
 		$innerHTML = '';
 	}
-	return '<head' . AssembleAttributes($attributes) . '>' . PHP_EOL . $innerHTML . '</head>' + PHP_EOL;
+	return '<head' . AssembleAttributes($attributes) . '>' . $innerHTML . '</head>';
 } /* END: Head() */
 
 /**
@@ -143,7 +147,7 @@ function Body($innerHTML = NULL, $attributes = NULL) {
 	if ($innerHTML === NULL) {
 		$innerHTML = '';
 	}
-	return '<body' . AssembleAttributes($attributes) . '>' . PHP_EOL . $innerHTML . '</body>';
+	return '<body' . AssembleAttributes($attributes) . '>' . $innerHTML . '</body>';
 } /* END: Body() */
 
 /**
@@ -249,7 +253,7 @@ function A($innerHTML = NULL, $attributes = NULL) {
 		$innerHTML = '';
 	}
 	if (is_string($attributes) && strpos($attributes, "=") === false) {
-        $tmp = $attributes;
+	        $tmp = $attributes;
 		$attributes = array('href' => $tmp);
 	}
 	return '<a' . AssembleAttributes($attributes) . '>' . $innerHTML . '</a>';
@@ -295,12 +299,12 @@ function Li($innerHTML = NULL, $attributes = NULL) {
 }
 	
 /**
- * Dl - render an html definition list element
+ * tbDl - render an html definition list element
  * @param innerHTML - the contents of tag
  * @param attributes - a string or object of key/values representing attributes
  * @return a string representation of the element
  */
-function Dl($innerHTML = NULL, $attributes = NULL) { 
+function tbDl($innerHTML = NULL, $attributes = NULL) { 
 	if ($innerHTML === NULL) {
 		$innerHTML = '';
 	}
@@ -378,7 +382,7 @@ function Tr($innerHTML = NULL, $attributes = NULL) {
  * @param attributes - a string or object of key/values representing attributes
  * @return a string representation of the element
  */
-function Td($innerHTML, $attributes) {
+function Td($innerHTML = NULL, $attributes = NULL) {
 	if ($innerHTML === NULL) {
 		$innerHTML = '';
 	}
@@ -412,7 +416,7 @@ function Input($name = NULL, $value = NULL, $attributes = NULL) {
 	if ($value === NULL) {
 		$value = '';
 	}
-	return '<input name="' . $name . '" value="' . $value . '"' . AssembleAttributes($attributes) + ' />';
+	return '<input name="' . $name . '" value="' . $value . '"' . AssembleAttributes($attributes) . ' />';
 } /* END: Input() */
 	
 /**
@@ -572,7 +576,7 @@ function Menu($label = NULL, $innerHTML = NULL, $attributes = NULL) {
  * @return a string representation of the element
  */
 function Img($src, $attributes = NULL) {
-	return '<img src="' . $src . '"' . AssembleAttributes($attributes) + '/>';
+	return '<img src="' . $src . '"' . AssembleAttributes($attributes) . '/>';
 } /* END: Img() */
 	
 /**
@@ -964,7 +968,7 @@ function I ($innerHTML = NULL, $attributes = NULL) {
     if ($innerHTML === NULL) {
         $innerHTML = '';
     }
-    return '<i' . AssembleAttributes($attributes) . '>' . $innerHTML '</i>';
+    return '<i' . AssembleAttributes($attributes) . '>' . $innerHTML . '</i>';
 } /* END: I() */
 	
 /**
@@ -1033,15 +1037,6 @@ function Tt ($innerHTML = NULL, $attributes = NULL) {
 } /* END: Tt() */
 	
 /**
- * Br - A forced line-break element.
- * @param $attributes - a string or hash of key/values representing attributes
- * @return a string representation of the element
- */
-function Br ($attributes = NULL) {
-  return '<br' . AssembleAttributes($attributes) . ' />';
-} /* END: Br() */
-	
-/**
  * Bdo - a bdo element. Marks an inline section of text in which 
  * the reading direction is the opposite from that of the parent element.
  * @param $innerHTML - the contents of tag
@@ -1101,7 +1096,7 @@ function Map ($innerHTML = NULL, $attributes = NULL) {
     if ($innerHTML === NULL) {
         $innerHTML = '';
     }
-	return '<map' . AssembleAttributes($attributes) . '>' . $innerHTML '</map>';
+	return '<map' . AssembleAttributes($attributes) . '>' . $innerHTML . '</map>';
 } /* END: Map() */
 	
 /**

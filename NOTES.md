@@ -58,7 +58,7 @@ Notes: innerHTML is any text to be place inside the tags while attributes can be
 | Ul | Ul(innerHTML, attributes) | Ul(string, map[string]string) string | Ul($innerHTML, $attributes) |
 | Ol | Ol(innerHTML, attributes) | Ol(string, map[string]string) string | Ol($innerHTML, $attributes) |
 | Li | Li(innerHTML, attributes) | Li(string, map[string]string) string | Li($innerHTML, $attributes) |
-| Dl | Dl(innerHTML, attributes) | Dl(string, map[string]string) string | Dl($innerHTML, $attributes) |
+| Dl | Dl(innerHTML, attributes) | Dl(string, map[string]string) string | tbDl($innerHTML, $attributes) |
 | Dt | Dt(innerHTML, attributes) | Dt(string, map[string]string) string | Dt($innerHTML, $attributes) |
 | Dd | Dd(innerHTML, attributes) | Dd(string, map[string]string) string | Dd($innerHTML, $attributes) |
 | Table | Table(innerHTML, attributes) | Table(string, map[string]string) string | Table($innerHTML, $attributes) |
