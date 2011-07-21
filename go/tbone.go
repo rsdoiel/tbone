@@ -23,7 +23,7 @@ import (
 )
 
 const (
-	VERSION = `0.0.1-a`
+	VERSION = `0.0.2`
 )
 
 // Assemble a map of attribute names and values

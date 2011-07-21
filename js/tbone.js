@@ -655,6 +655,7 @@ var tbone = {
 		}
 		return '<center' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</center>';
 	},
+
 	/**
 	 * Br - render a br tag
 	 * @param attributes - a string or object of key/values representing attributes
