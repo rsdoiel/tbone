@@ -1,6 +1,6 @@
 tbone
 =====
-version 0.0.1
+version 0.0.2
 -------------
 
 TBone is an small library for generating valid HTML. It is available in three languages - Go, JavaScript and PHP. It is based on an article by Jason Grosman, "Behind the Code: Avoiding Spaghetti"; http://www.npr.org/blogs/inside/2011/02/02/126312263/behind-the-code-avoiding-spaghetti-html.

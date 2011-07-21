@@ -16,7 +16,9 @@
  * See: http://opensource.org/licenses/bsd-license.php
  *
  */
- 
+
+define("TBONE_VERSION",2);
+
 /**
  * AssembleAttributes - formats a valid set of attribute strings.
  * @param attributes - either an associative array or formatted string.

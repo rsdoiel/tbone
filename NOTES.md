@@ -1,6 +1,6 @@
 Development Notes
 =================
-revision 0.0.1
+revision 0.0.2
 --------------
 
 # Overview
@@ -30,12 +30,95 @@ There are cases where the element name is a reserved word or the name of a stand
 # Utility functions
 
 | name | description | JavaScript | Go | PHP |
-| Mixin | exposes the object's functions to an external namespace | tbone.Mixin(this) | N/A | N/A |
-| Trim(string) | removes preceeding and trailing spaces | tbone.trim(" this is padding with spaces ") | N/A | N/A |
-| AssembleAttributes(string or key/value pairs) | Assembles the attributes for the elements. | tbone.AssembleAttributes({class : "myclass", id : "myId" }) |  - | - |
+| Mixin | exposes the object's functions to an external namespace | Mixin(this) | N/A | N/A |
+| Trim(string) | removes preceeding and trailing spaces | trim(" this is padding with spaces ") | N/A | N/A |
+| AssembleAttributes(string or key/value pairs) | Assembles the attributes for the elements. | AssembleAttributes({class : "myclass", id : "myId" }) |  - | - |
 
 
 # Function element mapping
 
+Notes: innerHTML is any text to be place inside the tags while attributes can be either a string version of an elements attributes (e.g. 'class="footer"') or key/value pairs (e.g. an Object in JavaScript, associative array in PHP). If an attribute takes no arguments then pass it a null value. Usually innerHTML and attributes can be ommit if not needed.
+
 | element | JavaScript | Go | PHP |
+| Html | Html(innerHTML, attributes) | - | Html($innerHTML, $attributes) |
+| Head | Head(innerHTML, attributes) | - | Head($innerHTML, $attributes) |
+| Title | Title(innerHTML, attributes) | - | Title($innerHTML, $attributes) |
+| Link | Link(attributes) | - | tbLink($attributes) |
+| Body | Body(innerHTML, attributes) | - | Body($innerHTML, $attributes) |
+| H1 | H1(innerHTML, attributes) | - | H1($innerHTML, $attributes) |
+| H2 | H2(innerHTML, attributes) | - | H2($innerHTML, $attributes) |
+| H3 | H3(innerHTML, attributes) | - | H3() |
+| H4 | H4(innerHTML, attributes) | - | H4() |
+| H5 | H5(innerHTML, attributes) | - | H5() |
+| H6 | H6(innerHTML, attributes) | - | H6() |
+| P | P(innerHTML, attributes) | - | P() |
+| Br | Br() | - | Br() |
+| A | A(innerHTML, attributes) OR A(innerHTML, href) | - | A() |
+| Ul | Ul(innerHTML, attributes) | - | Ul() |
+| Ol | Ol(innerHTML, attributes) | - | - |
+| Li | Li(innerHTML, attributes) | - | - |
+| Dl | Dl(innerHTML, attributes) | - | - |
+| Dt | Dt(innerHTML, attributes) | - | - |
+| Dd | Dd(innerHTML, attributes) | - | - |
+| Table | Table(innerHTML, attributes) | - | - |
+| Th | Th(innerHTML, attributes) | - | - |
+| Tr | Tr(innerHTML, attributes) | - | - |
+| Td | Td(innerHTML, attributes) | - | - |
+| Form | Form(innerHTML, attributes) | - | - |
+| Input | Input(name, value, attributes) | - | - |
+| Textarea | Textarea(name, value, attributes) | - | - |
+| Select | Select(innerHTML, attributes) | - | - |
+| Option | Option(value, label) | - | - |
+| Label | Label(innerHTML, attributes) | - | - |
+| Script | Script(innerHTML, attributes) | - | - |
+| Pre | Pre(innerHTML, attributes) | - | - |
+| DemoCode | DemoCode(innerHTML, attributes) | - | - |
+| Div | Div(innerHTML, attributes) | - | - |
+| Span | Span(innerHTML, attributes) | - | - |
+| Menu | Menu(innerHTML, attributes) | - | - |
+| Img | Img(src, attributes) | - | - |
+| Center | Center(innerHTML, attributes) | - | - |
+| Base | Base(innerHTML, attributes) | - | - |
+| Meta | Meta(attributes) | - | - |
+| Object | Object(innerHTML, attributes) | - | - |
+| Style | Style(innerHTML, attributes) | - | - |
+| Col | Col(innerHTML, attributes) | - | - |
+| Colgroup | Colgroup(innerHTML, attributes) | - | - |
+| THead | THead(innerHTML, attributes) | - | - |
+| TBody | TBody(innerHTML, attributes) | - | - |
+| TFoot | TFoot(innerHTML, attributes) | - | - |
+| Optgroup | Optgroup(innerHTML, attributes) | - | - |
+| Fieldset | Fieldset(innerHTML, attributes) | - | - |
+| Legend | Legend(innerHTML, attributes) | - | - |
+| NoScript | NoScript(innerHTML, attributes) | - | - |
+| Address | Address(innerHTML, attributes) | - | - |
+| Blockquote | Blockquote(innerHTML, attributes) | - | - |
+| Del | Del(innerHTML, attributes) | - | - |
+| Hr | Hr(innerHTML, attributes) | - | - |
+| Ins | Ins(innerHTML, attributes) | - | - |
+| Abbr | Abbr(innerHTML, attributes) | - | - |
+| Acronym | Acronym(innerHTML, attributes) | - | - |
+| Dfn | Dfn(innerHTML, attributes) | - | - |
+| Em | Em(innerHTML, attributes) | - | - |
+| Strong | Strong(innerHTML, attributes) | - | - |
+| Code | Code(innerHTML, attributes) | - | - |
+| Samp | Samp(innerHTML, attributes) | - | - |
+| Kbr | Kbr(innerHTML, attributes) | - | - |
+| B | B(innerHTML, attributes) | - | - |
+| I | I(innerHTML, attributes) | - | - |
+| Big | Big(innerHTML, attributes) | - | - |
+| Small | Small(innerHTML, attributes) | - | - |
+| Sub | Sub(innerHTML, attributes) | - | - |
+| Sup | Sup(innerHTML, attributes) | - | - |
+| Tt | Tt(innerHTML, attributes) | - | - |
+| Br | Br(innerHTML, attributes) | - | - |
+| Bdo | Bdo(innerHTML, attributes) | - | - |
+| Cite | Cite(innerHTML, attributes) | - | - |
+| Q | Q(innerHTML, attributes) | - | - |
+| Area | Area(innerHTML, attributes) | - | - |
+| Map | Map(innerHTML, attributes) | - | - |
+| Frame | Frame(innerHTML, attributes) | - | Frame() |
+| NoFrame | NoFrame(innerHTML, attributes) | - | NoFrame() |
+| IFrame | IFrame(innerHTML, attributes) | - | IFrame() |
+| HGroup | HGroup(innerHTML, attributes) | - | HGroup() |
 
