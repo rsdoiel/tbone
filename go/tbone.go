@@ -401,3 +401,10 @@ func Center (innerHTML string, attributes map[string]string) (string) {
 	return AssembleTag("center", innerHTML, attributes)
 }
 
+func Header(innerHTML string, attributes map[string]string) (string) {
+    return AssembleTag("header", innerHTML, attributes)
+}
+
+func Footer(innerHTML string, attributes map[string]string) (string) {
+    return AssembleTag("footer", innerHTML, attributes)
+}

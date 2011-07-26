@@ -46,6 +46,8 @@ Notes: innerHTML is any text to be place inside the tags while attributes can be
     | Title | Title(innerHTML, attributes) | Title(string, map[string]string) string | Title($innerHTML, $attributes) |
     | Link | Link(attributes) | Link(string, map[string]string) string | tbLink($attributes) |
     | Body | Body(innerHTML, attributes) | Body(string, map[string]string) string | Body($innerHTML, $attributes) |
+    | Header | Header(innerHTML, attributes) | Header(string, map[string]string) string | Header($innerHTML, $attributes) |
+    | Footer | Footer(innerHTML, attributes) | Footer(string, map[string]string) string | Footer($innerHTML, $attributes) |
     | H1 | H1(innerHTML, attributes) | H1(string, map[string]string) string | H1($innerHTML, $attributes) |
     | H2 | H2(innerHTML, attributes) | H2(string, map[string]string) string | H2($innerHTML, $attributes) |
     | H3 | H3(innerHTML, attributes) | H3(string, map[string]string) string | H3($innerHTML, $attributes) |

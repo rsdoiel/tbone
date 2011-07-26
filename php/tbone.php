@@ -1151,4 +1151,30 @@ function HGroup ($innerHTML = NULL, $attributes = NULL) {
     return '<hgroup' . AssembleAttributes($attributes) . '>' . $innerHTML . '</hgroup>';
 } /* END: HGroup() */
 
+/**
+ * Header - a header element
+ * @param $innerHTML - the contents of the element
+ * @param $attributes - (optional) a string or hash of key/values representing attributes
+ * @return a string representation of the element
+ */
+function Header ($innerHTML = NULL, $attributes = NULL) {
+    if ($innerHTML === NULL) {
+        $innerHTML = '';
+    }
+    return '<header' . AssembleAttributes($attributes) . '>' . $innerHTML . '</header>';
+}
+
+/**
+ * Footer - a footer element
+ * @param $innerHTML - the contents of the element
+ * @param $attributes - (optional) a string or hash of key/values representing attributes
+ * @return a string representation of the element
+ */
+function Footer ($innerHTML = NULL, $attributes = NULL) {
+    if ($innerHTML === NULL) {
+        $innerHTML = '';
+    }
+    return '<footer' . AssembleAttributes($attributes) . '>' . $innerHTML . '</footer>';
+}
+
 ?>

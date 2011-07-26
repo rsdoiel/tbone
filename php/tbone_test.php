@@ -113,6 +113,13 @@ $assert->equal($src, '<option value=""></option>', "Should have a simple select 
 $src = Label('');
 $assert->equal($src, '<label></label>', "Should have a simple label wrapper [$src]");
 
+$src = Header('');
+$assert->equal($src,'<header></header>', "Should have a simple header wrapper [$src]");
+
+$src = Footer('');
+$assert->equal($src,'<footer></footer>', "Should have a simple footer wrapper [$src]");
+
+
 $src = Script();
 $assert->equal($src, '<script type="JavaScript" rel="text/javascript"></script>', "Should have an empty script tag. Expected: [<script type=\"JavaScript\" rel=\"text/javascript\"></script>] got:[$src]");
 

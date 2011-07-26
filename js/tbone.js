@@ -1233,6 +1233,31 @@ var tbone = {
         return '<hgroup' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</hgroup>';
     }, /* END: HGroup() */
 
+    /**
+     * Header - a header element
+     * @param innerHTML - the contents of tag
+     * @param attributes - (optional) a string or hash of key/values representing attributes
+     * @return a string representation of the element
+     */
+    Header : function (innerHTML, attributes) {
+        if (innerHTML === undefined) {
+            innerHTML = '';
+        }
+        return '<header' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</header>';
+    }, /* END: Header() */
+
+    /**
+     * Footer- a footer element
+     * @param innerHTML - the contents of tag
+     * @param attributes - (optional) a string or hash of key/values representing attributes
+     * @return a string representation of the element
+     */
+    Footer : function (innerHTML, attributes) {
+        if (innerHTML === undefined) {
+            innerHTML = '';
+        }
+        return '<footer' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</footer>';
+    }, /* END: Footer() */
 }; /* END: tbone definition */
 
 // Defined some exports if running under NodeJS

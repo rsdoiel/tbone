@@ -136,4 +136,10 @@ assert.equal(src, '<option value=""></option>', "Should have a simple select wra
 src = tb.Label();
 assert.equal(src, '<label></label>', "Should have a simple label wrapper:" + src);
 
+src = tb.Header();
+assert.equal(src, '<header></header>', "Should have a simple header wrapper:" + src);
+
+src = tb.Footer();
+assert.equal(src, '<footer></footer>', "Should have a simple footer wrapper:" + src);
+
 console.log("Success!");
