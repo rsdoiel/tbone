@@ -113,7 +113,7 @@ $assert->equal($src, '<option value=""></option>', "Should have a simple select 
 $src = Label('');
 $assert->equal($src, '<label></label>', "Should have a simple label wrapper [$src]");
 
-$src = Header('');
+$src = tbHeader('');
 $assert->equal($src,'<header></header>', "Should have a simple header wrapper [$src]");
 
 $src = Footer('');

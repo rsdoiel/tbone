@@ -1272,6 +1272,8 @@ try {
 		exports.Title = tbone.Title;
 		exports.Link = tbone.Link;
 		exports.Body = tbone.Body;
+		exports.Header = tbone.Header;
+		exports.Footer = tbone.Footer;
 		exports.H1 = tbone.H1;
 		exports.H2 = tbone.H2;
 		exports.H3 = tbone.H3;

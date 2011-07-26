@@ -1152,12 +1152,12 @@ function HGroup ($innerHTML = NULL, $attributes = NULL) {
 } /* END: HGroup() */
 
 /**
- * Header - a header element
+ * tbHeader - a header element
  * @param $innerHTML - the contents of the element
  * @param $attributes - (optional) a string or hash of key/values representing attributes
  * @return a string representation of the element
  */
-function Header ($innerHTML = NULL, $attributes = NULL) {
+function tbHeader ($innerHTML = NULL, $attributes = NULL) {
     if ($innerHTML === NULL) {
         $innerHTML = '';
     }
