@@ -1,8 +1,12 @@
 {
 	"name" : "tbone",
-	"version" : "0.0.2",
+	"version" : "0.0.3",
 	"description" : "A simple library to generate valid HTML",
 	"main" : "./js/tbone.js",
-	"dependencies" : {},
+	"repository" :
+	  { "type" : "git"
+	  , "url" : "http://github.com/rsdoiel/tbone.git"
+	  },
+  	"dependencies" : {},
 	"engines" : { "node":"*" }
 }
