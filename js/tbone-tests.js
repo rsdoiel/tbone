@@ -11,7 +11,7 @@
  * Notes: runs under NodeJS
  */
 
-var	sys = require('sys'),
+var	sys = require('util'),
 	assert = require('assert'),
 	tb = require('./tbone');
 
