@@ -22,6 +22,9 @@
         "node" : ">= 0.4",
         "npm" : ">= 1"
     },
+    "scripts": {
+    	"test": "node js/tbone-tests.js"
+    },
 	"bugs": {
         "url": "http://github.com/rsdoiel/tbone/issues"
     }
