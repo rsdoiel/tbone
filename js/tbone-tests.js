@@ -11,8 +11,7 @@
  * Notes: runs under NodeJS
  */
 
-var	sys = require('util'),
-	assert = require('assert'),
+var	assert = require('assert'),
 	tb = require('./tbone');
 
 console.log("[tbone_test.js] start ...");
