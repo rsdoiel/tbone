@@ -1,7 +1,7 @@
 Development Notes
 =================
-revision 0.0.3
---------------
+revision 0.0.3b
+---------------
 
 # Overview
 
