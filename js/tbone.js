@@ -15,7 +15,7 @@
  * See: http://opensource.org/licenses/bsd-license.php
  *
  */
-const TBONE_VERSION = "0.0.3b";
+const TBONE_VERSION = "0.0.3c";
 
 var tbone = {
 	/**

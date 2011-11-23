@@ -1,6 +1,6 @@
 {
 	"name" : "tbone",
-	"version" : "0.0.3b",
+	"version" : "0.0.3c",
 	"description" : "A simple library to generate valid HTML",
 	"main" : "./js/tbone.js",
 	"repository" : { 
@@ -23,7 +23,7 @@
         "npm" : ">= 1"
     },
     "scripts": {
-    	"test": "node js/tbone-tests.js"
+    	"test": "node js/tbone_test.js"
     },
 	"bugs": {
         "url": "http://github.com/rsdoiel/tbone/issues"
