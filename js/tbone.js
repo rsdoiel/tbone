@@ -16,7 +16,7 @@
  *
  */
  
-const TBONE_VERSION = "0.0.3d";
+const TBONE_VERSION = "0.0.3e";
 
 var tbone = {
 	/**
@@ -1493,7 +1493,7 @@ var sbquo = '&sbquo;',
 	re_nbsp = new RegExp(nbsp_encodings, 'g'),
 
 	// A new line variants
-	NewLine = '&NewLing;',
+	NewLine = '&NewLine;',
 	cc_NewLine = "\n",
 	new_line_encodings = [
 		"\n", "\r", "\f",
