@@ -1,7 +1,7 @@
 {
 	"name" : "tbone",
-	"version" : "0.0.3c",
-	"description" : "A simple library to generate valid HTML",
+	"version" : "0.0.3d",
+	"description" : "A simple library to generate valid HTML and normalizing markup",
 	"main" : "./js/tbone.js",
 	"repository" : { 
 		"type" : "git", 
