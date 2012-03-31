@@ -170,4 +170,24 @@ for (i = 0; i < test_strings.length && i < expected_strings.length; i += 1) {
 	assert.equal(result_string, test_strings[i], ['from Expected [',test_strings[i],'] found [', result_string, ']'].join("")); 
 }
 
+
+test_strings = [
+	'big <font>red</font>'
+	, 'big <font color=red>red</font> bus'
+	, 'big <font color="red">red</font> bus'
+	, 'big <font class=\'red-bus\' id="test" style="margin: 30px;">red</font> bus'
+];
+expected_strings = [
+	"big red bus"
+	, "big red bus"
+	, "big red bus"
+	, "big red bus"
+];
+
+for (i = 0; i < test_strings.length && i < expected_strings.length; i += 1) {
+	result_string = tb.stripFontTags(test_strings[i]);
+	assert.equal(result_string, expected_strings[i], [i + ' to Expected [',expected_strings[i],'] found [', result_string, ']'].join("")); 
+}
+
+
 console.log("Success!");

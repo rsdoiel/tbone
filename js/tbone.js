@@ -1503,6 +1503,7 @@ var sbquo = '&sbquo;',
 		NewLine
 	].join("|"),
 	re_NewLine = new RegExp(new_line_encodings, 'g');
+
 	
 
 toHtml5Entities = function (s) {
@@ -1513,6 +1514,14 @@ fromHtml5Entities = function (s) {
 	return s.replace(re_NewLine, cc_NewLine).replace(re_quot,  cc_quot).replace(re_apos, cc_apos).replace(re_acute, cc_acute).replace(re_sbquo, cc_sbquo).replace(re_bdquo, cc_bdquo).replace(re_hellip, cc_hellip).replace(re_dagger, cc_dagger).replace(re_Dagger, cc_Dagger).replace(re_lsquo, cc_lsquo).replace(re_rsquo, cc_rsquo).replace(re_ldquo, cc_ldquo).replace(re_rdquo, cc_rdquo).replace(re_bull, cc_bull).replace(re_ndash, cc_ndash).replace(re_mdash, cc_mdash).replace(re_copy, cc_copyright_mark).replace(re_nbsp, cc_nbsp).replace(re_laquo, cc_laquo).replace(re_raquo, cc_raquo);
 };
 
+stripFontTags = function (s) {
+	var reFontTag = new RegExp(
+		'(<font(\ |\\\\+|[a-z]+|[A-Z]+|=|,|[0-9]|\"|-|#)+>|</font>|<font>)',
+		'gi'
+	);
+
+	return s.replace(reFontTag,'');
+};
 
 // Defined some exports if running under NodeJS
 try {
@@ -1607,6 +1616,7 @@ try {
         // Markup normalization methods
         exports.fromHtml5Entities = fromHtml5Entities;
         exports.toHtml5Entities = toHtml5Entities;
+        exports.stripFontTags = stripFontTags;
         
 	} // END: defining exports
 } catch(err) {
