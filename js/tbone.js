@@ -1278,7 +1278,7 @@ var sbquo = '&sbquo;',
 		String.fromCharCode(130),
 		'&#130;',
 		// html entity
-		cc_sdquo,
+		cc_sbquo,
 		'&#8218;',
 		sbquo,
 		')'
@@ -1356,7 +1356,7 @@ var sbquo = '&sbquo;',
 		quot,
 		')'
 	],
-	re_quot = new RegExp(quot_encodings.join("|", 'gm'),
+	re_quot = new RegExp(quot_encodings.join("|"), 'gm'),
 
 	apos = '&apos;',
 	cc_apos = String.fromCharCode(39),
@@ -1368,7 +1368,7 @@ var sbquo = '&sbquo;',
 		apos,
 		')'
 	]
-	re_apos = new RegExp(apos_encodings.join("|", "gm"),
+	re_apos = new RegExp(apos_encodings.join("|"), "gm"),
 	
 	acute = '&acute;',
 	cc_acute = String.fromCharCode(180),
@@ -1379,7 +1379,7 @@ var sbquo = '&sbquo;',
 		acute,
 		')'
 	]
-	re_acute = new RegExp(acute_encodings.join("|", "gm"),
+	re_acute = new RegExp(acute_encodings.join("|"), "gm"),
 
 	// Left single quotes
 	lsquo = '&lsquo;',
@@ -1408,10 +1408,10 @@ var sbquo = '&sbquo;',
 		cc_rsquo,
 		'&#146;',
 		'&#8217;',
-		requo,
+		rsquo,
 		')'
 	],
-	re_rsquo = new RegExp(requo_encodings.join("|"), 'gm'),
+	re_rsquo = new RegExp(rsquo_encodings.join("|"), 'gm'),
 	
 	// double quotes in iso-8856-1
 	ldquo = '&ldquo;',
@@ -1463,7 +1463,7 @@ var sbquo = '&sbquo;',
 		// html entity
 		cc_rdquo,
 		'&#8221;',
-		rdquo
+		rdquo,
 		')'
 	],
 	re_rdquo = new RegExp(String.fromCharCode(148), 'gm'),
@@ -1474,7 +1474,7 @@ var sbquo = '&sbquo;',
 		'(',
 		cc_bull,
 		'&#149;',
-		bull
+		bull,
 		')'
 	],
 	re_bull = new RegExp(bull_encodings.join("|"), 'gm'),
