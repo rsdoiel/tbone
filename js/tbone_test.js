@@ -147,12 +147,16 @@ var test_strings = [
 	, "“Hello World!”"
 	, "Fred" + String.fromCharCode(180) + "s Car"
 	, "Fred" + String.fromCharCode(8217) + "s Car"
+	, "this is\nanother line."
+	, "&\nthat was it."
 ];
 var expected_strings = [
 	"Hello World!"
 	, "&ldquo;Hello World!&rdquo;"
 	, "Fred&acute;s Car"
 	, "Fred&rsquo;s Car"
+	, "this is&NewLine;another line."
+	, "&&NewLine;that was it."
 ];
 var result_string;
 
