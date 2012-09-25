@@ -4,8 +4,7 @@ tbone
 TBone is an small JavaScript library for generating valid HTML. It is based
 on an article by Jason Grosman, ["Behind the Code: Avoiding Spaghetti"](http://www.npr.org/blogs/inside/2011/02/02/126312263/behind-the-code-avoiding-spaghetti-html).
 
-It is designed to work in NodeJS, Mongo's shell (via [mongo-modules](https://github.com/rsdoiel/mongo-modules.git))
-and in the web browser.
+It is designed to work in NodeJS, Mongo's shell (via [mongo-modules](https://github.com/rsdoiel/mongo-modules.git)).
 
 # Examples
 
