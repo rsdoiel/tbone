@@ -15,6 +15,7 @@
  * See: http://opensource.org/licenses/bsd-license.php
  *
  */
+/*jslint devel: true, node: true, maxerr: 50, indent: 4,  vars: true, sloppy: true */
 
 
 var tbone = {
@@ -23,15 +24,15 @@ var tbone = {
      * @params self - the object to have the functions attached to.
      * If self is undefined Mixin turns into a Factory object.
      */
-	Mixin : function (self) {
+	Mixin: function (self) {
 		var ky;
 
 		if (self === undefined) {
 			self = {};
 		}
 		for (ky in this) {
-			if (typeof this[ky] === 'function' && 
-				ky !== "Mixin") {
+			if (typeof this[ky] === 'function' &&
+					ky !== "Mixin") {
 				if (self[ky] === undefined) {
 					self[ky] = this[ky];
 				} else {
@@ -48,8 +49,8 @@ var tbone = {
      * @param s - the string to Tri
      * @return a Trimmed string
      */
-	Trim : function (s) {
-		return s.replace(/\s+$/,'').replace(/^\s+/,'');
+	Trim: function (s) {
+		return s.replace(/\s+$/, '').replace(/^\s+/, '');
 	}, /* End: Trim() */
 
 	/**
@@ -58,7 +59,7 @@ var tbone = {
      * @param positions - one or more word positions to capitalize.
      * @return a capitalized string
      */
-	Capitalize : function (s, positions) {
+	Capitalize: function (s, positions) {
 		var i, p, words = s.split(" ");
 
 		if (positions === undefined) {
@@ -75,7 +76,7 @@ var tbone = {
 		for (p = 0; p < positions.length; p += 1) {
 			i = positions[p];
 			if (words[i] !== undefined) {
-				words[i] = words[i].substr(0,1).toUpperCase() + words[i].substr(1);
+				words[i] = words[i].substr(0, 1).toUpperCase() + words[i].substr(1);
 			}
 		}
 		return words.join(" ");
@@ -86,19 +87,21 @@ var tbone = {
      * @param attributes - either an associative array or formatted string.
      * @return a string representation of the attributes.
      */
-	AssembleAttributes : function (attributes) {
+	AssembleAttributes: function (attributes) {
 		var attr = '', key, value;
 
 		if (attributes === undefined) {
 			return '';
 		} else if (typeof attributes === 'object') {
 			for (key in attributes) {
-				if (typeof key !== "function") {
-					value = attributes[key];
-					if (typeof attributes[key] === 'string') {
-						attr += ' ' + key + '="' + this.Trim(attributes[key]) + '"';
-					} else {
-						attr += ' ' + key;
+				if (attributes.hasOwnProperty(key)) {
+					if (typeof key !== "function") {
+						value = attributes[key];
+						if (typeof attributes[key] === 'string') {
+							attr += ' ' + key + '="' + this.Trim(attributes[key]) + '"';
+						} else {
+							attr += ' ' + key;
+						}
 					}
 				}
 			}
@@ -113,34 +116,34 @@ var tbone = {
      * @param attributes_string - a list of attributes in string form.
      * @return an object representation of the attributes
      */
-	DisassembleAttributes : function (attributes_string) {
+	DisassembleAttributes: function (attributes_string) {
 		var in_quote = false,
 			key = false,
 			key_start = 0,
 			value_start = 0,
             value = 0,
-			attributes = {}, 
-			pos = 0, 
-			chr = ' ', 
+			attributes = {},
+			pos = 0,
+			chr = ' ',
 			str = this.Trim(attributes_string);
 
-		for(pos = 0; pos < str.Length; pos += 1) {
+		for (pos = 0; pos < str.Length; pos += 1) {
 			chr = str.substr(pos, 1);
 			if (in_quote) {
 				// Have we exited quote
-				if (chr == in_quote) {
+				if (chr === in_quote) {
 					attributes[key] = str.substr(value_start, pos - value_start);
 					in_quote = false;
 					value = 0;
 					key = false;
 					key_start = pos + 1;
-				} else if (chr == '\\' && str.substr(pos + 1, 1) == in_quote) {
+				} else if (chr === '\\' && str.substr(pos + 1, 1) === in_quote) {
 					pos += 1;
 				}
-			} else if (chr == '"' || chr == "'") {
+			} else if (chr === '"' || chr === "'") {
 				in_quote = chr;
 				value_start = pos + 1;
-			} else if (chr == '=') {
+			} else if (chr === '=') {
 				key = this.Trim(str.substr(key_start, pos - key_start));
 			}
 		}
@@ -153,21 +156,21 @@ var tbone = {
      * @param attributes - usually something like lange="en"
      * @return a string representation of the HTML page.
      */
-	Html : function (innerHTML, attributes) {
+	Html: function (innerHTML, attributes) {
 		if (attributes === undefined) {
 			attributes = 'lang="en"';
 		}
 		return '<!DOCTYPE html>' + "\n" +
-		'<html' + this.AssembleAttributes(attributes) + '>' + "\n" + innerHTML + '</html>';
+			'<html' + this.AssembleAttributes(attributes) + '>' + "\n" + innerHTML + '</html>';
 	}, /* END: Html() */
-	
+
 	/**
      * Head - render a html head element.
      * @param innerHTML - the contents of head tag
      * @param attributes - e.g. a key/value pair of attribute name and value or string like class="myclass"
      * @return a string representation of the head block
      */
-	Head : function (innerHTML, attributes) {
+	Head: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -180,7 +183,7 @@ var tbone = {
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Title : function (innerHTML, attributes) {
+	Title: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -193,7 +196,7 @@ var tbone = {
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Link : function (innerHTML, attributes) {
+	Link: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -206,7 +209,7 @@ var tbone = {
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Body : function (innerHTML, attributes) {
+	Body: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -219,7 +222,7 @@ var tbone = {
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	H1 : function (innerHTML, attributes) {
+	H1: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -296,7 +299,7 @@ var tbone = {
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
-    */
+     */
 	P : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			return '<p' + this.AssembleAttributes(attributes) + '>';
@@ -316,7 +319,7 @@ var tbone = {
 			innerHTML = '';
 		}
 		if (typeof attributes === "string" && attributes.indexOf("=") < 0) {
-			attributes = {'href' : attributes};			
+			attributes = {'href' : attributes};
 		}
 		return this.Trim('<a' + this.AssembleAttributes(attributes)) + '>' + innerHTML + '</a>';
 	},
@@ -367,7 +370,7 @@ var tbone = {
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Dl : function (innerHTML, attributes) { 
+	Dl : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -423,7 +426,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<th' + this.AssembleAttributes(attributes) + '>' + 
+		return '<th' + this.AssembleAttributes(attributes) + '>' +
 			innerHTML + '</th>';
 	},
 	
@@ -437,7 +440,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<tr' + this.AssembleAttributes(attributes) + '>' + 
+		return '<tr' + this.AssembleAttributes(attributes) + '>' +
 			innerHTML + '</tr>';
 	},
 	
@@ -594,7 +597,7 @@ var tbone = {
 		if (code_source === undefined) {
 			code_source = '';
 		}
-        return '<code' + this.AssembleAttributes(attributes) + '>' + this.Pre( "\n" + code_source + "\n") + '</code>';
+		return '<code' + this.AssembleAttributes(attributes) + '>' + this.Pre("\n" + code_source + "\n") + '</code>';
 	},
 	
 	/**
@@ -713,13 +716,13 @@ var tbone = {
      * @param attributes - optional, other attributes to put into tag
      * @return a string representation of the element
      */
-	Style : function (CSS, attributes ) {
+	Style : function (CSS, attributes) {
 		if (CSS === undefined) {
 			CSS = '';
 		}
 		if (attributes === undefined) {
 			attributes = [];
-		} else if (this.is_string(attributes)) {
+		} else if (typeof attributes === "string") {
 			attributes = this.DisassembleAttributes(attributes);
 		}
 		attributes.type = 'text/css';
@@ -758,7 +761,7 @@ var tbone = {
 	 * @param attributes - a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	THead : function (innerHTML, attributes) {
+	THead: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -771,7 +774,7 @@ var tbone = {
 	 * @param attributes - a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	TBody : function (innerHTML, attributes) {
+	TBody: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -784,7 +787,7 @@ var tbone = {
 	 * @param attributes - a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	TFoot : function (innerHTML, attributes) {
+	TFoot: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -797,7 +800,7 @@ var tbone = {
 	 * @param attributes - a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Optgroup : function Optgroup (innerHTML, attributes) {
+	Optgroup: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -810,7 +813,7 @@ var tbone = {
 	 * @param attributes - a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Fieldset : function (innerHTML, attributes) {
+	Fieldset: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -823,7 +826,7 @@ var tbone = {
 	 * @param attributes - a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Legend : function (innerHTML, attributes) {
+	Legend: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -836,20 +839,20 @@ var tbone = {
 	 * @param attributes - a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	NoScript : function (innerHTML, attributes ) {
+	NoScript: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<noscript' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</noscript>';
 	}, /* END: NoScript() */
-	
+
 	/**
 	 * address - address block
 	 * @param innerHTML - the contents of tag
 	 * @param attributes - a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Address : function (innerHTML, attributes ) {
+	Address: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -875,7 +878,7 @@ var tbone = {
 	 * @param attributes - a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Del : function (innerHTML) {
+	Del: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -887,7 +890,7 @@ var tbone = {
 	 * @param attributes - a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Hr : function (attributes ) {
+	Hr: function (attributes) {
 		return '<hr' + this.AssembleAttributes(attributes) + ' />';
 	}, /* END: Hr() */
 	
@@ -911,16 +914,16 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Abbr : function (abbreviation, full_form, attributes ) {
+	Abbr: function (abbreviation, full_form, attributes) {
 		if (abbreviation === undefined) {
 			abbreviation = '';
 		}
-	if (full_form === undefined) {
-		full_form = '';
-	}
+		if (full_form === undefined) {
+			full_form = '';
+		}
 		if (attributes === undefined) {
 			attributes = [];
-		} else if (is_string(attributes)) {
+		} else if (typeof attributes === "string") {
 			attributes = this.DisassembleAttributes(attributes);
 		}
 		attributes.title = full_form;
@@ -934,13 +937,13 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes 
 	 * @return a string representation of the element
 	 */
-	Acronym : function (acronym, full_form, attributes ) {
+	Acronym: function (acronym, full_form, attributes) {
 		if (acronym === undefined) {
 			acronym = '';
 		}
 		if (attributes === undefined) {
 			attributes = [];
-		} else if (is_string(attributes)) {
+		} else if (typeof attributes === "string") {
 			attributes = this.DisassembleAttributes(attributes);
 		}
 		attributes.title = full_form;
@@ -953,7 +956,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes 
 	 * @return a string representation of the element
 	 */
-	Dfn : function (innerHTML, attributes) {
+	Dfn: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -966,7 +969,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes 
 	 * @return a string representation of the element
 	 */
-	Em : function (innerHTML, attributes) {
+	Em: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -979,7 +982,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes 
 	 * @return a string representation of the element
 	 */
-	Strong : function (innerHTML, attributes) {
+	Strong: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -992,7 +995,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Code : function (innerHTML, attributes ) {
+	Code: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1005,7 +1008,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Samp : function (innerHTML, attributes) {
+	Samp: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1018,7 +1021,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Kbr : function (innerHTML, attributes) {
+	Kbr: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1031,7 +1034,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	B : function (innerHTML, attributes) {
+	B: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1044,7 +1047,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	I : function (innerHTML, attributes) {
+	I: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1057,7 +1060,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Big : function (innerHTML, attributes) {
+	Big: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1070,7 +1073,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Small : function (innerHTML, attributes) {
+	Small: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1083,7 +1086,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Sub : function (innerHTML, attributes) {
+	Sub: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1096,7 +1099,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Sup : function (innerHTML, attributes) {
+	Sup: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1109,7 +1112,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Tt : function (innerHTML, attributes) {
+	Tt: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1123,7 +1126,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Bdo : function (innerHTML, attributes) {
+	Bdo: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1136,11 +1139,11 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Cite : function (innerHTML, attributes) {
+	Cite: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<cite'.this.AssembleAttributes(attributes) + '>' + innerHTML + '</ >';
+		return '<cite' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</ >';
 	}, /* END: Cite() */
 	
 	/**
@@ -1149,7 +1152,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Q : function (innerHTML, attributes) {
+	Q: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1162,7 +1165,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Area : function (innerHTML, attributes) {
+	Area: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1175,7 +1178,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Map : function (innerHTML, attributes) {
+	Map: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1188,11 +1191,11 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Frame : function (innerHTML, attributes) {
+	Frame: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<frame'.this.AssembleAttributes(attributes) + '>' + innerHTML + '</frame>';
+		return '<frame' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</frame>';
 	}, /* END: Frame() */
 	
 	/**
@@ -1201,11 +1204,11 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	NoFrame : function (innerHTML, attributes) {
+	NoFrame: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<noframe'.this.AssembleAttributes(attributes) + '>' + innerHTML + '</noframe>';
+		return '<noframe' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</noframe>';
 	}, /* END: NoFrame() */
 	
 	/**
@@ -1218,7 +1221,7 @@ var tbone = {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
-		return '<iframe'.this.AssembleAttributes(attributes) + '>' + innerHTML + '</iframe>';
+		return '<iframe' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</iframe>';
 	}, /* END: IFrame() */
 	
 	/**
@@ -1227,7 +1230,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	HGroup : function (innerHTML, attributes) {
+	HGroup: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1240,7 +1243,7 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Header : function (innerHTML, attributes) {
+	Header: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -1253,12 +1256,12 @@ var tbone = {
 	 * @param attributes - (optional) a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Footer : function (innerHTML, attributes) {
+	Footer: function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<footer' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</footer>';
-	}, /* END: Footer() */
+	} /* END: Footer() */
 }; /* END: tbone definition */
 
 
@@ -1381,7 +1384,7 @@ var sbquo = '&sbquo;',
 
 	// Right Single Quotes
 	rsquo = '&rsquo;',
-	cc_rsquo = String.fromCharCode(8217)
+	cc_rsquo = String.fromCharCode(8217),
 	rsquo_encodings = [
 		// single quote in iso-8856-1
 		String.fromCharCode(146),
@@ -1415,7 +1418,7 @@ var sbquo = '&sbquo;',
 		// html entity
 		laquo
 	].join("|"),
-	re_laquo = new RegExp(laquo_encodings, 'g'), 
+	re_laquo = new RegExp(laquo_encodings, 'g'),
 
 	raquo = '&raquo;',
 	cc_raquo = String.fromCharCode(187),
@@ -1425,7 +1428,7 @@ var sbquo = '&sbquo;',
 		// html entity
 		raquo
 	].join("|"),
-	re_raquo = new RegExp(raquo_encodings, 'g'), 
+	re_raquo = new RegExp(raquo_encodings, 'g'),
 
 	rdquo = '&rdquo;',
 	cc_rdquo = String.fromCharCode(8221),
@@ -1497,128 +1500,120 @@ var sbquo = '&sbquo;',
 	cc_NewLine = "\n",
 	new_line_encodings = [
 		"\n", "\r", "\f",
-		String.fromCharCode(10), 
+		String.fromCharCode(10),
 		String.fromCharCode(8232),
 		//String.fromCharCode(65533),
 		NewLine
 	].join("|"),
 	re_NewLine = new RegExp(new_line_encodings, 'g');
 
-	
 
-toHtml5Entities = function (s) {
+var toHtml5Entities = function (s) {
 	return s.replace(re_NewLine, NewLine).replace(re_quot, quot).replace(re_apos, apos).replace(re_acute, acute).replace(re_sbquo, sbquo).replace(re_bdquo, bdquo).replace(re_hellip, hellip).replace(re_dagger, dagger).replace(re_Dagger, Dagger).replace(re_lsquo, lsquo).replace(re_rsquo, rsquo).replace(re_ldquo, ldquo).replace(re_rdquo, rdquo).replace(re_bull, bull).replace(re_ndash, ndash).replace(re_mdash, mdash).replace(re_copy, copyright_mark).replace(re_nbsp, nbsp).replace(re_laquo, laquo).replace(re_raquo, raquo);
 };
 
-fromHtml5Entities = function (s) {
+var fromHtml5Entities = function (s) {
 	return s.replace(re_NewLine, cc_NewLine).replace(re_quot,  cc_quot).replace(re_apos, cc_apos).replace(re_acute, cc_acute).replace(re_sbquo, cc_sbquo).replace(re_bdquo, cc_bdquo).replace(re_hellip, cc_hellip).replace(re_dagger, cc_dagger).replace(re_Dagger, cc_Dagger).replace(re_lsquo, cc_lsquo).replace(re_rsquo, cc_rsquo).replace(re_ldquo, cc_ldquo).replace(re_rdquo, cc_rdquo).replace(re_bull, cc_bull).replace(re_ndash, cc_ndash).replace(re_mdash, cc_mdash).replace(re_copy, cc_copyright_mark).replace(re_nbsp, cc_nbsp).replace(re_laquo, cc_laquo).replace(re_raquo, cc_raquo);
 };
 
-stripFontTags = function (s) {
+var stripFontTags = function (s) {
 	var reFontTag = new RegExp(
-		'(<font(\ |\\\\+|[a-z]+|[A-Z]+|=|,|[0-9]|\"|-|#)+>|</font>|<font>)',
+		'<font[^>]*>|<font>|</font>',
 		'gi'
 	);
 
-	return s.replace(reFontTag,'');
+	return s.replace(reFontTag, '');
 };
 
 // Defined some exports if running under NodeJS
-try {
-	if (exports !== undefined) {
-		exports.Mixin = tbone.Mixin;
-		exports.Trim = tbone.Trim;
-		exports.Capitalize = tbone.Capitalize;
-		exports.AssembleAttributes = tbone.AssembleAttributes;
-		exports.Html = tbone.Html;
-		exports.Head = tbone.Head;
-		exports.Title = tbone.Title;
-		exports.Link = tbone.Link;
-		exports.Body = tbone.Body;
-		exports.Header = tbone.Header;
-		exports.Footer = tbone.Footer;
-		exports.H1 = tbone.H1;
-		exports.H2 = tbone.H2;
-		exports.H3 = tbone.H3;
-		exports.H4 = tbone.H4;
-		exports.H5 = tbone.H5;
-		exports.H6 = tbone.H6;
-		exports.P = tbone.P;
-		exports.Br = tbone.Br;
-		exports.A = tbone.A;
-		exports.Ul = tbone.Ul;
-		exports.Ol = tbone.Ol;
-		exports.Li = tbone.Li;
-		exports.Dl = tbone.Dl;
-		exports.Dt = tbone.Dt;
-		exports.Dd = tbone.Dd;
-		exports.Table = tbone.Table;
-		exports.Th = tbone.Th;
-		exports.Tr = tbone.Tr;
-		exports.Td = tbone.Td;
-		exports.Form = tbone.Form;
-		exports.Input = tbone.Input;
-		exports.Textarea = tbone.Textarea;
-		exports.Select = tbone.Select;
-		exports.Option = tbone.Option;
-		exports.Label = tbone.Label;
-		exports.Script = tbone.Script;
-		exports.Pre = tbone.Pre;
-		exports.DemoCode = tbone.DemoCode;
-		exports.Div = tbone.Div;
-		exports.Span = tbone.Span;
-		exports.Menu = tbone.Menu;
-		exports.Img = tbone.Img;
-		exports.Center = tbone.Center;
-		exports.Base = tbone.Base;
-		exports.Meta = tbone.Meta;
-		exports.Object = tbone.Object;
-		exports.Style = tbone.Style;
-		exports.Col = tbone.Col;
-		exports.Colgroup = tbone.Colgroup;
-		exports.THead = tbone.THead;
-		exports.TBody = tbone.TBody;
-		exports.TFoot = tbone.TFoot;
-		exports.Optgroup = tbone.Optgroup;
-		exports.Fieldset = tbone.Fieldset;
-		exports.Legend = tbone.Legend;
-		exports.NoScript = tbone.NoScript;
-		exports.Address = tbone.Address;
-		exports.Blockquote = tbone.Blockquote;
-		exports.Del = tbone.Del;
-		exports.Hr = tbone.Hr;
-		exports.Ins = tbone.Ins;
-		exports.Abbr = tbone.Abbr;
-		exports.Acronym = tbone.Acronym;
-		exports.Dfn = tbone.Dfn;
-		exports.Em = tbone.Em;
-		exports.Strong = tbone.Strong;
-		exports.Code = tbone.Code;
-		exports.Samp = tbone.Samp;
-		exports.Kbr = tbone.Kbr;
-		exports.B = tbone.B;
-		exports.I = tbone.I;
-		exports.Big = tbone.Big;
-		exports.Small = tbone.Small;
-		exports.Sub = tbone.Sub;
-		exports.Sup = tbone.Sup;
-		exports.Tt = tbone.Tt;
-		exports.Bdo = tbone.Bdo;
-		exports.Cite = tbone.Cite;
-		exports.Q = tbone.Q;
-		exports.Area = tbone.Area;
-		exports.Map = tbone.Map;
-		exports.Frame = tbone.Frame;
-		exports.NoFrame = tbone.NoFrame;
-		exports.IFrame = tbone.IFrame;
-		exports.HGroup = tbone.HGroup;
-		
-		// Markup normalization methods
-		exports.fromHtml5Entities = fromHtml5Entities;
-		exports.toHtml5Entities = toHtml5Entities;
-		exports.stripFontTags = stripFontTags;
-		
-	} // END: defining exports
-} catch(err) {
-	// Ignore if exports not supported. E.g. in the browser
-};
+exports.Mixin = tbone.Mixin;
+exports.Trim = tbone.Trim;
+exports.Capitalize = tbone.Capitalize;
+exports.AssembleAttributes = tbone.AssembleAttributes;
+exports.Html = tbone.Html;
+exports.Head = tbone.Head;
+exports.Title = tbone.Title;
+exports.Link = tbone.Link;
+exports.Body = tbone.Body;
+exports.Header = tbone.Header;
+exports.Footer = tbone.Footer;
+exports.H1 = tbone.H1;
+exports.H2 = tbone.H2;
+exports.H3 = tbone.H3;
+exports.H4 = tbone.H4;
+exports.H5 = tbone.H5;
+exports.H6 = tbone.H6;
+exports.P = tbone.P;
+exports.Br = tbone.Br;
+exports.A = tbone.A;
+exports.Ul = tbone.Ul;
+exports.Ol = tbone.Ol;
+exports.Li = tbone.Li;
+exports.Dl = tbone.Dl;
+exports.Dt = tbone.Dt;
+exports.Dd = tbone.Dd;
+exports.Table = tbone.Table;
+exports.Th = tbone.Th;
+exports.Tr = tbone.Tr;
+exports.Td = tbone.Td;
+exports.Form = tbone.Form;
+exports.Input = tbone.Input;
+exports.Textarea = tbone.Textarea;
+exports.Select = tbone.Select;
+exports.Option = tbone.Option;
+exports.Label = tbone.Label;
+exports.Script = tbone.Script;
+exports.Pre = tbone.Pre;
+exports.DemoCode = tbone.DemoCode;
+exports.Div = tbone.Div;
+exports.Span = tbone.Span;
+exports.Menu = tbone.Menu;
+exports.Img = tbone.Img;
+exports.Center = tbone.Center;
+exports.Base = tbone.Base;
+exports.Meta = tbone.Meta;
+exports.Object = tbone.Object;
+exports.Style = tbone.Style;
+exports.Col = tbone.Col;
+exports.Colgroup = tbone.Colgroup;
+exports.THead = tbone.THead;
+exports.TBody = tbone.TBody;
+exports.TFoot = tbone.TFoot;
+exports.Optgroup = tbone.Optgroup;
+exports.Fieldset = tbone.Fieldset;
+exports.Legend = tbone.Legend;
+exports.NoScript = tbone.NoScript;
+exports.Address = tbone.Address;
+exports.Blockquote = tbone.Blockquote;
+exports.Del = tbone.Del;
+exports.Hr = tbone.Hr;
+exports.Ins = tbone.Ins;
+exports.Abbr = tbone.Abbr;
+exports.Acronym = tbone.Acronym;
+exports.Dfn = tbone.Dfn;
+exports.Em = tbone.Em;
+exports.Strong = tbone.Strong;
+exports.Code = tbone.Code;
+exports.Samp = tbone.Samp;
+exports.Kbr = tbone.Kbr;
+exports.B = tbone.B;
+exports.I = tbone.I;
+exports.Big = tbone.Big;
+exports.Small = tbone.Small;
+exports.Sub = tbone.Sub;
+exports.Sup = tbone.Sup;
+exports.Tt = tbone.Tt;
+exports.Bdo = tbone.Bdo;
+exports.Cite = tbone.Cite;
+exports.Q = tbone.Q;
+exports.Area = tbone.Area;
+exports.Map = tbone.Map;
+exports.Frame = tbone.Frame;
+exports.NoFrame = tbone.NoFrame;
+exports.IFrame = tbone.IFrame;
+exports.HGroup = tbone.HGroup;
+
+// Markup normalization methods
+exports.fromHtml5Entities = fromHtml5Entities;
+exports.toHtml5Entities = toHtml5Entities;
+exports.stripFontTags = stripFontTags;

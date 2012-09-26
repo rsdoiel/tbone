@@ -10,6 +10,7 @@
  *
  * Notes: runs under NodeJS
  */
+/*jslint devel: true, node: true, maxerr: 50, indent: 4,  vars: true, sloppy: true */
 
 var	assert = require('assert'),
 	harness = require("../lib/harness.js"),
