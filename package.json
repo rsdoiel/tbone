@@ -7,25 +7,23 @@
 		"type" : "git", 
 		"url" : "http://github.com/rsdoiel/tbone.git"
 	},
-  	"dependencies" : {},
-	"engines" : { "node":"*" },
-    "author" : {
-        "name" : "R. S. Doiel", 
-        "email" : "rsdoiel@gmail.com", 
-        "url" : "https://github.com/rsdoiel"
-    },
-    "maintainers" : [{
-        "name" : "R. S. Doiel", 
-        "url" : "https://github.com/rsdoiel"
-    }],
-    "engines" : {
-        "node" : ">= 0.4",
-        "npm" : ">= 1"
-    },
-    "scripts": {
-    	"test": "node js/tbone_test.js"
-    },
+	"engines" : {
+		"node" : ">= 0.7.12",
+		"npm" : ">= 1.1.30"
+	},
+	"author" : {
+		"name" : "R. S. Doiel", 
+		"email" : "rsdoiel@gmail.com", 
+		"url" : "https://github.com/rsdoiel"
+	},
+	"maintainers" : [{
+		"name" : "R. S. Doiel", 
+		"url" : "https://github.com/rsdoiel"
+	}],
+	"scripts": {
+		"test": "node tests/tbone_test.js"
+	},
 	"bugs": {
-        "url": "http://github.com/rsdoiel/tbone/issues"
-    }
+		"url": "http://github.com/rsdoiel/tbone/issues"
+	}
 }
