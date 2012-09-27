@@ -17,7 +17,135 @@
  */
 /*jslint devel: true, node: true, maxerr: 50, indent: 4,  vars: true, sloppy: true */
 
+/* Prototype of new TBone */
+var TBone = {
+	docString: '',
+	tag: '',
+	innerHTML: '',
+	attributes: {}
+};
 
+TBone.clear = function () {
+	this.docString = '';
+	this.tag = '';
+	this.innerHTML = '';
+	this.attributes = {};
+};
+
+TBone.html = function () {
+	var i,
+		parts = [];
+
+	this.docType = "<!DOCTYPE html>";
+	this.tag = 'html';
+	for (i = 0; i < arguments.length; i += 1) {
+		if (typeof arguments[i] === "object") {
+			parts.push(arguments[i].toString());
+		} else {
+			parts.push(arguments[i]);
+		}
+	}
+	this.innerHTML = parts.join("");
+	return this;
+};
+
+TBone.head = function () {
+	var i,
+		parts = [];
+
+	this.docType = "";
+	this.tag = 'head';
+	for (i = 0; i < arguments.length; i += 1) {
+		if (typeof arguments[i] === "object") {
+			parts.push(arguments[i].toString());
+		} else {
+			parts.push(arguments[i]);
+		}
+	}
+	this.innerHTML = parts.join("");
+	return this;
+};
+
+TBone.body = function () {
+	var i,
+		parts = [];
+
+	this.docType = "";
+	this.tag = 'body';
+	for (i = 0; i < arguments.length; i += 1) {
+		if (typeof arguments[i] === "object") {
+			parts.push(arguments[i].toString());
+		} else {
+			parts.push(arguments[i]);
+		}
+	}
+	this.innerHTML = parts.join("");
+	return this;
+};
+
+
+TBone.p = function () {
+	var i,
+		parts = [];
+
+	this.tag = 'p';
+	for (i = 0; i < arguments.length; i += 1) {
+		if (typeof arguments[i] === "object") {
+			parts.push(arguments[i].toString());
+		} else {
+			parts.push(arguments[i]);
+		}
+	}
+	this.innerHTML = parts.join("");
+	return this;
+};
+
+TBone.attr = function (attributes) {
+	this.attributes = attributes;
+	console.log(this.attributes);
+	return this;
+};
+
+TBone.toString = function () {
+	var attrs = [],
+		output = [],
+		docString = this.docString,
+		tag = this.tag,
+		attributes = this.attributes,
+		innerHTML = this.innerHTML;
+
+	this.clear();
+	if (docString.length > 0) {
+		output.push(docString + "\n");
+	}
+	Object.keys(attributes).forEach(function (ky) {
+		attrs.push([ky, "=", '"', attributes[ky], '"'].join(""));
+	});
+
+	if (innerHTML.length > 0) {
+		if (output.length > 0) {
+			output.push("<" + tag + " " + attrs.join(" ") + ">" +
+				innerHTML + "</" + tag + ">");
+		} else {
+			output.push("<" + tag + ">" + innerHTML + "</" + tag + ">");
+		}
+	} else {
+		if (attrs.length > 0) {
+			output.push("<" + tag + " " + attrs.join(" ") + " />");
+		} else {
+			output.push("<" + tag + " />");
+		}
+	}
+	return output.join("");
+};
+
+var create = function () {
+	return Object.create(Object.prototype, TBone);
+};
+
+exports.create = create;
+
+/* Legacy tbone */
 var tbone = {
 	/**
      * Mixin - attach the tbone functions to an object.
@@ -72,7 +200,7 @@ var tbone = {
 			positions = [];
 			positions.push(p);
 		}
-
+		
 		for (p = 0; p < positions.length; p += 1) {
 			i = positions[p];
 			if (words[i] !== undefined) {
@@ -81,7 +209,7 @@ var tbone = {
 		}
 		return words.join(" ");
 	}, /* End: Capitalize() */
-
+	
 	/**
      * AssembleAttributes - formats a valid set of attribute strings.
      * @param attributes - either an associative array or formatted string.
@@ -149,7 +277,7 @@ var tbone = {
 		}
 		return attributes;
 	}, /* END: DisassembleAttributes() */
-
+	
 	/**
      * Html - for the outer HTML and Doctype wrapper for an HTML page.
      * @param innerHTML - usually a head and body tag with their contents.
@@ -176,7 +304,7 @@ var tbone = {
 		}
 		return '<head' + this.AssembleAttributes(attributes) + '>' + "\n" + innerHTML + '</head>' + "\n";
 	}, /* END: Head() */
-
+	
 	/**
      * Title - render an html title element
      * @param innerHTML - the contents of tag
@@ -189,7 +317,7 @@ var tbone = {
 		}
 		return '<title' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</title>';
 	},
-
+	
 	/**
      * Link - an html link element
      * @param innerHTML - the contents of tag
@@ -202,7 +330,7 @@ var tbone = {
 		}
 		return '<link' + this.AssembleAttributes(attributes) + ' />';
 	},
-
+	
 	/**
      * Body - render an html body element
      * @param innerHTML - the contents of tag
@@ -215,7 +343,7 @@ var tbone = {
 		}
 		return '<body' + this.AssembleAttributes(attributes) + '>' + "\n" + innerHTML + '</body>';
 	},
-
+	
 	/**
      * H1 - render an html h1 element
      * @param innerHTML - the contents of tag
@@ -228,93 +356,93 @@ var tbone = {
 		}
 		return '<h1' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</h1>';
 	},
-
+	
 	/**
      * H2 - render an html h2 element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	H2: function (innerHTML, attributes) {
+	H2 : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<h2' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</h2>';
 	},
-
+	
 	/**
      * H3 - render an html h3 element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	H3: function (innerHTML, attributes) {
+	H3 : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<h3' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</h3>';
 	},
-
+	
 	/**
      * H4 - render an html h4 element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	H4: function (innerHTML, attributes) {
+	H4 : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<h4' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</h4>';
 	},
-
+	
 	/**
      * H5 - render an html h5 element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	H5: function (innerHTML, attributes) {
+	H5 : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<h5' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</h5>';
 	},
-
+	
 	/**
      * H6 - render an html h6 element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	H6: function (innerHTML, attributes) {
+	H6 : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<h6' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</h6>';
 	},
-
+	
 	/**
      * P - render an html paragraph element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	P: function (innerHTML, attributes) {
+	P : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			return '<p' + this.AssembleAttributes(attributes) + '>';
 		} else {
 			return '<p' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</p>';
 		}
 	},
-
+	
 	/**
      * A - render an html anchor element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	A: function (innerHTML, attributes) {
+	A : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -323,152 +451,153 @@ var tbone = {
 		}
 		return this.Trim('<a' + this.AssembleAttributes(attributes)) + '>' + innerHTML + '</a>';
 	},
-
+	
 	/**
      * Ul - render an html un-order list element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Ul: function (innerHTML, attributes) {
+	Ul : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<ul' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</ul>';
 	},
-
+	
+	
 	/**
      * Ol - render an html order list element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Ol: function (innerHTML, attributes) {
+	Ol : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<ol' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</ol>';
 	},
-
+	
 	/**
      * Li - render an html list item element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Li: function (innerHTML, attributes) {
+	Li : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<li' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</li>';
 	},
-
+	
 	/**
      * Dl - render an html definition list element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Dl: function (innerHTML, attributes) {
+	Dl : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<dl' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</dl>';
 	},
-
+	
 	/**
      * Dt - render an html definition term element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Dt: function (innerHTML, attributes) {
+	Dt : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<dt' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</dt>';
 	},
-
+	
 	/**
      * Dd - render an html definition defined element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Dd: function (innerHTML, attributes) {
+	Dd : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<dd' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</dd>';
 	},
-
+	
 	/**
      * Table - render an html a table element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Table: function (innerHTML, attributes) {
+	Table : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<table' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</table>';
 	},
-
+	
 	/**
      * Th - render an html table header element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Th: function (innerHTML, attributes) {
+	Th : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<th' + this.AssembleAttributes(attributes) + '>' +
 			innerHTML + '</th>';
 	},
-
+	
 	/**
      * Tr - render an html table row element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Tr: function (innerHTML, attributes) {
+	Tr : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<tr' + this.AssembleAttributes(attributes) + '>' +
 			innerHTML + '</tr>';
 	},
-
+	
 	/**
      * Td - render an html table data element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Td: function (innerHTML, attributes) {
+	Td : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<td' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</td>';
 	},
-
+	
 	/**
      * Form - render an html form element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Form: function (innerHTML, attributes) {
+	Form : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<form' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</form>';
 	},
-
+	
 	/**
      * Input - render an html input element
      * @param name - the name of the input field
@@ -476,7 +605,7 @@ var tbone = {
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Input: function (name, value, attributes) {
+	Input : function (name, value, attributes) {
 		if (name === undefined) {
 			name = '';
 		}
@@ -485,7 +614,7 @@ var tbone = {
 		}
 		return '<input name="' + name + '" value="' + value + '"' + this.AssembleAttributes(attributes) + ' />';
 	},
-
+	
 	/**
      * Button - create an input button 
      * @param name - the name of the button
@@ -493,12 +622,12 @@ var tbone = {
      * @attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Button: function (name, value, attributes) {
+	Button : function (name, value, attributes) {
 		var attr = this.DisassembleAttributes(this.AssembleAttributes(attributes));
 		attr.type = 'button';
 		return this.Input(name, value, attr);
 	},
-
+	
 	/**
      * Textarea - render an html textarea element
      * @param name - the name of a textarea
@@ -506,13 +635,13 @@ var tbone = {
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Textarea: function (name, value, attributes) {
+	Textarea : function (name, value, attributes) {
 		if (value === undefined) {
 			value = '';
 		}
 		return '<textarea name="' + name + '"' + this.AssembleAttributes(attributes) + '>' + value + '</textarea>';
 	},
-
+	
 	/**
      * Select - an html select element
      * @param name - name of the select element
@@ -520,7 +649,7 @@ var tbone = {
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Select: function (name, innerHTML, attributes) {
+	Select : function (name, innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -529,14 +658,14 @@ var tbone = {
 		}
 		return '<select name="' + name + '"' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</select>';
 	},
-
+	
 	/**
      * Option - an html option element
      * @param value - a value for the element
      * @param label - for the option
      * @return a string representation of the element
      */
-	Option: function (value, label, attributes) {
+	Option : function (value, label, attributes) {
 		if (value === undefined) {
 			value = '';
 		}
@@ -545,80 +674,80 @@ var tbone = {
 		}
 		return '<option value="' + value + '"' + this.AssembleAttributes(attributes) + '>' + label + '</option>';
 	},
-
+	
 	/**
      * Label - an html label element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or hash of key/values representing attributes
      * @return a string representation of the element
      */
-	Label: function (innerHTML, attributes) {
+	Label : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<label' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</label>';
 	},
-
+	
 	/**
      * Script - an html script element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or hash of key/values representing attributes
      * @return a string representation of the element
      */
-	Script: function (url, code, attributes) {
+	Script : function (url, code, attributes) {
 		if (url !== undefined) {
 			return '<script type="JavaScript" rel="text/javascript" src="' + url + '"' + this.AssembleAttributes(attributes) + '></script>';
 		} else {
 			return '<script type="JavaScript" rel="text/javascript"' + this.AssembleAttributes(attributes) + '>' + code + '</script>';
 		}
 	},
-
+	
 	/**
      * Pre - an html pre element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or hash of key/values representing attributes
      * @return a string representation of the element
      */
-	Pre: function (innerHTML, attributes) {
+	Pre : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<pre' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</pre>';
 	},
-
+	
 	/**
      * DemoCode - an html composite of code and pre tags
      * @param innerHTML - the contents of tag
      * @param attributes - a string or hash of key/values representing attributes
      * @return a string representation of the element
      */
-	DemoCode: function (code_source, attributes) {
+	DemoCode : function (code_source, attributes) {
 		if (code_source === undefined) {
 			code_source = '';
 		}
 		return '<code' + this.AssembleAttributes(attributes) + '>' + this.Pre("\n" + code_source + "\n") + '</code>';
 	},
-
+	
 	/**
      * Div - an html div element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or hash of key/values representing attributes
      * @return a string representation of the element
      */
-	Div: function (innerHTML, attributes) {
+	Div : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<div' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</div>';
 	},
-
+	
 	/**
      * Span - an html span element
      * @param innerHTML - the contents of tag
      * @param attributes - a string or hash of key/values representing attributes
      * @return a string representation of the element
      */
-	Span: function (innerHTML, attributes) {
+	Span : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -632,27 +761,27 @@ var tbone = {
      * @param attributes
      * @return a string representation of the element
      */
-	Menu: function (label, innerHTML, attributes) {
+	Menu : function (label, innerHTML, attributes) {
 		return '<menu label="' + label + '"' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</menu>';
 	},
-
+	
 	/**
      * Img - image element
      * @param src
      * @param attributes
      * @return a string representation of the element
      */
-	Img: function (src, attributes) {
+	Img : function (src, attributes) {
 		return '<img src="' + src + '"' + this.AssembleAttributes(attributes) + '/>';
 	},
-
+	
 	/**
      * Center - render a center tag
      * @param innerHTML - the contents of tag
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Center: function (innerHTML, attributes) {
+	Center : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -664,7 +793,7 @@ var tbone = {
      * @param attributes - a string or object of key/values representing attributes
      * @return a string representation of the element
      */
-	Br: function (innerHTML, attributes) {
+	Br : function (innerHTML, attributes) {
 		return '<br' + this.AssembleAttributes(attributes) + '/>';
 	},
 
@@ -674,7 +803,7 @@ var tbone = {
      * @param attributes - optional, other attributes to put into tag
      * @return a string representation of the element
      */
-	Base: function (href, attributes) {
+	Base : function (href, attributes) {
 		if (attributes === undefined) {
 			attributes = [];
 		} else if (typeof attributes === "string") {
@@ -683,13 +812,13 @@ var tbone = {
 		attributes.href = href;
 		return '<base' + this.AssembleAttributes(attributes) + ' />';
 	}, /* END: Base() */
-
+	
 	/**
      * Meta - render a meta tag from a list of key/value pairs
      * @param attributes - a string or hash of key/values representing attributes
      * @return a string representation of the element
      */
-	Meta: function (attributes) {
+	Meta : function (attributes) {
 		if (attributes === undefined) {
 			attributes = {};
 		}
@@ -702,20 +831,20 @@ var tbone = {
      * @param attributes - a string or hash of key/values representing attributes
      * @return a string representation of the element
      */
-	Object: function (innerHTML, attributes) {
+	Object : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
 		return '<object' + attributes + '>' + innerHTML + '</object>';
 	}, /* END: Object() */
-
+	
 	/**
      * Style - render a style element
      * @param $CSS - the CSS you want to include in the style element.
      * @param attributes - optional, other attributes to put into tag
      * @return a string representation of the element
      */
-	Style: function (CSS, attributes) {
+	Style : function (CSS, attributes) {
 		if (CSS === undefined) {
 			CSS = '';
 		}
@@ -734,7 +863,7 @@ var tbone = {
      * @param attributes - a string or hash of key/values representing attributes
      * @return a string representation of the element
      */
-	Col: function (innerHTML, attributes) {
+	Col : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -747,7 +876,7 @@ var tbone = {
      * @param attributes - a string or hash of key/values representing attributes
      * @return a string representation of the element
      */
-	Colgroup: function (innerHTML, attributes) {
+	Colgroup : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -766,7 +895,7 @@ var tbone = {
 		}
 		return '<thead' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</thead>';
 	}, /* END: THead() */
-
+	
 	/**
 	 * TBody - render a caption element
 	 * @param innerHTML - the contents of tag
@@ -805,7 +934,7 @@ var tbone = {
 		}
 		return '<optgroup' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</optgroup>';
 	}, /* END: Optgroup() */
-
+	
 	/**
 	 * Fieldset - a fieldset element
 	 * @param innerHTML - the contents of tag
@@ -818,7 +947,7 @@ var tbone = {
 		}
 		return '<fieldset' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</fieldset>';
 	}, /* END: Fieldset() */
-
+	
 	/**
 	 * Legend - a legend fieldset element
 	 * @param innerHTML - the contents of tag
@@ -892,14 +1021,14 @@ var tbone = {
 	Hr: function (attributes) {
 		return '<hr' + this.AssembleAttributes(attributes) + ' />';
 	}, /* END: Hr() */
-
+	
 	/**
 	 * Ins - insert content
 	 * @param innerHTML - the contents of tag
 	 * @param attributes - a string or hash of key/values representing attributes
 	 * @return a string representation of the element
 	 */
-	Ins: function (innerHTML, attributes) {
+	Ins : function (innerHTML, attributes) {
 		if (innerHTML === undefined) {
 			innerHTML = '';
 		}
@@ -928,7 +1057,7 @@ var tbone = {
 		attributes.title = full_form;
 		return '<abbr' + this.AssembleAttributes(attributes) + '>' + abbreviation + '</abbr>';
 	}, /* END: Abbr() */
-
+	
 	/**
 	 * Acronym - acronym element.
 	 * @param $acronym - the short form (e.g. HTML)
@@ -961,7 +1090,7 @@ var tbone = {
 		}
 		return '<dfn' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</dfn>';
 	}, /* END: Dfn() */
-
+	
 	/**
 	 * Em - an emphasis element
 	 * @param innerHTML - the contents of tag
@@ -974,7 +1103,7 @@ var tbone = {
 		}
 		return '<em' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</em>';
 	}, /* END: Em() */
-
+	
 	/**
 	 * Strong - a strong element
 	 * @param innerHTML - the contents of tag
@@ -987,7 +1116,7 @@ var tbone = {
 		}
 		return '<strong' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</strong>';
 	}, /* END: Strong() */
-
+	
 	/**
 	 * Code - an code element
 	 * @param innerHTML - the contents of tag
@@ -1013,7 +1142,7 @@ var tbone = {
 		}
 		return '<samp' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</samp>';
 	}, /* END: Samp() */
-
+	
 	/**
 	 * Kbr - a "text to be entered by the user" element
 	 * @param innerHTML - the contents of tag
@@ -1026,7 +1155,7 @@ var tbone = {
 		}
 		return '<kbr' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</kbr>';
 	}, /* END: Kbr() */
-
+	
 	/**
 	 * B - a bold element. Sets font to boldface where possible.
 	 * @param innerHTML - the contents of tag
@@ -1039,7 +1168,7 @@ var tbone = {
 		}
 		return '<b' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</b>';
 	}, /* END: B() */
-
+	
 	/**
 	 * I - a intalics element. Sets font to italic where possible.
 	 * @param innerHTML - the contents of tag
@@ -1052,7 +1181,7 @@ var tbone = {
 		}
 		return '<i' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</i>';
 	}, /* END: I() */
-
+	
 	/**
 	 * Big - a big element. Increases font size (bigger text).
 	 * @param innerHTML - the contents of tag
@@ -1065,7 +1194,7 @@ var tbone = {
 		}
 		return '<big' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</big>';
 	}, /* END: Big() */
-
+	
 	/**
 	 * Small - a small element. Decreases font size (smaller text).
 	 * @param innerHTML - the contents of tag
@@ -1078,7 +1207,7 @@ var tbone = {
 		}
 		return '<small' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</small>';
 	}, /* END: Small() */
-
+	
 	/**
 	 * Sub - a subscript element.
 	 * @param innerHTML - the contents of tag
@@ -1091,7 +1220,7 @@ var tbone = {
 		}
 		return '<sub' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</sub>';
 	}, /* END: Sub() */
-
+	
 	/**
 	 * Sup - a super script element.
 	 * @param innerHTML - the contents of tag
@@ -1104,7 +1233,7 @@ var tbone = {
 		}
 		return '<sup' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</sup>';
 	}, /* END: Sup() */
-
+	
 	/**
 	 * Tt - a teletype element. Fixed-width font (typewriter-like)
 	 * @param innerHTML - the contents of tag
@@ -1117,7 +1246,7 @@ var tbone = {
 		}
 		return '<tt' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</tt>';
 	}, /* END: Tt() */
-
+	
 	/**
 	 * Bdo - a bdo element. Marks an inline section of text in which 
 	 * the reading direction is the opposite from that of the parent element.
@@ -1131,7 +1260,7 @@ var tbone = {
 		}
 		return '<bdo' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</bdo>';
 	}, /* END: Bdo() */
-
+	
 	/**
 	 * Cite - an html span element
 	 * @param innerHTML - the contents of tag
@@ -1144,7 +1273,7 @@ var tbone = {
 		}
 		return '<cite' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</ >';
 	}, /* END: Cite() */
-
+	
 	/**
 	 * Q - an in-line quotation element
 	 * @param innerHTML - the contents of tag
@@ -1157,7 +1286,7 @@ var tbone = {
 		}
 		return '<q' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</q>';
 	}, /* END: Q() */
-
+	
 	/**
 	 * Area - an area element
 	 * @param innerHTML - the contents of tag
@@ -1170,7 +1299,7 @@ var tbone = {
 		}
 		return '<area' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</area>';
 	}, /* END: Area() */
-
+	
 	/**
 	 * Map - a map element
 	 * @param innerHTML - the contents of tag
@@ -1183,7 +1312,7 @@ var tbone = {
 		}
 		return '<map' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</map>';
 	}, /* END: Map() */
-
+	
 	/**
 	 * Frame - render a frame element
 	 * @param innerHTML - the contents of tag
@@ -1196,7 +1325,7 @@ var tbone = {
 		}
 		return '<frame' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</frame>';
 	}, /* END: Frame() */
-
+	
 	/**
 	 * NoFrame - render a noframe element
 	 * @param innerHTML - the contents of tag
@@ -1209,7 +1338,7 @@ var tbone = {
 		}
 		return '<noframe' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</noframe>';
 	}, /* END: NoFrame() */
-
+	
 	/**
 	 * IFrame - render a frame element
 	 * @param innerHTML - the contents of tag
@@ -1222,7 +1351,7 @@ var tbone = {
 		}
 		return '<iframe' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</iframe>';
 	}, /* END: IFrame() */
-
+	
 	/**
 	 * HGroup - an hgroup element
 	 * @param innerHTML - the contents of tag
@@ -1262,6 +1391,7 @@ var tbone = {
 		return '<footer' + this.AssembleAttributes(attributes) + '>' + innerHTML + '</footer>';
 	} /* END: Footer() */
 }; /* END: tbone definition */
+
 
 //
 // fromHtmlEntities(), toHtmlEntities() are content normalization
@@ -1356,7 +1486,7 @@ var sbquo = '&sbquo;',
 		apos
 	].join("|"),
 	re_apos = new RegExp(apos_encodings, "g"),
-
+	
 	acute = '&acute;',
 	cc_acute = String.fromCharCode(180),
 	acute_encodings = [
@@ -1393,7 +1523,7 @@ var sbquo = '&sbquo;',
 		rsquo
 	].join("|"),
 	re_rsquo = new RegExp(rsquo_encodings, 'g'),
-
+	
 	// double quotes in iso-8856-1
 	ldquo = '&ldquo;',
 	cc_ldquo = String.fromCharCode(8220),
@@ -1407,7 +1537,7 @@ var sbquo = '&sbquo;',
 		ldquo
 	].join("|"),
 	re_ldquo = new RegExp(ldquo_encodings, 'g'),
-
+	
 	laquo = '&laquo;',
 	cc_laquo = String.fromCharCode(171),
 	laquo_encodings = [
@@ -1483,7 +1613,7 @@ var sbquo = '&sbquo;',
 		copyright_mark
 	].join("|"),
 	re_copy = new RegExp(copy_encodings, 'g'),
-
+	
 	nbsp = '&nbsp;',
 	cc_nbsp = String.fromCharCode(160),
 	nbsp_encodings = [
@@ -1505,6 +1635,7 @@ var sbquo = '&sbquo;',
 	].join("|"),
 	re_NewLine = new RegExp(new_line_encodings, 'g');
 
+
 var toHtml5Entities = function (s) {
 	return s.replace(re_NewLine, NewLine).replace(re_quot, quot).replace(re_apos, apos).replace(re_acute, acute).replace(re_sbquo, sbquo).replace(re_bdquo, bdquo).replace(re_hellip, hellip).replace(re_dagger, dagger).replace(re_Dagger, Dagger).replace(re_lsquo, lsquo).replace(re_rsquo, rsquo).replace(re_ldquo, ldquo).replace(re_rdquo, rdquo).replace(re_bull, bull).replace(re_ndash, ndash).replace(re_mdash, mdash).replace(re_copy, copyright_mark).replace(re_nbsp, nbsp).replace(re_laquo, laquo).replace(re_raquo, raquo);
 };
@@ -1518,6 +1649,7 @@ var stripFontTags = function (s) {
 		'<font[^>]*>|<font>|</font>',
 		'gi'
 	);
+
 	return s.replace(reFontTag, '');
 };
 
