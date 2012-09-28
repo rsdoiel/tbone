@@ -15,7 +15,7 @@
  * See: http://opensource.org/licenses/bsd-license.php
  *
  */
-/*jslint devel: true, node: true, maxerr: 50, indent: 4,  vars: true, sloppy: true */
+/*jslint devel: true, node: true, maxerr: 25, indent: 4,  vars: true, sloppy: true, maxcomplexity: 10, maxparameters: 3, maxstatements: 100, maxdepth: 4 */
 
 /* Prototype of new TBone */
 (function (global) {
