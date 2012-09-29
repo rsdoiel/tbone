@@ -15,7 +15,7 @@
  * See: http://opensource.org/licenses/bsd-license.php
  *
  */
-/*jslint devel: true, node: true, maxerr: 25, indent: 4,  vars: true, sloppy: true, maxcomplexity: 10, maxparameters: 3, maxstatements: 100, maxdepth: 4 */
+/*jslint devel: true, node: true, maxerr: 25, indent: 4,  vars: true, sloppy: true */
 
 /* Prototype of new TBone */
 (function (global) {
@@ -502,7 +502,7 @@
 	Html.font = function () {
 		tag('font', arguments);
 		return this;
-	}
+	};
 
 	Html.create = function () {
 		return Object.create(Object.prototype, Html);
