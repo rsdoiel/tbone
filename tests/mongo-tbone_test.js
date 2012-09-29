@@ -1,5 +1,6 @@
 /**
- * tbone_test.js - basic functionality tests for tbone.js's functions.
+ * mongo-tbone_test.js - basic functionality tests for tbone.js's 
+ * under the Mongo DB Shell 2.2 functions.
  *
  * author R. S. Doiel, <rsdoiel@gmail.com>
  *
@@ -13,8 +14,8 @@
 /*jslint devel: true, node: true, maxerr: 50, indent: 4,  vars: true, sloppy: true */
 
 var	assert = require('assert'),
-	harness = require("../lib/harness.js"),
-	tbone = require('../tbone');
+	harness = require("harness"),
+	tbone = require('./tbone');
 
 harness.push({callback: function () {
 	// Test the factory method
@@ -220,8 +221,4 @@ harness.push({callback: function () {
 
 }, label: "Tests 0.0.0 - 0.0.3e"});
 
-if (require.main === module) {
-	harness.RunIt("tbone_test.js", 10, true);
-} else {
-	exports.RunIt = harness.RunIt;
-}
+harness.RunIt("tbone_test.js", 10, true);

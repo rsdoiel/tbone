@@ -1,26 +1,22 @@
 /**
- * tbone_test.js - basic functionality tests for tbone.js's functions.
+ * browser-tbone_test.js - basic functionality tests for tbone.js's functions.
  *
  * author R. S. Doiel, <rsdoiel@gmail.com>
  *
  * copyright (c) 2011 all rights reserved
  *
- * Released under New the BSD License.
+ * Released under the Simplified BSD License.
  * See: http://opensource.org/licenses/bsd-license.php
  *
  * Notes: runs under NodeJS, Mongo 2.2 shell and web browsers
  */
 /*jslint devel: true, node: true, maxerr: 50, indent: 4,  vars: true, sloppy: true */
 
-var	assert = require('assert'),
-	harness = require("../lib/harness.js"),
-	tbone = require('../tbone');
-
 harness.push({callback: function () {
 	// Test the factory method
 	var s, expected_s, i, tb;
 
-    tb = new tbone.HTML();
+    tb = new TBone.HTML();
 
     expected_s = '<!DOCTYPE html>' + "\n" + '<html></html>';
 	s = tb.html('').toString();
