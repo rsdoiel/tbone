@@ -14,14 +14,14 @@
 
 var	assert = require('assert'),
 	harness = require("../lib/harness.js"),
-	TBone = require('../tbone');
+	tbone = require('../tbone');
 
 harness.push({callback: function () {
 	// Test the factory method
 	var s, expected_s, i, tb;
-    
-    tb = TBone.HTML.create();
-	
+
+    tb = new tbone.HTML();
+
     expected_s = '<!DOCTYPE html>' + "\n" + '<html></html>';
 	s = tb.html('').toString();
 	assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
@@ -39,11 +39,11 @@ harness.push({callback: function () {
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<link />';
-	s = tb.link('');
+	s = tb.link('').toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<body></body>';
-	s = tb.body('');
+	s = tb.body('').toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<h1>hello world</h1>';
@@ -79,7 +79,7 @@ harness.push({callback: function () {
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = "<a></a>";
-	s = tb.a("");
+	s = tb.a("").toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = "<a href=\"http://example.com\">here</a>";
@@ -141,12 +141,21 @@ harness.push({callback: function () {
     s = tb.input().attr({value: "Something"}).toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
-    expected_s = '<select name=""></select>';
+    expected_s = '<select></select>';
 	s = tb.select().toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
-    expected_s = '<option value=""></option>';
-	s = tb.option().attr({value: ""}).toString();
+
+    expected_s = '<option></option>';
+	s = tb.option().toString();
+    assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
+
+    expected_s = '<select name="location"></select>';
+	s = tb.select().attr({name: "location"}).toString();
+    assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
+
+    expected_s = '<option value="Los Angeles"></option>';
+	s = tb.option().attr({value: "Los Angeles"}).toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<label></label>';
@@ -181,12 +190,12 @@ harness.push({callback: function () {
 	var result_string;
 	
 	for (i = 0; i < test_strings.length && i < expected_strings.length; i += 1) {
-		result_string = tb.toHtml5Entities(test_strings[i]);
+		result_string = tb.toHTML5Entities(test_strings[i]);
 		assert.equal(result_string, expected_strings[i], ['to Expected [', expected_strings[i], '] found [', result_string, ']'].join(""));
 	}
 	
 	for (i = 0; i < test_strings.length && i < expected_strings.length; i += 1) {
-		result_string = tb.fromHtml5Entities(expected_strings[i]);
+		result_string = tb.fromHTML5Entities(expected_strings[i]);
 		assert.equal(result_string, test_strings[i], ['from Expected [', test_strings[i], '] found [', result_string, ']'].join(""));
 	}
 	

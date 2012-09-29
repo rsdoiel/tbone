@@ -17,526 +17,31 @@
  */
 /*jslint devel: true, node: true, maxerr: 25, indent: 4,  vars: true, sloppy: true */
 
-/* Prototype of new TBone */
-(function (global) {
-	var TBone = {};
-	
-	var Html = {
-		docString: '',
-		tag: '',
-		innerHTML: '',
-		attributes: {}
-	};
-	
-	var tag = function (tag) {
-		var i, parts = [];
+var HTML = function () {
+	var self = this;
 
-		if (tag === "html") {
-			this.docType = "<!DOCTYPE html>";
-		} else {
-			this.docType = "";
+	this.docType =  '';
+	this.asTwo = true;
+	this.html_tag =  '';
+	this.innerHTML = [];
+	this.attributes =  {};
+
+	// Private tag(), setups the tag and innerHTML fields
+	var tag = function (tag, args) {
+		var i;
+		self.html_tag = tag;
+		if (args === undefined) {
+			return this;
 		}
-		this.tag = tag;
-		for (i = 1; i < arguments.length; i += 1) {
-			if (typeof arguments[i] === "object") {
-				parts.push(arguments[i].toString());
-			} else {
-				parts.push(arguments[i]);
-			}
+		for (i = 0; i < args.length; i += 1) {
+			self.innerHTML.push(args[i]);
 		}
-		this.innerHTML = parts.join("");
 		return this;
 	};
 
-	Html.reset = function () {
-		this.docString = '';
-		this.tag = '';
-		this.innerHTML = '';
-		this.attributes = {};
-	};
-
-	Html.attr = function (attributes) {
-		this.attributes = attributes;
-		console.log(this.attributes);
-		return this;
-	};
-	
-	Html.toString = function () {
-		var attrs = [],
-			output = [],
-			docString = this.docString,
-			tag = this.tag,
-			attributes = this.attributes,
-			innerHTML = this.innerHTML;
-	
-		this.reset();
-		if (docString.length > 0) {
-			output.push(docString + "\n");
-		}
-		Object.keys(attributes).forEach(function (ky) {
-			attrs.push([ky, "=", '"', attributes[ky], '"'].join(""));
-		});
-	
-		if (innerHTML.length > 0) {
-			if (output.length > 0) {
-				output.push("<" + tag + " " + attrs.join(" ") + ">" +
-					innerHTML + "</" + tag + ">");
-			} else {
-				output.push("<" + tag + ">" + innerHTML + "</" + tag + ">");
-			}
-		} else {
-			if (attrs.length > 0) {
-				output.push("<" + tag + " " + attrs.join(" ") + " />");
-			} else {
-				output.push("<" + tag + " />");
-			}
-		}
-		return output.join("");
-	};
-	
-	Html.html = function () {
-		tag('html', arguments);
-		return this;
-	};
-
-	Html.head = function () {
-		tag('head', arguments);
-		return this;
-	};
-
-	Html.title = function () {
-		tag('html', arguments);
-		return this;
-	};
-
-	Html.link = function () {
-		tag('html', arguments);
-		return this;
-	};
-	Html.body = function () {
-		tag('body', arguments);
-		return this;
-	};
-	Html.h1 = function () {
-		tag('h1', arguments);
-		return this;
-	};
-	Html.h2 = function () {
-		tag('h2', arguments);
-		return this;
-	};
-	Html.h3 = function () {
-		tag('h3', arguments);
-		return this;
-	};
-	Html.h4 = function () {
-		tag('h4', arguments);
-		return this;
-	};
-	Html.h5 = function () {
-		tag('h5', arguments);
-		return this;
-	};
-	Html.h6 = function () {
-		tag('h6', arguments);
-		return this;
-	};
-	Html.a = function () {
-		tag('a', arguments);
-		return this;
-	};
-	Html.p = function () {
-		tag('p', arguments);
-		return this;
-	};
-	Html.ul = function () {
-		tag('ul', arguments);
-		return this;
-	};
-	Html.ol = function () {
-		tag('ol', arguments);
-		return this;
-	};
-	Html.li = function () {
-		tag('li', arguments);
-		return this;
-	};
-	Html.dl = function () {
-		tag('dl', arguments);
-		return this;
-	};
-	Html.dt = function () {
-		tag('dt', arguments);
-		return this;
-	};
-	Html.dd = function () {
-		tag('dt', arguments);
-		return this;
-	};
-
-	Html.table = function () {
-		tag('table', arguments);
-		return this;
-	};
-
-	Html.Th = function () {
-		tag('Th', arguments);
-		return this;
-	};
-	Html.tr = function () {
-		tag('tr', arguments);
-		return this;
-	};
-	
-	Html.td = function () {
-		tag('td', arguments);
-		return this;
-	};
-	
-	Html.caption = function () {
-		tag('caption', arguments);
-		return this;
-	};
-
-	Html.embed = function () {
-		tag('embed', arguments);
-		return this;
-	};
-
-	Html.form = function () {
-		tag('form', arguments);
-		return this;
-	};
-
-	Html.input = function () {
-		tag('input', arguments);
-		return this;
-	};
-	
-	Html.button = function () {
-		tag('button', arguments);
-		return this;
-	};
-
-	Html.textarea = function () {
-		tag('textarea', arguments);
-		return this;
-	};
-
-	Html.select = function () {
-		tag('select', arguments);
-		return this;
-	};
-
-	Html.option = function () {
-		tag('option', arguments);
-		return this;
-	};
-
-	Html.label = function () {
-		tag('label', arguments);
-		return this;
-	};
-	
-	Html.script = function () {
-		tag('script', arguments);
-		return this;
-	};
-	
-	Html.pre = function () {
-		tag('pre', arguments);
-		return this;
-	};
-	
-	Html.div = function () {
-		tag('div', arguments);
-		return this;
-	};
-
-	Html.span = function () {
-		tag('span', arguments);
-		return this;
-	};
-
-	Html.menu = function () {
-		tag('menu', arguments);
-		return this;
-	};
-
-	Html.img = function () {
-		tag('img', arguments);
-		return this;
-	};
-	
-	Html.object = function () {
-		tag('object', arguments);
-		return this;
-	};
-	
-	Html.param = function () {
-		tag('param', arguments);
-		return this;
-	};
-
-	Html.center = function () {
-		tag('center', arguments);
-		return this;
-	};
-
-	Html.br = function () {
-		tag('br', arguments);
-		return this;
-	};
-
-	Html.base = function () {
-		tag('base', arguments);
-		return this;
-	};
-
-	Html.meta = function () {
-		tag('meta', arguments);
-		return this;
-	};
-
-	Html.style = function () {
-		tag('style', arguments);
-		return this;
-	};
-
-	Html.col = function () {
-		tag('col', arguments);
-		return this;
-	};
-	
-	Html.colGroup = function () {
-		tag('colGroup', arguments);
-		return this;
-	};
-	
-
-	Html.section = function () {
-		tag('section', arguments);
-		return this;
-	};
-
-	Html.tHead = function () {
-		tag('thead', arguments);
-		return this;
-	};
-	Html.tBody = function () {
-		tag('tbody', arguments);
-		return this;
-	};
-	Html.tFoot = function () {
-		tag('tfoot', arguments);
-		return this;
-	};
-	Html.optGroup = function () {
-		tag('optGroup', arguments);
-		return this;
-	};
-	Html.fieldSet = function () {
-		tag('fieldSet', arguments);
-		return this;
-	};
-	Html.legend = function () {
-		tag('legend', arguments);
-		return this;
-	};
-	Html.noScript = function () {
-		tag('noScript', arguments);
-		return this;
-	};
-	Html.address = function () {
-		tag('address', arguments);
-		return this;
-	};
-	
-	Html.blockquote = function () {
-		tag('blockquote', arguments);
-		return this;
-	};
-	
-	Html.del = function () {
-		tag('del', arguments);
-		return this;
-	};
-	Html.hr = function () {
-		tag('hr', arguments);
-		return this;
-	};
-	Html.ins = function () {
-		tag('ins', arguments);
-		return this;
-	};
-	
-	Html.abbr = function () {
-		tag('abbr', arguments);
-		return this;
-	};
-
-	Html.dfn = function () {
-		tag('dfn', arguments);
-		return this;
-	};
-
-	Html["var"] = function () {
-		tag('var', arguments);
-		return this;
-	};
-
-	Html.em = function () {
-		tag('em', arguments);
-		return this;
-	};
-	Html.strong = function () {
-		tag('strong', arguments);
-		return this;
-	};
-	Html.code = function () {
-		tag('code', arguments);
-		return this;
-	};
-	Html.samp = function () {
-		tag('samp', arguments);
-		return this;
-	};
-	Html.kbr = function () {
-		tag('kbr', arguments);
-		return this;
-	};
-	Html.b = function () {
-		tag('b', arguments);
-		return this;
-	};
-	
-	Html.i = function () {
-		tag('i', arguments);
-		return this;
-	};
-	
-	Html.u = function () {
-		tag('u', arguments);
-		return this;
-	};
-
-	Html.s = function () {
-		tag('s', arguments);
-		return this;
-	};
-
-	Html.small = function () {
-		tag('small', arguments);
-		return this;
-	};
-	Html.sub = function () {
-		tag('sub', arguments);
-		return this;
-	};
-	Html.sup = function () {
-		tag('sup', arguments);
-		return this;
-	};
-	Html.tt = function () {
-		tag('tt', arguments);
-		return this;
-	};
-	
-	Html.bdo = function () {
-		tag('bdo', arguments);
-		return this;
-	};
-
-	Html.cite = function () {
-		tag('cite', arguments);
-		return this;
-	};
-	
-	Html.q = function () {
-		tag('q', arguments);
-		return this;
-	};
-	
-	Html.wbr = function () {
-		tag('wbr', arguments);
-		return this;
-	};
-
-	Html.area = function () {
-		tag('area', arguments);
-		return this;
-	};
-	Html.map = function () {
-		tag('map', arguments);
-		return this;
-	};
-	Html.frame = function () {
-		tag('frame', arguments);
-		return this;
-	};
-	Html.noFrame = function () {
-		tag('noFrame', arguments);
-		return this;
-	};
-	Html.iFrame = function () {
-		tag('iFrame', arguments);
-		return this;
-	};
-	Html.hGroup = function () {
-		tag('hGroup', arguments);
-		return this;
-	};
-	Html.header = function () {
-		tag('header', arguments);
-		return this;
-	};
-	Html.footer = function () {
-		tag('footer', arguments);
-		return this;
-	};
-	
-	Html.comment = function (msg) {
-		return '<!--' + msg + '-->';
-	};
-	
-	Html.font = function () {
-		tag('font', arguments);
-		return this;
-	};
-
-	Html.create = function () {
-		return Object.create(Object.prototype, Html);
-	};
-	
-	// CSS processing
-	var CSS = {
-		sources: [],
-		options: {},
-		compressor: null
-	};
-	
-	CSS.create = function () {
-		return Object.create(Object.prototype, CSS);
-	};
-	
-	// JavaScript Processing
-	var JS = {
-		sources: [],
-		options: {},
-		compressor: null
-	};
-	
-	JS.create = function () {
-		return Object.create(Object.prototype, JS);
-	};
-
-
-	TBone.HTML = Html;
-	TBone.CSS = CSS;
-	TBone.JS = JS;
 
 	//
-	// fromHtmlEntities(), toHtmlEntities() are content normalization
+	// fromHTMLEntities(), toHTMLEntities() are content normalization
 	// methods to improve the quality of the tbone output
 	//
 	// References notes were
@@ -777,28 +282,584 @@
 		re_NewLine = new RegExp(new_line_encodings, 'g');
 	
 	
-	TBone.toHtml5Entities = function (s) {
-		return s.replace(re_NewLine, NewLine).replace(re_quot, quot).replace(re_apos, apos).replace(re_acute, acute).replace(re_sbquo, sbquo).replace(re_bdquo, bdquo).replace(re_hellip, hellip).replace(re_dagger, dagger).replace(re_Dagger, Dagger).replace(re_lsquo, lsquo).replace(re_rsquo, rsquo).replace(re_ldquo, ldquo).replace(re_rdquo, rdquo).replace(re_bull, bull).replace(re_ndash, ndash).replace(re_mdash, mdash).replace(re_copy, copyright_mark).replace(re_nbsp, nbsp).replace(re_laquo, laquo).replace(re_raquo, raquo);
-	};
-	
-	TBone.fromHtml5Entities = function (s) {
-		return s.replace(re_NewLine, cc_NewLine).replace(re_quot,  cc_quot).replace(re_apos, cc_apos).replace(re_acute, cc_acute).replace(re_sbquo, cc_sbquo).replace(re_bdquo, cc_bdquo).replace(re_hellip, cc_hellip).replace(re_dagger, cc_dagger).replace(re_Dagger, cc_Dagger).replace(re_lsquo, cc_lsquo).replace(re_rsquo, cc_rsquo).replace(re_ldquo, cc_ldquo).replace(re_rdquo, cc_rdquo).replace(re_bull, cc_bull).replace(re_ndash, cc_ndash).replace(re_mdash, cc_mdash).replace(re_copy, cc_copyright_mark).replace(re_nbsp, cc_nbsp).replace(re_laquo, cc_laquo).replace(re_raquo, cc_raquo);
-	};
-	
-	TBone.stripFontTags = function (s) {
-		var reFontTag = new RegExp(
-			'<font[^>]*>|<font>|</font>',
-			'gi'
-		);
-	
-		return s.replace(reFontTag, '');
-	};
 
-	if (global.exports === undefined) {
-		global.TBone = TBone;
-	} else {
-		global.exports.HTML = Html;
-		global.exports.CSS = CSS;
-		global.exports.JS = JS;
-	}
-}(this));
+	return {
+		reset: function () {
+			self.docType = '';
+			self.asTwo = true;
+			self.html_tag = '';
+			self.innerHTML = [];
+			self.attributes = {};
+		},
+
+		attr: function (attributes) {
+			self.attributes = attributes;
+			return this;
+		},
+		
+		toString: function () {
+			var attrs = [],
+				output = [],
+				asTwo = self.asTwo,
+				docType = self.docType,
+				html_tag = self.html_tag,
+				attributes = self.attributes,
+				innerHTML = self.innerHTML,
+				text,
+				ky;
+		
+			this.reset();
+			if (docType.length > 0) {
+				output.push(docType + "\n");
+			}
+			for (ky in attributes) {
+				if (attributes.hasOwnProperty(ky)) {
+					attrs.push([ky, "=", '"', attributes[ky], '"'].join(""));
+				}
+			}
+			if (innerHTML.length > 0) {
+				for (i = 0; i < innerHTML.length; i += 1) {
+					if (typeof innerHTML[i] === "string") {
+						text = innerHTML[i];
+					} else {
+						text = typeof innerHTML[i] + ", " + i + ": " + JSON.stringify(innerHTML[i]);
+					}
+					if (attrs.length > 0) {
+						output.push(String("<" + html_tag + " " +
+							attrs.join(" ")).trim() + ">" +
+							text + "</" + html_tag + ">");
+					} else {
+						output.push("<" + html_tag + ">" + text +
+							"</" + html_tag + ">");
+					}
+				}
+			} else if (asTwo) {
+				if (attrs.length > 0) {
+					output.push(String("<" + html_tag + " " +
+						attrs.join(" ")).trim() + ">" + "</" + html_tag + ">");
+				} else {
+					output.push("<" + html_tag + ">" +
+						"</" + html_tag + ">");
+				}
+			} else {
+				if (html_tag === "p") {
+					if (attrs.length > 0) {
+						output.push(String("<p " + attrs.join(" ")).trim() + ">");
+					} else {
+						output.push("<p>");
+					}
+				} else {
+					if (attrs.length > 0) {
+						output.push(String("<" + html_tag + " " + attrs.join(" ")).trim() + " />");
+					} else {
+						output.push("<" + html_tag + " />");
+					}
+				}
+			}
+			return output.join("");
+		},
+		
+		html: function () {
+			self.docType = "<!DOCTYPE html>";
+			tag('html', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		head: function () {
+			tag('head', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		title: function () {
+			tag('title', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		link: function () {
+			self.asTwo = false;
+			tag('link');
+			return this;
+		},
+
+		body: function () {
+			tag('body', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		h1: function () {
+			tag('h1', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		h2: function () {
+			tag('h2', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		h3: function () {
+			tag('h3', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		h4: function () {
+			tag('h4', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		h5: function () {
+			tag('h5', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		h6: function () {
+			tag('h6', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		a: function () {
+			tag('a', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		p: function () {
+			var args = Array.prototype.slice.call(arguments);
+			
+			if (args.length > 0) {
+				self.asTwo = true;
+				tag('p', args);
+			} else {
+				self.asTwo = false;
+				tag('p', args);
+			}
+			return this;
+		},
+
+		ul: function () {
+			tag('ul', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		ol: function () {
+			tag('ol', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		li: function () {
+			tag('li', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		dl: function () {
+			tag('dl', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		dt: function () {
+			tag('dt', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		dd: function () {
+			tag('dd', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		table: function () {
+			tag('table', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		th: function () {
+			tag('th', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		tr: function () {
+			tag('tr', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		td: function () {
+			tag('td', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		caption: function () {
+			tag('caption', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		embed: function () {
+			tag('embed', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		form: function () {
+			tag('form', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		input: function () {
+			self.asTwo = false;
+			tag('input');
+			return this;
+		},
+		
+		button: function () {
+			self.asTwo = false;
+			tag('button');
+			return this;
+		},
+
+		textarea: function () {
+			tag('textarea', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		select: function () {
+			tag('select', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		option: function () {
+			tag('option', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		label: function () {
+			tag('label', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		script: function () {
+			self.asTwo = true;
+			tag('script', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		pre: function () {
+			self.asTwo = true;
+			tag('pre', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		div: function () {
+			tag('div', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		span: function () {
+			tag('span', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		menu: function () {
+			tag('menu', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		img: function () {
+			self.asTwo = false;
+			tag('img');
+			return this;
+		},
+		
+		object: function () {
+			tag('object', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		param: function () {
+			tag('param', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		center: function () {
+			tag('center', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		br: function () {
+			self.asTwo = false;
+			tag('br');
+			return this;
+		},
+
+		base: function () {
+			tag('base', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		meta: function () {
+			self.asTwo = false;
+			tag('meta');
+			return this;
+		},
+
+		style: function () {
+			tag('style', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		col: function () {
+			tag('col', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		colGroup: function () {
+			tag('colGroup', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		section: function () {
+			tag('section', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		tHead: function () {
+			tag('thead', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		tBody: function () {
+			tag('tbody', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		tFoot: function () {
+			tag('tfoot', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		optGroup: function () {
+			tag('optGroup', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		fieldSet: function () {
+			tag('fieldSet', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		legend: function () {
+			tag('legend', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		noScript: function () {
+			tag('noScript', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		address: function () {
+			tag('address', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		blockquote: function () {
+			tag('blockquote', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		del: function () {
+			tag('del', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		hr: function () {
+			self.asTwo = false;
+			tag('hr');
+			return this;
+		},
+		
+		ins: function () {
+			tag('ins', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		abbr: function () {
+			tag('abbr', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		dfn: function () {
+			tag('dfn', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		em: function () {
+			tag('em', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		strong: function () {
+			tag('strong', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		code: function () {
+			tag('code', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		samp: function () {
+			tag('samp', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		kbr: function () {
+			tag('kbr', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		"var": function () {
+			tag('var', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		b: function () {
+			tag('b', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		i: function () {
+			tag('i', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		u: function () {
+			tag('u', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		s: function () {
+			tag('s', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		small: function () {
+			tag('small', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		sub: function () {
+			tag('sub', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		sup: function () {
+			tag('sup', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		tt: function () {
+			tag('tt', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		bdo: function () {
+			tag('bdo', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		cite: function () {
+			tag('cite', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		q: function () {
+			tag('q', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		wbr: function () {
+			tag('wbr', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		area: function () {
+			tag('area', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		"map": function () {
+			tag('map', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		"frame": function () {
+			tag('frame', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		noFrame: function () {
+			tag('noFrame', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		iFrame: function () {
+			tag('iFrame', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		hGroup: function () {
+			tag('hGroup', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		"header": function () {
+			tag('header', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		footer: function () {
+			tag('footer', Array.prototype.slice.call(arguments));
+			return this;
+		},
+		
+		comment: function (msg) {
+			return '<!--' + msg + '-->';
+		},
+		
+		font: function () {
+			tag('font', Array.prototype.slice.call(arguments));
+			return this;
+		},
+
+		// HTML 5 entity and utility methods
+		toHTML5Entities: function (s) {
+			return s.replace(re_NewLine, NewLine).replace(re_quot, quot).replace(re_apos, apos).replace(re_acute, acute).replace(re_sbquo, sbquo).replace(re_bdquo, bdquo).replace(re_hellip, hellip).replace(re_dagger, dagger).replace(re_Dagger, Dagger).replace(re_lsquo, lsquo).replace(re_rsquo, rsquo).replace(re_ldquo, ldquo).replace(re_rdquo, rdquo).replace(re_bull, bull).replace(re_ndash, ndash).replace(re_mdash, mdash).replace(re_copy, copyright_mark).replace(re_nbsp, nbsp).replace(re_laquo, laquo).replace(re_raquo, raquo);
+		},
+		
+		fromHTML5Entities: function (s) {
+			return s.replace(re_NewLine, cc_NewLine).replace(re_quot,  cc_quot).replace(re_apos, cc_apos).replace(re_acute, cc_acute).replace(re_sbquo, cc_sbquo).replace(re_bdquo, cc_bdquo).replace(re_hellip, cc_hellip).replace(re_dagger, cc_dagger).replace(re_Dagger, cc_Dagger).replace(re_lsquo, cc_lsquo).replace(re_rsquo, cc_rsquo).replace(re_ldquo, cc_ldquo).replace(re_rdquo, cc_rdquo).replace(re_bull, cc_bull).replace(re_ndash, cc_ndash).replace(re_mdash, cc_mdash).replace(re_copy, cc_copyright_mark).replace(re_nbsp, cc_nbsp).replace(re_laquo, cc_laquo).replace(re_raquo, cc_raquo);
+		},
+		
+		stripFontTags: function (s) {
+			var reFontTag = new RegExp(
+				'<font[^>]*>|<font>|</font>',
+				'gi'
+			);
+		
+			return s.replace(reFontTag, '');
+		}
+	};
+};
+
+// CSS processing
+var CSS = function (config) {
+	this.sources = [];
+	this.options = {};
+	this.compressor = null;
+};
+
+// JavaScript Processing
+var JS = function () {
+	this.sources = [];
+	this.options = {};
+	this.compressor = null;
+};
+
+exports.HTML = HTML;
+exports.CSS = CSS;
+exports.JS = JS;
