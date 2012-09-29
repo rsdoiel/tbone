@@ -26,6 +26,8 @@ It is designed to work in NodeJS, Mongo's shell (via [mongo-modules](https://git
 	).toString());
 ```
 
+# Coming attractions
+
 ## Folding in CSS/JS with concatenation
 
 TBone provides a limited facility to concatenate CSS or JavaScript files. Both
