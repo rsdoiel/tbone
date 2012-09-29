@@ -1,15 +1,15 @@
 {
 	"name" : "tbone",
-	"version" : "0.0.3f",
-	"description" : "A simple library to generate valid HTML and normalizing markup",
+	"version" : "0.1.0",
+	"description" : "A simple library to generate valid HTML and normalizing markup.",
 	"main" : "./js/tbone.js",
 	"repository" : { 
 		"type" : "git", 
 		"url" : "http://github.com/rsdoiel/tbone.git"
 	},
 	"engines" : {
-		"node" : ">= 0.7.12",
-		"npm" : ">= 1.1.30"
+		"node" : ">= 0.8.11",
+		"npm" : ">= 1.1.62"
 	},
 	"author" : {
 		"name" : "R. S. Doiel", 
