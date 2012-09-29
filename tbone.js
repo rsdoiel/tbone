@@ -857,13 +857,41 @@
 		this.sources = [];
 		this.options = {};
 		this.compressor = null;
+		this.fs = null;
+		return {
+			as: function (collection, filename) {
+				throw "CSS.as() not implemented.";
+			},
+			
+			include: function (collection, source_code) {
+				throw "CSS.include() not implemented.";
+			},
+			
+			inline: function (collection, options) {
+				throw "CSS.inline() not implemented.";
+			}
+		};
 	};
 	
 	// JavaScript Processing
-	var JS = function () {
+	var JS = function (config) {
 		this.sources = [];
 		this.options = {};
 		this.compressor = null;
+		this.fs = null;
+		return {
+			as: function (collection, filename) {
+				throw "JS.as() not implemented.";
+			},
+			
+			include: function (collection, source_code) {
+				throw "JS.include() not implemented.";
+			},
+			
+			inline: function (collection, options) {
+				throw "JS.inline() not implemented.";
+			}
+		};
 	};
 	
 	// Setup for module include
@@ -871,7 +899,7 @@
 	exports.CSS = CSS;
 	exports.JS = JS;
 	
-	// Setup for brower
+	// Setup for browser
 	global.TBone = {
 		HTML: HTML,
 		CSS: CSS,
