@@ -9,7 +9,7 @@
  * Released under New the BSD License.
  * See: http://opensource.org/licenses/bsd-license.php
  *
- * Notes: runs under NodeJS
+ * Notes: runs under NodeJS, Mongo 2.2 shell and web browsers
  */
 /*jslint devel: true, node: true, maxerr: 50, indent: 4,  vars: true, sloppy: true */
 
