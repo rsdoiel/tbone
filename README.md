@@ -86,13 +86,14 @@ have three methods - include(), inline() and as().
 
 	// Displaying an HTML 5 friendly div with CSS
 	// writing in-line and JS combined at bottom of div.
-	console.log(html.widget(
+	console.log(
+		html.widget(
 			html.div(
 				html.h1("Hello World"),
 			),
 			html.CSS.inline(),
 			html.JS.inline("base")
-		)
-	).toString());
+		).toString()
+	);
 ```
 
