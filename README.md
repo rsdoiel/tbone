@@ -55,18 +55,20 @@ have three methods - include(), inline() and as().
 	js.as("base", "js/combined.js");
 	
 	// Displaying an HTML 5 valid HTML page.
-	console.log(html.htmlDoc(
-		html.html(
-			html.head(
-				html.title("Hello World"),
-				html.style(css.inline("style"))
-			),
-			html.body(
-				html.h1("Hello World"),
-				html.script().attr({src: "js/combined.js"})
+	console.log(
+		html.htmlDoc(
+			html.html(
+				html.head(
+					html.title("Hello World"),
+					html.style(css.inline("style"))
+				),
+				html.body(
+					html.h1("Hello World"),
+					html.script().attr({src: "js/combined.js"})
+				)
 			)
-		)
-	).toString());
+		).toString()
+	);
 ```
 
 ## Generating self contained widgets with CSS and HTML fragments.
