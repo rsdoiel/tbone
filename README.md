@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/rsdoiel/tbone.png)](http://travis-ci.org/rsdoiel/tbone)
 TBone
 =====
 
