@@ -25,15 +25,15 @@ harness.push({callback: function () {
     expected_s = '<!DOCTYPE html>' + "\n" + '<html></html>';
 	s = tb.html('').toString();
 	assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
-	
+
     expected_s = '<!DOCTYPE html>' + "\n" + '<html lang="en"></html>';
     s = tb.html('').attr({lang: "en"}).toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
-	
+
     expected_s = '<head></head>';
 	s = tb.head('').toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
-	
+
     expected_s = '<title>hello world</title>';
 	s = tb.title('hello world').toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
@@ -49,7 +49,7 @@ harness.push({callback: function () {
     expected_s = '<h1>hello world</h1>';
 	s = tb.h1('hello world').toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
-	
+
     expected_s = '<h2>hello world</h2>';
 	s = tb.h2('hello world').toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
@@ -62,7 +62,7 @@ harness.push({callback: function () {
 	s = tb.h4('hello world').toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
-    expected_s = '<h5>hello world</h5>';
+	expected_s = '<h5>hello world</h5>';
 	s = tb.h5('hello world').toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
@@ -85,26 +85,26 @@ harness.push({callback: function () {
     expected_s = "<a href=\"http://example.com\">here</a>";
 	s = tb.a("here").attr({href: "http://example.com"}).toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
-	
+
     expected_s = "<a href=\"http://example.com\" title=\"I'm here\">here</a>";
 	s = tb.a("here").attr({
         "href": "http://example.com",
         title: "I'm here"
     }).toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
-	
+
     expected_s = "<ul></ul>";
 	s = tb.ul('').toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
-	
+
     expected_s = '<ol></ol>';
     s = tb.ol('').toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
-	
+
     expected_s = '<li></li>';
 	s = tb.li('').toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
-	
+
     expected_s = '<dl></dl>';
 	s = tb.dl('').toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
@@ -169,7 +169,7 @@ harness.push({callback: function () {
     expected_s = '<footer></footer>';
 	s = tb.footer().toString();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
-	
+
 	// test for toHtml5Entities()
 	var test_strings = [
 		"Hello World!",
@@ -188,18 +188,17 @@ harness.push({callback: function () {
         "&&NewLine;that was it."
 	];
 	var result_string;
-	
+
 	for (i = 0; i < test_strings.length && i < expected_strings.length; i += 1) {
 		result_string = tb.toHTML5Entities(test_strings[i]);
 		assert.equal(result_string, expected_strings[i], ['to Expected [', expected_strings[i], '] found [', result_string, ']'].join(""));
 	}
-	
+
 	for (i = 0; i < test_strings.length && i < expected_strings.length; i += 1) {
 		result_string = tb.fromHTML5Entities(expected_strings[i]);
 		assert.equal(result_string, test_strings[i], ['from Expected [', test_strings[i], '] found [', result_string, ']'].join(""));
 	}
-	
-	
+
 	test_strings = [
 		'big <font>red</font>',
         'big <font color=red>red</font> bus',
@@ -212,7 +211,7 @@ harness.push({callback: function () {
         "big red bus",
         "big red bus"
 	];
-	
+
 	for (i = 0; i < test_strings.length && i < expected_strings.length; i += 1) {
 		result_string = tb.stripFontTags(test_strings[i]);
 		assert.equal(result_string, expected_strings[i], ["No. ", (i + 1), ' to Expected [', expected_strings[i], '] found [', result_string, ']'].join(""));
