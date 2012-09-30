@@ -90,8 +90,8 @@ have three methods - include(), inline() and as().
 			html.div(
 				html.h1("Hello World"),
 			),
-		html.CSS.inline(),
-		html.JS.inline("base")
+			html.CSS.inline(),
+			html.JS.inline("base")
 		)
 	).toString());
 ```
