@@ -13,8 +13,8 @@
 /*jslint devel: true, node: true, maxerr: 50, indent: 4,  vars: true, sloppy: true */
 
 var	assert = require('assert'),
-	harness = require("./lib/harness.js"),
-	TBone = require('./tbone');
+	harness = require("../lib/harness.js"),
+	TBone = require('../tbone');
 
 harness.push({callback: function () {
 	var s,
@@ -66,7 +66,6 @@ harness.push({callback: function () {
 harness.push({callback: function () {
 	var s,
 		expected_s,
-		threw_error = false,
 		tb = new TBone.HTML();
 	
 	tb.label = "p";
@@ -110,7 +109,6 @@ harness.push({callback: function () {
 	s = tb.toString();
 	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
 
-
 	harness.completed("simple toString()");
 }, label: "simple toString()"});
 
@@ -118,17 +116,50 @@ harness.push({callback: function () {
 	var s, expected_s, tb = new TBone.HTML();
 	
 	assert.ok(tb, "Should have an object created by new TBone.HTML()");
-	expected_s = "<p></p>";
-	s = tb.p().toString();
+	expected_s = "<div></div>";
+	s = tb.div().toString();
 	assert.equal(s, expected_s, "\n[" + s + "]\n[" + expected_s + "]");
 
-	tb.label = 'p';
+	tb.label = 'div';
 	tb.attributes = tb.assembleAttributes({id: "me"});
-	expected_s = '<p id="me"></p>';
-	s = tb.p().attr({id: "me"}).toString();
+	expected_s = '<div id="me"></div>';
+	s = tb.div().attr({id: "me"}).toString();
 	assert.equal(s, expected_s, "\n[" + s + "]\n[" + expected_s + "]");
-	harness.completed("prototype p");
-}, label: "prototype p"});
+	harness.completed("prototype div");
+    
+    tb.label = '';
+    tb.attributes = '';
+    tb.content = '';
+    expected_s = '<div>Hello World</div>';
+    s = tb.div("Hello World").toString();
+    assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+    tb.label = '';
+    tb.attributes = '';
+    tb.content = '';
+    tb.label = 'div';
+	tb.attributes = tb.assembleAttributes({id: "me"});
+	expected_s = '<div id="me">Hello World</div>';
+	s = tb.div("Hello World").attr({id: "me"}).toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+    // Now try nesting
+    tb.label = '';
+    tb.attributes = '';
+    tb.content = '';
+	expected_s = '<div><div>Hello World</div></div>';
+	s = tb.div(tb.div("Hello World")).toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+    tb.label = '';
+    tb.attributes = '';
+    tb.content = '';
+    expected_s = '<div id="outer"><div id="inner">Hello World</div></div>';
+	s = tb.div(tb.div("Hello World").attr({id: "inner"})).attr({id: "outer"}).toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+    harness.completed("prototype div");
+}, label: "prototype div"});
 
 /*
 harness.push({callback: function () {

@@ -20,21 +20,21 @@
 
 (function (global) {
 	/**
-	 * trim - a convenience function to Trim the whitespace from the 
-	 * start and end of a string.
-	 * @param s - the string to Tri
-	 * @return a Trimmed string
-	 */
+     * trim - a convenience function to Trim the whitespace from the 
+     * start and end of a string.
+     * @param s - the string to Tri
+     * @return a Trimmed string
+     */
 	var trim = function (s) {
-		return s.replace(/^\s+|\s+$/g,"");
-	}; /* End: Trim() */
+		return s.replace(/^\s+|\s+$/g, "");
+	}; /* End: trim() */
 
 	/**
-	 * capitalize - capitalize words delimited by a space
-	 * @param s - the string to capitalize
-	 * @param positions - one or more word positions to capitalize.
-	 * @return a capitalized string
-	 */
+     * capitalize - capitalize words delimited by a space
+     * @param s - the string to capitalize
+     * @param positions - one or more word positions to capitalize.
+     * @return a capitalized string
+     */
 	var capitalize = function (s, positions) {
 		var i, p, words = s.split(" ");
 
@@ -102,17 +102,17 @@
 			}
 			return trim(attr);
 		} else if (typeof attributes === "string") {
-				return trim(attributes);
+			return trim(attributes);
 		}
 		throw "assembleAttributes() can't process type " + typeof attributes;
 	}; /* END: assembleAttributes() */
 
 	/**
-	 * disassembleAttributes - parse an attribute string (e.g. 
-	 * 'class="myclass" id="fred"') into an associative array
-	 * @param attributes_string - a list of attributes in string form.
-	 * @return an object representation of the attributes
-	 */
+     * disassembleAttributes - parse an attribute string (e.g. 
+     * 'class="myclass" id="fred"') into an associative array
+     * @param attributes_string - a list of attributes in string form.
+     * @return an object representation of the attributes
+     */
 	HTML.prototype.disassembleAttributes = function (attributes_string) {
 		var in_quote = false,
 			key = false,
@@ -141,7 +141,7 @@
 					key = false;
 					key_start = pos + 1;
 				} else if (chr === '\\' &&
-							str.substr(pos + 1, 1) === in_quote) {
+                        str.substr(pos + 1, 1) === in_quote) {
 					pos += 1;
 				}
 			} else if (chr === '"' || chr === "'") {
@@ -171,22 +171,28 @@
 		return this;
 	}; /* END: attr(), sets attributes */
 	
-	HTML.prototype.toString = function () {
-		var parts = [],
+    // assembleTag - given a label, some content and attributes
+    // assemble an HTML tag as a string.
+    // @param label - the tag to assemble (e.g. "div")
+    // @param content - a string of content to wrap in the tag
+    // @param attributes - a string of attributes to use in openning of the tag
+    // @return string
+    HTML.prototype.assembleTag = function (label, content, attributes) {
+        var parts = [],
 			self_closing = [
 				"a", "br", "link", "img", "input"
 			];
 		
 		// self inclosing tags, e.g. <br />
-		if (this.label) {
-			if (self_closing.indexOf(this.label) >= 0) {
+		if (label) {
+			if (self_closing.indexOf(label) >= 0) {
 				// tags that expected content, e.g. <br />
-				if (this.label) {
+				if (label) {
 					parts.push('<');
-					parts.push(this.label);
+					parts.push(label);
 					if (this.attributes) {
 						parts.push(" ");
-						parts.push(this.attributes);
+						parts.push(attributes);
 					}
 					parts.push(' />');
 				}
@@ -195,31 +201,47 @@
 			
 			// open ended tags, e.g. <p>
 			// tags that expected content, e.g. <h1></h1>
-			if (this.label) {
-				parts.push('<');
-				parts.push(this.label);
-				if (this.attributes) {
-					parts.push(" ");
-					parts.push(this.attributes);
-				}
-				parts.push('>');
+			parts.push('<');
+			parts.push(label);
+			if (this.attributes) {
+				parts.push(" ");
+				parts.push(attributes);
 			}
-			if (this.content) {
-				parts.push(this.content);
+			parts.push('>');
+			if (content) {
+				parts.push(content);
 			}
-			if (this.label) {
-				parts.push('</');
-				parts.push(this.label);
-				parts.push('>');
-			}
+			parts.push('</');
+			parts.push(label);
+			parts.push('>');
 			return parts.join("");
 		}
-		return this.content;
+    
+        return content;
+    };
+
+	HTML.prototype.toString = function () {
+		return this.assembleTag(this.label, this.content, this.attributes);
 	}; /* END: toString() */
 
+    // Generate a div tag
+	HTML.prototype.div = function () {
+        var i = 0,
+            parts = [],
+            args = Array.prototype.slice.call(arguments);
 
-	HTML.prototype.p = function () {
-		this.label = "p";
+		this.label = "div";
+        if (args.length > 0) {
+            for (i = 0; i < args.length; i += 1) {
+                if (typeof args[i] === "string") {
+                    parts.push(args[i]);
+                } else if (typeof args[i] === "object") {
+                    
+                    parts.push(this.assembleTag(args[i].label, args[i].content, args[i].attributes));
+                }
+            }
+            this.content = parts.join("");
+        }
 		return this;
 	};
 
