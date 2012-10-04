@@ -13,28 +13,129 @@
 /*jslint devel: true, node: true, maxerr: 50, indent: 4,  vars: true, sloppy: true */
 
 var	assert = require('assert'),
-	harness = require("../lib/harness.js"),
-	tbone = require("../tbone");
+	harness = require("./lib/harness.js"),
+	TBone = require('./tbone');
 
 harness.push({callback: function () {
-	var s, expected_s, tb = new tbone.HTML();
+	var s,
+		expected_s,
+		threw_error = false,
+		tb = new TBone.HTML();
 	
-	assert.ok(tb, "Should have an object created by new tbone.HTML()");
+	// assembleAttributes() tests
+	expected_s = "";
+	s = tb.assembleAttributes();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+	
+	expected_s = 'class="content"';
+	s = tb.assembleAttributes({"class": "content"});
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+	expected_s = 'id="me" class="content"';
+	s = tb.assembleAttributes({id: "me", "class": "content"});
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+	
+	try {
+		s = tb.assembleAttributes(1);
+	} catch (err) {
+		threw_error = true;
+	}
+	assert.strictEqual(threw_error, true, "Should throw an error when passed a number");
+	
+	// disassembleAttributes() tests
+	expected_s = {id: "me"};
+	s = tb.disassembleAttributes('id="me"');
+	assert.strictEqual(s.id, expected_s.id, "\n" + s.id + "\n" + expected_s.id);
+	
+	// disassembleAttributes() tests
+	expected_s = {id: "me", "class": "content"};
+	s = tb.disassembleAttributes('id="me" class="content"');
+	assert.strictEqual(s.id, expected_s.id, "\n" + s.id + "\n" + expected_s.id);
+	assert.strictEqual(s["class"], expected_s["class"], "\n" + s["class"] + "\n" + expected_s["class"]);
+
+	threw_error = false;
+	try {
+		s = tb.disassembleAttributes(1);
+	} catch (err) {
+		threw_error = true;
+	}
+	assert.strictEqual(threw_error, true, "Should throw an error when passed a non-string");
+	harness.completed("attributes");
+}, label: "attributes"});
+
+harness.push({callback: function () {
+	var s,
+		expected_s,
+		threw_error = false,
+		tb = new TBone.HTML();
+	
+	tb.label = "p";
 	expected_s = "<p></p>";
-	s = tb.p();
+	s = tb.toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+	tb.label = "p";
+	tb.attributes = tb.assembleAttributes({id: "me", "class": "content"});
+	tb.content = "";
+	expected_s = '<p id="me" class="content"></p>';
+	s = tb.toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+	tb.label = "p";
+	tb.attributes = tb.assembleAttributes({id: "me", "class": "content"});
+	tb.content = "Hello World";
+	expected_s = '<p id="me" class="content">Hello World</p>';
+	s = tb.toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+	tb.label = "";
+	tb.attributes = "";
+	tb.content = "Hello World";
+	expected_s = 'Hello World';
+	s = tb.toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+	
+
+	tb.label = "br";
+	tb.attributes = "";
+	tb.content = "";
+	expected_s = "<br />";
+	s = tb.toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+	tb.label = "br";
+	tb.attributes = tb.assembleAttributes({id: "me", "class": "content"});
+	tb.content = "";
+	expected_s = '<br id="me" class="content" />';
+	s = tb.toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+
+	harness.completed("simple toString()");
+}, label: "simple toString()"});
+
+harness.push({callback: function () {
+	var s, expected_s, tb = new TBone.HTML();
+	
+	assert.ok(tb, "Should have an object created by new TBone.HTML()");
+	expected_s = "<p></p>";
+	s = tb.p().toString();
 	assert.equal(s, expected_s, "\n[" + s + "]\n[" + expected_s + "]");
 
+	tb.label = 'p';
+	tb.attributes = tb.assembleAttributes({id: "me"});
 	expected_s = '<p id="me"></p>';
-	s = tb.p().attr({id: "me"});
+	s = tb.p().attr({id: "me"}).toString();
 	assert.equal(s, expected_s, "\n[" + s + "]\n[" + expected_s + "]");
-}, label: "prototype"});
+	harness.completed("prototype p");
+}, label: "prototype p"});
 
 /*
 harness.push({callback: function () {
 	// Test the factory method
 	var s, expected_s, i, tb;
 
-    tb = new tbone.HTML();
+    tb = new TBone.HTML();
 
     expected_s = '<!DOCTYPE html>' + "\n" + '<html></html>';
 	s = tb.html('').toString();
@@ -235,9 +336,9 @@ harness.push({callback: function () {
 harness.push({callback: function () {
 	var s,
 		expected_s,
-		HTML = new tbone.HTML(),
-		CSS = new tbone.CSS(),
-		JS = new tbone.JS();
+		HTML = new TBone.HTML(),
+		CSS = new TBone.CSS(),
+		JS = new TBone.JS();
 
 	s = HTML.html(
 		HTML.head(
