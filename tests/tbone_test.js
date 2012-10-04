@@ -16,6 +16,155 @@ var	assert = require('assert'),
 	harness = require("../lib/harness.js"),
 	tbone = require("../tbone");
 
+var	assert = require('assert'),
+	harness = require("../lib/harness.js"),
+	TBone = require('../tbone');
+
+harness.push({callback: function () {
+	var s,
+		expected_s,
+		threw_error = false,
+		tb = new TBone.HTML();
+	
+	// assembleAttributes() tests
+	expected_s = "";
+	s = tb.assembleAttributes();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+	
+	expected_s = 'class="content"';
+	s = tb.assembleAttributes({"class": "content"});
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+	expected_s = 'id="me" class="content"';
+	s = tb.assembleAttributes({id: "me", "class": "content"});
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+	
+	try {
+		s = tb.assembleAttributes(1);
+	} catch (err) {
+		threw_error = true;
+	}
+	assert.strictEqual(threw_error, true, "Should throw an error when passed a number");
+	
+	// disassembleAttributes() tests
+	expected_s = {id: "me"};
+	s = tb.disassembleAttributes('id="me"');
+	assert.strictEqual(s.id, expected_s.id, "\n" + s.id + "\n" + expected_s.id);
+	
+	// disassembleAttributes() tests
+	expected_s = {id: "me", "class": "content"};
+	s = tb.disassembleAttributes('id="me" class="content"');
+	assert.strictEqual(s.id, expected_s.id, "\n" + s.id + "\n" + expected_s.id);
+	assert.strictEqual(s["class"], expected_s["class"], "\n" + s["class"] + "\n" + expected_s["class"]);
+
+	threw_error = false;
+	try {
+		s = tb.disassembleAttributes(1);
+	} catch (err) {
+		threw_error = true;
+	}
+	assert.strictEqual(threw_error, true, "Should throw an error when passed a non-string");
+	harness.completed("attributes");
+}, label: "attributes"});
+
+harness.push({callback: function () {
+	var s,
+		expected_s,
+		tb = new TBone.HTML();
+	
+	tb.label = "p";
+	expected_s = "<p></p>";
+	s = tb.toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+	tb.label = "p";
+	tb.attributes = tb.assembleAttributes({id: "me", "class": "content"});
+	tb.content = "";
+	expected_s = '<p id="me" class="content"></p>';
+	s = tb.toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+	tb.label = "p";
+	tb.attributes = tb.assembleAttributes({id: "me", "class": "content"});
+	tb.content = "Hello World";
+	expected_s = '<p id="me" class="content">Hello World</p>';
+	s = tb.toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+	tb.label = "";
+	tb.attributes = "";
+	tb.content = "Hello World";
+	expected_s = 'Hello World';
+	s = tb.toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+	
+
+	tb.label = "br";
+	tb.attributes = "";
+	tb.content = "";
+	expected_s = "<br />";
+	s = tb.toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+	tb.label = "br";
+	tb.attributes = tb.assembleAttributes({id: "me", "class": "content"});
+	tb.content = "";
+	expected_s = '<br id="me" class="content" />';
+	s = tb.toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+	harness.completed("simple toString()");
+}, label: "simple toString()"});
+
+harness.push({callback: function () {
+	var s, expected_s, tb = new TBone.HTML();
+	
+	assert.ok(tb, "Should have an object created by new TBone.HTML()");
+	expected_s = "<div></div>";
+	s = tb.div().toString();
+	assert.equal(s, expected_s, "\n[" + s + "]\n[" + expected_s + "]");
+
+	tb.label = 'div';
+	tb.attributes = tb.assembleAttributes({id: "me"});
+	expected_s = '<div id="me"></div>';
+	s = tb.div().attr({id: "me"}).toString();
+	assert.equal(s, expected_s, "\n[" + s + "]\n[" + expected_s + "]");
+	harness.completed("prototype div");
+    
+    tb.label = '';
+    tb.attributes = '';
+    tb.content = '';
+    expected_s = '<div>Hello World</div>';
+    s = tb.div("Hello World").toString();
+    assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+    tb.label = '';
+    tb.attributes = '';
+    tb.content = '';
+    tb.label = 'div';
+	tb.attributes = tb.assembleAttributes({id: "me"});
+	expected_s = '<div id="me">Hello World</div>';
+	s = tb.div("Hello World").attr({id: "me"}).toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+    // Now try nesting
+    tb.label = '';
+    tb.attributes = '';
+    tb.content = '';
+	expected_s = '<div><div>Hello World</div></div>';
+	s = tb.div(tb.div("Hello World")).toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+    tb.label = '';
+    tb.attributes = '';
+    tb.content = '';
+    expected_s = '<div id="outer"><div id="inner">Hello World</div></div>';
+	s = tb.div(tb.div("Hello World").attr({id: "inner"})).attr({id: "outer"}).toString();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
+    harness.completed("prototype div");
+}, label: "prototype div"});
+
 harness.push({callback: function () {
 	var s, expected_s, tb = new tbone.HTML();
 	
