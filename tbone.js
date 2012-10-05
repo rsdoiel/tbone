@@ -154,22 +154,24 @@
 		return attributes;
 	}; /* END: disassembleAttributes() */
 	
+	// Assembles the attribute list for HTML object
 	HTML.prototype.attr = function (attributes) {
 		var ky, attrs = {};
 
-		if (this.attributes) {
-			attrs = this.disassembleAttributes(this.attributes);
+		if (typeof attributes === "string") {
+			this.attributes = attributes;
+		} else if (typeof attributes === "object") {
+			//this.attributes = {};
 			for (ky in attributes) {
 				if (attributes.hasOwnProperty(ky)) {
 					attrs[ky] = attributes[ky];
 				}
 			}
+			// convert the object to a string expected for this.attributes
 			this.attributes = this.assembleAttributes(attrs);
-			return this;
 		}
-		this.attributes = this.assembleAttributes(attributes);
 		return this;
-	}; /* END: attr(), sets attributes */
+	}; /* END: attr(), sets all attributes */
 	
     // assembleTag - given a label, some content and attributes
     // assemble an HTML tag as a string.
@@ -199,6 +201,9 @@
 				return parts.join("");
 			}
 			
+			if (this.label === "html") {
+				parts.push("<!DOCTYPE html>\n");
+			}
 			// open ended tags, e.g. <p>
 			// tags that expected content, e.g. <h1></h1>
 			parts.push('<');
@@ -218,32 +223,95 @@
 		}
     
         return content;
-    };
+    }; /* END: assembleTag() */
 
-	HTML.prototype.toString = function () {
-		return this.assembleTag(this.label, this.content, this.attributes);
-	}; /* END: toString() */
-
-    // Generate a div tag
-	HTML.prototype.div = function () {
+	// assembleContent - assemble a tag's inner content
+    HTML.prototype.assembleContent = function (args) {
         var i = 0,
             parts = [],
-            args = Array.prototype.slice.call(arguments);
+            elem;
 
-		this.label = "div";
         if (args.length > 0) {
             for (i = 0; i < args.length; i += 1) {
                 if (typeof args[i] === "string") {
                     parts.push(args[i]);
                 } else if (typeof args[i] === "object") {
-                    
-                    parts.push(this.assembleTag(args[i].label, args[i].content, args[i].attributes));
+                    //parts.push((new HTML(args[i])).toString());
+                	parts.push(this.assembleTag(args[i].label, 
+                			args[i].content, args[i].attributes));
                 }
             }
-            this.content = parts.join("");
+            return parts.join("");
         }
+        return "";
+    }; /* END: assembleContent */
+
+	HTML.prototype.toString = function () {
+		var src = "";
+
+		src = this.assembleTag(this.label, this.content, this.attributes);
+		this.label = "";
+		this.content = "";
+		this.attributes = "";
+		return src;
+	}; /* END: toString() */
+
+    // Generate a html tag
+	HTML.prototype.html = function () {
+		var args = Array.prototype.slice.call(arguments);
+		this.label = "html";
+		this.content = this.assembleContent(args);
 		return this;
 	};
+
+    // Generate a head tag
+	HTML.prototype.head = function () {
+		var args = Array.prototype.slice.call(arguments);
+		this.label = "body";
+		this.content = this.assembleContent(args);
+		return this;
+	};
+
+    // Generate a head tag
+	HTML.prototype.head = function () {
+		var args = Array.prototype.slice.call(arguments);
+		this.label = "body";
+		this.content = this.assembleContent(args);
+		return this;
+	};
+
+    // Generate a title tag
+	HTML.prototype.title = function () {
+		var args = Array.prototype.slice.call(arguments);
+		this.label = "title";
+		this.content = this.assembleContent(args);
+		return this;
+	};
+
+    // Generate a body tag
+	HTML.prototype.body = function () {
+		var args = Array.prototype.slice.call(arguments);
+		this.label = "body";
+		this.content = this.assembleContent(args);
+		return this;
+	};
+
+    // Generate a div tag
+	HTML.prototype.div = function () {
+		var args = Array.prototype.slice.call(arguments);
+		this.label = "div";
+		this.content = this.assembleContent(args);
+		return this;
+	};
+
+	// Generate a p tag
+	HTML.prototype.p = function () {
+		var args = Array.prototype.slice.call(arguments);
+		this.label = "p";
+		this.content = this.assembleContent(args);
+		return this;
+	};
+
 
 	try {
 		exports.HTML = HTML;

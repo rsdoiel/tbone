@@ -162,21 +162,35 @@ harness.push({callback: function () {
 	s = tb.div(tb.div("Hello World").attr({id: "inner"})).attr({id: "outer"}).toString();
 	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
 
-    harness.completed("prototype div");
-}, label: "prototype div"});
+	expected_s = "<p></p>";
+	s = tb.p().toString();
+	assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
+
+	expected_s = '<p id="me"></p>';
+	s = tb.p().attr({id: "me"}).toString();
+	assert.equal(s, expected_s, "\n" + s + "\n" + expected_s + "]");
+	
+    harness.completed("simple tags");
+}, label: "simple tags"});
 
 harness.push({callback: function () {
 	var s, expected_s, tb = new tbone.HTML();
 	
-	assert.ok(tb, "Should have an object created by new tbone.HTML()");
-	expected_s = "<p></p>";
-	s = tb.p();
-	assert.equal(s, expected_s, "\n[" + s + "]\n[" + expected_s + "]");
-
-	expected_s = '<p id="me"></p>';
-	s = tb.p().attr({id: "me"});
-	assert.equal(s, expected_s, "\n[" + s + "]\n[" + expected_s + "]");
-}, label: "prototype"});
+	expected_s = '<!DOCTYPE html>\n<html lang="en"><head><title>Hello World</title></head><body><div class="content"><p>Hi there</p></div></body></html>';
+	s = tb.html(
+			tb.head(
+				tb.title("Hello World")
+			),
+			tb.body(
+				tb.div(
+					tb.p("Hi there")
+				).attr({"class": "content"})
+			)
+		).attr({lang: "en"}).toString();
+	assert.equal(s, expected_s, "\n[" + s + "]\n[" + expected_s + "]");	
+	
+    harness.completed("a simple document");
+}, label: "a simple document"});
 
 /*
 harness.push({callback: function () {
