@@ -161,7 +161,6 @@
 		if (typeof attributes === "string") {
 			this.attributes = attributes;
 		} else if (typeof attributes === "object") {
-			//this.attributes = {};
 			for (ky in attributes) {
 				if (attributes.hasOwnProperty(ky)) {
 					attrs[ky] = attributes[ky];
