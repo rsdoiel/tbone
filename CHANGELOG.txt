@@ -1,0 +1,636 @@
+commit 333fa14c261570a24329479d4175ed377d613022
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Oct 5 21:03:58 2012 -0700
+
+    Pruning before release 0.1.3 of TBone
+
+commit a6fca88bde382af7fae53b9c9c8cca2dd1e3062d
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Oct 5 21:02:15 2012 -0700
+
+    Preparing to release 0.1.3 of TBone
+
+commit ebc92c221202882442d99edc850008eedff32806
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Oct 5 18:48:36 2012 -0700
+
+    Updated dependancy version for harness-js
+
+commit 39510d2fb18cda2b0443625f8cdbaaffa245dbbb
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Oct 5 18:34:39 2012 -0700
+
+    Fixed dependancy reference for harness-js.
+
+commit 369e7003cd9f8248cb9521377d5c95538e95ce24
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Oct 5 18:30:32 2012 -0700
+
+    Finally passing all tests for NodeJS, Mongo 2.2 shell and in Chrome browser.
+
+commit 06f7599a082dfec6abc3b9a04b25b66fb78d0798
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Oct 5 12:05:29 2012 -0700
+
+    removed a comment.
+
+commit fbd2a3b485838c98dfbac3514788175127c3855f
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Oct 5 11:52:39 2012 -0700
+
+    Added examples.
+
+commit d18e3c19be992f1a5e730aa78298574e24addcef
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Oct 5 11:52:21 2012 -0700
+
+    Fixed attribute handling in a simple document test.
+
+commit f5aca992bf4d3053ff7cc4b2463eead27529689e
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Thu Oct 4 13:25:06 2012 -0700
+
+    Merged tbone_test_prototype.js with tbone_test.js
+
+commit ec641b89fae0ea5fc57d08ea6afcdd602117f55e
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Thu Oct 4 16:18:20 2012 -0400
+
+    minimal nesting working.
+
+commit 3b569d26f797319fdb6e8677e5da6686bce32b23
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Thu Oct 4 08:58:49 2012 -0700
+
+    From scratch rewrite with lessons learned from failed 0.1.0 and 0.1.1
+
+commit 920df3cbca8b7b7f0d62849403c196b166427c91
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sun Sep 30 16:31:56 2012 -0700
+
+    Added back travis header to README.md
+
+commit 3e551806f81416f6e72a94f562536ec2e02aa69b
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sun Sep 30 16:18:40 2012 -0700
+
+    Fixing some formatting
+
+commit c09f4cb108e66f5946bfb23ad53c5fdc4b1fc8ba
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sun Sep 30 16:17:51 2012 -0700
+
+    Fixing some formatting
+
+commit 71697094fee8caa3bb8e87665501f925af728c3e
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sun Sep 30 16:15:55 2012 -0700
+
+    Fixing some formatting
+
+commit 1570c4bbc7598b0f34685082cca7ff35c05358df
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sun Sep 30 16:09:17 2012 -0700
+
+    Revised implementations of HTML, CSS, JS object.
+
+commit 378a43e022795eaf33c255e2bb39d09993cc1233
+Merge: 50f8ff5 af6e06e
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sun Sep 30 16:01:12 2012 -0700
+
+    Merge branch '0_1_0_rewrite' of github.com:rsdoiel/tbone
+
+commit af6e06e2f0d275c5759067fc3c6cb928db68b694
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sun Sep 30 15:57:25 2012 -0700
+
+    Cleaned up code formatting for jslint.
+
+commit 726b0f97904011726c561be61638d1f39db8c7dd
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sun Sep 30 15:29:09 2012 -0700
+
+    Rewrite HTML object as protoype to lower complexity.
+
+commit 50f8ff5fcf065322798c8df08d3af3844eb108e4
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Sep 28 23:14:27 2012 -0700
+
+    Add comment in README.md about CSS, JS objects
+    
+    0.1.0 will not have completed CSS, JS objects yet. Listed in README.md as coming attractions.
+
+commit 725f8df92c687824a10554ca0233553b58be912b
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Sep 28 23:12:27 2012 -0700
+
+    Merge in rest of files from 0_1_0_rewrite branch.
+
+commit d839cdeb49e004c0e99ac64b64a3aef078ee118a
+Merge: e229cd5 ada7228
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Sep 28 23:10:22 2012 -0700
+
+    Merge branch '0_1_0_rewrite' of github.com:rsdoiel/tbone
+
+commit ada7228f58afe7ac37d8442599764f9b73e114b8
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Sep 28 23:05:01 2012 -0700
+
+    Added stubs for eventual CSS, JS support.
+
+commit deefafd8ce105115439dc76a53e34257dc0aec8c
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Sep 28 22:46:16 2012 -0700
+
+    Fixed license reference, add tests for browser.
+
+commit 2586e4f9b18fcde4c10bcb2d57442c50a2b624ff
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Sep 28 22:22:45 2012 -0700
+
+    Passing mongo shell version of the tests.
+
+commit f83f92db2ab64a6f5a87c6eb5271618a6b3c580a
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Sep 28 22:17:26 2012 -0700
+
+    Major code reorganization to use Module Design pattern. Passing Tests 0.0.0 - 0.0.3e
+
+commit ab3369aba61f86b3822bdc4408e9a6090de52d62
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Sep 28 17:20:23 2012 -0700
+
+    jslint error cleanup
+
+commit 7ef5118134f3d3f0885f01e76c25aad91005f096
+Merge: 4ef13fc 4e4f390
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Sep 28 16:46:45 2012 -0700
+
+    Merge branch '0_1_0_rewrite' of github.com:rsdoiel/tbone into 0_1_0_rewrite
+
+commit 4ef13fc504e9f3dbed14cba3368b702b0e7b1aaa
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Sep 28 16:46:33 2012 -0700
+
+    Passing snapshot
+
+commit 4e4f390582480ca8ac16e465d5cd5daa0f60a671
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Thu Sep 27 12:56:32 2012 -0400
+
+    Snapshot of rewrite
+
+commit 2d5ead4ec891ac7c3de3887a122ed00b7c031a5d
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Thu Sep 27 12:32:41 2012 -0400
+
+    Snapshot of rewrite
+
+commit 773153e4c15b48429bfe06873a467f7dc8435934
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Thu Sep 27 07:18:16 2012 -0700
+
+    Snapshot of refactor
+
+commit fd0fccca8ac4036fb5f0166912af49800ad864fd
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Wed Sep 26 20:51:45 2012 -0700
+
+    Sketching prototype of 0.1 version of TBone.
+
+commit 7bb3ca34a36ee64bb73a63c8015c6d20d8d0bd0f
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Wed Sep 26 06:46:07 2012 -0700
+
+    Added tests to run under Mongo 2.2 shell
+
+commit 526645d58904114a88fb747ea64d8b509827fa64
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Wed Sep 26 01:34:31 2012 -0400
+
+    snapshot
+
+commit e229cd52f15bc22b683777590da75a7cb0196937
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Tue Sep 25 21:18:19 2012 -0700
+
+    Updated package.json.
+
+commit e2da323ab1f4de0913befc2a053887f405228abc
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Tue Sep 25 21:15:11 2012 -0700
+
+    tests/tbone_test.js, jslint and a decent complexity score with jscheckstyle
+
+commit 636b812b27c803761eaaf6641f72bcbaef8b7e11
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Tue Sep 25 21:12:29 2012 -0700
+
+    tbone 0.0.3e is passing tests now, passing jslint.
+
+commit 4550726a8114c6b6538b4d89730f78a7acf79406
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Tue Sep 25 21:14:23 2012 -0400
+
+    snapshot
+
+commit 70045a678a857e8e34e2054e6b3c3d59e341aec2
+Merge: a57ce9b 534dc19
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Tue Sep 25 20:32:39 2012 -0400
+
+    merged from origin 0_1_0_rewrite
+
+commit a57ce9b2b155219a6e794b2b5ba45c2f1ea02340
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Tue Sep 25 10:30:36 2012 -0700
+
+    Cleaned up Markdown link to article by Grosman.
+
+commit 534dc194990e08f6d02a9fbff38ecbfa79663c71
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Tue Sep 25 10:24:14 2012 -0700
+
+    Reduced to two targets - NodeJS and Mongo's shell.
+
+commit 5def1044967dca1496f04a566ad2e608555c81ae
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Tue Sep 25 10:20:50 2012 -0700
+
+    Started sketching verison 0.1 series.
+
+commit 1b615b6b547bc857f591b1c0eae99030a46776e8
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sat Mar 31 15:06:33 2012 -0700
+
+    Started playing with adding a strip font tags function.
+
+commit 76349af2e9cbdd3db22852bfb81856f7526f3f1b
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sat Mar 31 12:54:22 2012 -0700
+
+    Added a test for new line handling.
+
+commit 61464aee35e3242b5013bcece2a0a974b8e32b6f
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sat Mar 31 12:31:29 2012 -0700
+
+    Fixed dumb typo I made in entity &NewLine;
+
+commit 4795ffb7807ed3a2cf75f3b984b002ab99cb3b00
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sat Mar 31 12:00:32 2012 -0700
+
+    Added tests for to/from HTML5 Entities, now passing minimum tests.
+
+commit 3b52550a237ca982a589572c6292c4d3daa104a2
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sat Mar 31 10:56:25 2012 -0700
+
+    fixed some typos.
+
+commit be9c772c1f0bb521776ebcbad6c3ae98fd7098c2
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sat Mar 31 10:53:20 2012 -0700
+
+    Added some markup normalization methods
+
+commit d61bfd3b2c8ce3c72843dc192ca83215185844d7
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Wed Nov 23 00:12:52 2011 +0000
+
+    Started 0.0.3c, fixed test name to be compatible with c9.io
+
+commit 5405ef68e05e6c020cd6f643aca288b4ee03d2fb
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Tue Nov 22 15:37:39 2011 -0800
+
+    Renamed tbone-test.js to tbone_test.js to leverage development on c9.io
+
+commit ec8e4c53550a2847cd207fed749f7238cdeec03c
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Wed Nov 2 11:43:13 2011 -0700
+
+    Removed reference to sys per warning in 0.5.11-pre.
+
+commit e7b9eb7b3eff0a991a96e1f9992dece57f4130a7
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Wed Nov 2 11:34:59 2011 -0700
+
+    swapped reference to sys to util per warning in 0.5.11-pre.
+
+commit a7a9551000f15b3964577d8a39a82b54753ca519
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Wed Nov 2 11:10:58 2011 -0700
+
+    Updated version to 0.0.3b to reflect push to npm repository.
+
+commit c1376ab5bb614d4538ac6341d9c20857e64e1a11
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Wed Nov 2 11:07:20 2011 -0700
+
+    renamed JS implementation test script to js/tbone-tests.js and updated npm package description.
+
+commit 7d9df72905f2faa511efacc0b80621fe53bfed1b
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Wed Nov 2 11:05:17 2011 -0700
+
+    Fixed version reference in docs
+
+commit a3b18159cd31d915facc90cc8e08aee3f90962c6
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Wed Nov 2 11:02:43 2011 -0700
+
+    Added .npmignore so that npm doesn't publish go or PHP code.
+
+commit 7ebe812965f1de12f5bc129c989f9ee3b1ca51d8
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Wed Nov 2 11:00:15 2011 -0700
+
+    Updated package and added tag 0.0.3 to make it easier to see what was released via npm.
+
+commit 796a1529880b8621726fbebb0ca769fa4fdc9a68
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Aug 19 05:50:43 2011 -0700
+
+    Fixing package.json
+
+commit 709e12ff37b72ee2bf88014c254182d3c216c655
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Tue Jul 26 07:59:57 2011 -0700
+
+    renamed Header() to tbHeader() in PHP version. Added Header()/Footer() to exports in JavaScript version.
+
+commit b7f2b98a24f08e9e162d5cf43733e2b3fed99c59
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Tue Jul 26 07:59:27 2011 -0700
+
+    renamed Header() to tbHeader() in PHP version. Added Header()/Footer() to exports in JavaScript version.
+
+commit 6f83328b7ce0721831747e6da721a0b0f0039ca8
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Tue Jul 26 14:24:23 2011 +0000
+
+    Added Header() and Footer() functions to the Go, JavaScript and PHP implementations. Needs testing.
+
+commit 8203509eb21d2cdb0add58e33050b136ed2cc2c1
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Thu Jul 21 04:51:01 2011 +0000
+
+    Tweaking docs
+
+commit a616a45a8f1b8d8656a6d0496dba3fb5f75e754e
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Wed Jul 20 21:44:22 2011 -0700
+
+    Finished first pass at version two.
+
+commit eb3b71e613c034db25ac0d1c09570a16fb8762e5
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Thu Jul 21 02:18:06 2011 +0000
+
+    Preparing for version 2, merging approach between Go, JavaScript and PHP
+
+commit ae40b6360e4d95a33be1a14473eed334fb6aedc1
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Thu Jul 21 01:50:41 2011 +0000
+
+    Merging approach between JavaScript and PHP. Getting ready for version 2
+
+commit 7ec891ab400645cb2d9417dbdacb3185a8209259
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Wed Jul 20 23:13:09 2011 +0000
+
+    Started bringing PHP and JavaScript versions into alignment.
+
+commit 8be0df2077c7cb83e94aa94b2f95deb771984909
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Wed Jul 20 09:32:54 2011 -0700
+
+    removed stray debug console log
+
+commit 72dd07a4f53c6b57b8b0d9eb37e2cdfdf670daac
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Wed Jul 20 09:25:34 2011 -0700
+
+    Added support for Capitalize to JavaScript implementation.
+
+commit b349c667597a40ecd0a34a6bdde74a0a2ca7f8e1
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Wed Jul 20 15:55:05 2011 +0000
+
+    Started standardizing naming and adding documentation between language implementations
+
+commit 1dbeb8e59dcfeff0f9e01979bed9c4cfb9f23917
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Tue Jul 19 10:21:43 2011 -0700
+
+    Renamed Factory to Mixin since it behaves like that must of the time.
+
+commit 4f899059c98624a73ab81c873027d7a67dfccb9a
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Jul 15 11:24:36 2011 -0700
+
+    Got the internal renaming done. Getting ready to rename the project at github.com
+
+commit fe698f35193484fa7e962adcb30e9d97794eb99e
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Jul 15 11:10:26 2011 -0700
+
+    Preparing to rename project tbone to avoid confusion with a more popular project called backbone.
+
+commit a550cfb543a723eb2b119abd70bf3d6f0b5687a4
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Jul 15 10:23:48 2011 -0700
+
+    First pass at an npm package (untested) and fixed bug in attrubite handling where null was passed.
+
+commit 52f4814dff057b0203d670500348c30462360c84
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Fri Jul 15 10:15:33 2011 -0700
+
+    Setting up NPM support.
+
+commit 8d0ceba56d652567008f177487c448eb368d28c8
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Thu Jul 14 14:24:14 2011 -0700
+
+    Reverted to using try/catch for exports block so I can use bones in the browser too.
+
+commit 055b1d9f9f71488571f5a6d55152dd80c08e03ea
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Thu Jul 14 11:41:34 2011 -0700
+
+    Added a factory method to generate other bones objects.
+
+commit 3bdee205ea683afeaa8f47a6749ed50467fd6789
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Wed Jul 13 11:28:39 2011 -0700
+
+    Updated exports block to check to see if exports is defined and then export the functions.
+
+commit 240dcfa8029171fd3583562530e7023319de277c
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Wed Jul 13 00:56:48 2011 +0000
+
+    Cleaned up some lines based on JSLint recommendations.
+
+commit 192032e324ddf24f50370e29990eb00c81af3c86
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Wed Jul 13 00:47:09 2011 +0000
+
+    merged cloud9 version with github version.  Fixed bug in export of Textarea.
+
+commit 1119c70bac54db73612060ee88203cfe7c1fa48d
+Merge: f844f85 0920b18
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Wed Jul 13 00:45:25 2011 +0000
+
+    Merge branch 'master', remote branch 'origin'
+
+commit f844f85c11a45058ba0707d9188a6d2b1cf105d8
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Wed Jul 13 00:40:55 2011 +0000
+
+    local changes in cloud9
+
+commit 0920b18abf2c46afeed0bf7ab57748fbbbd77a19
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Tue Jul 12 17:32:40 2011 -0700
+
+    Changed TextArea to Textarea
+
+commit c29dfad39bc67344c43fa3b61dfc10a0379eb510
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Tue Jul 12 16:27:07 2011 -0700
+
+    Added support for img tag.
+
+commit 50a9cc0f9d1332fe6c97ea243b904f925a117a43
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Mon Jul 11 13:27:49 2011 -0700
+
+    Cleaned up some comments.
+
+commit f7775ff773bb422bf419d6a43564ea21895e6e81
+Author: R. S. Doiel <rsdoiel@usc.edu>
+Date:   Thu Jul 7 15:33:55 2011 -0700
+
+    Added support for the Br tag.
+
+commit b14ba8774ad9188362704e2b3ba5fc82f07ba835
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Thu Jul 7 13:59:15 2011 +0000
+
+    Updated README.md and moved INSTALL.md to go folder since it is specific to go.
+
+commit 8d20d2e11117a243570a2a7d06d8ed6a14d35aea
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Thu Jul 7 13:55:13 2011 +0000
+
+    Organized files by language
+
+commit 86462292355c0fd3a2bd1cf478a3f162cd243f3a
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Wed Jun 29 13:47:52 2011 -0700
+
+    Added support for the center tag.
+
+commit 54d35329a0a5b4e7ad32b0d12ef04b79b3eb530a
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Thu Mar 24 22:48:55 2011 -0700
+
+    Still stubbing out my menus.
+
+commit a4710962bc6c4010c45dd1e53c3e461ef4d91040
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Thu Mar 24 17:58:37 2011 -0700
+
+    snapshot
+
+commit 503b27183fd424a580ec4fb22f765ad4c19a8a36
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Tue Mar 15 19:43:34 2011 -0700
+
+    snapshot
+
+commit d9f4328ea03d0de1cc53e0f9474f05cd3adec4d9
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Tue Mar 15 08:40:53 2011 -0700
+
+    Brought PHP version in line with approach in JavaScript and Go version.
+
+commit ffa609800e8d4f6298880b0e874c15b6b01471af
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Tue Mar 15 08:27:54 2011 -0700
+
+    Add PHP implementation
+
+commit decd6362f1fc52954fc558fe716a5546112c3fa6
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Mon Mar 14 15:47:40 2011 -0700
+
+    snapshot
+
+commit 3af80bee855432a15432a0d63fb36c26352fca03
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Mon Mar 14 15:43:14 2011 -0700
+
+    snapshot
+
+commit 579c167bd0e63c194a9361b4b3508fcbf50a59ee
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Mon Mar 14 10:25:29 2011 -0700
+
+    snapshot
+
+commit 06a0792d998ac63830e97022aa94945e07bf50e3
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sun Mar 13 23:53:48 2011 -0700
+
+    snapshot
+
+commit bd52e52e900f06f8e7c04422072bc8673123cfde
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sun Mar 13 23:06:51 2011 -0700
+
+    snapshot
+
+commit 3b225aafce514cb98094a518fb8d89799952e993
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sun Mar 13 23:06:03 2011 -0700
+
+    snapshot
+
+commit 167d2431dcc3fd55f7e383c840af0287e71cd581
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sun Mar 13 21:23:00 2011 -0700
+
+    snapshot
+
+commit 8105b4aad0b8fd0361211a2c0d265432c6fb84bb
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Sun Mar 13 21:16:26 2011 -0700
+
+    snapshot
+
+commit 4713a947ec9436de8d9176fa92479e4647860bac
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Mon Mar 7 06:41:25 2011 -0800
+
+    snapshot
+
+commit fbdeb406bb1f514c19af19fd66ec492516b82015
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Mon Mar 7 06:41:06 2011 -0800
+
+    snapshot
+
+commit b4d5f53e97088e98fe7b3bb0806460b7d0e966fe
+Author: R. S. Doiel <rsdoiel@gmail.com>
+Date:   Mon Mar 7 06:40:08 2011 -0800
+
+    first commit

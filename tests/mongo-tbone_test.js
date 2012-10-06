@@ -363,9 +363,7 @@ harness.push({callback: function () {
 harness.push({callback: function () {
 	var s,
 		expected_s,
-		HTML = new TBone.HTML(),
-		CSS = new TBone.CSS(),
-		JS = new TBone.JS();
+		HTML = new TBone.HTML();
 
 	s = HTML.html(
 		HTML.head(

@@ -20,12 +20,11 @@ var TBone = require("../tbone"),
 //
 page_source = markup.html(
 	markup.head(
-		"<!-- Test comment -->",
-		markup.title("Simple 0")
+		markup.title("Simple 1")
 	),
 	markup.body(
-		markup.h1("Sample 0"),
-		markup.p("Hello World")
+		markup.h1("Sample 1").attr({"class": "banner"}),
+		markup.p("Hello Again World").attr({"class": "content"})
 	)
 );
 

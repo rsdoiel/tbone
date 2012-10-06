@@ -11,92 +11,67 @@ It is designed to work in NodeJS, Mongo's shell (via [mongo-modules](https://git
 
 ## NodeJS/Mongo Shell example
 
+### sample-0.js
+
 ```JavaScript
-	var tbone = require("tbone");
+	var TBone = require("tbone"),
+		markup = new TBone.HTML();
 
 	// Displaying an HTML 5 valid HTML page.
-	console.log(tbone.htmlDoc(
-		tbone.html(
-			tbone.head(
-				tbone.title("Hello World")
-			),
-			tbone.body(
-				tbone.h1("Hello World")
-			)
+	console.log(markup.html(
+		markup.head(
+			markup.title("Hello World")
+		),
+		markup.body(
+			markup.h1("Hello World")
 		)
-	).toString());
+	));
 ```
 
-# Coming attractions
-
-## Folding in CSS/JS with concatenation
-
-TBone provides a limited facility to concatenate CSS or JavaScript files. Both
-have three methods - include(), inline() and as().
+### sample-1.js
 
 ```JavaScript
-	var fs = require("fs");
-
-	var tbone = require("tbone"),
-		html = new tbone.HTML(),
-		css = new tbone.CSS({
-			fs: fs
-		}),
-		js = new tbone.JS({
-			fs: fs
-		});
-
-	css.include("style", "css/reset.js");
-	css.include("style", "css/responsive.js");
-	css.include("style", "css/ie-fixes.js");
-
-	js.include("base", "js/jquery-1.8.0.min.js");
-	js.include("base", "js/the-app.js");
-	// Write the file to disc
-	js.as("base", "js/combined.js");
+	var TBone = require("tbone"),
+		markup = new TBone.HTML();
 	
-	// Displaying an HTML 5 valid HTML page.
-	console.log(
-		html.htmlDoc(
-			html.html(
-				html.head(
-					html.title("Hello World"),
-					html.style(css.inline("style"))
-				),
-				html.body(
-					html.h1("Hello World"),
-					html.script().attr({src: "js/combined.js"})
-				)
+	//
+	// Generate a simple HTML page.
+	//
+	var markup = new TBone.HTML(),
+		page_source = tbone.html(
+			markup.head(
+				"<!-- Test comment -->",
+				markup.title("Simple 0")
+			),
+			markup.body(
+				markup.h1("Sample 0"),
+				markup.p("Hello World")
 			)
-		).toString()
-	);
+		);
+	
+	// Display it
+	console.log(page_source);
 ```
 
-## Generating self contained widgets with CSS and HTML fragments.
+## sample-2.js
 
 ```JavaScript
-	var tbone = require("tbone"),
-		html = new tbone.HTML(),
-		css = new tbone.CSS(),
-		js = new tbone.JS();
+var TBone = require("tbone");
 
-	css.include("style", "css/reset.js");
-	css.include("style", "css/responsive.js");
-	css.include("style", "css/ie-fixes.js");
-
-	js.include("base", "js/jquery-1.8.0.min.js");
-	js.include("base", "js/the-app.js");
-
-	// Displaying an HTML 5 friendly div with CSS
-	// writing in-line and JS combined at bottom of div.
-	console.log(
-		html.widget(
-			html.div(
-				html.h1("Hello World"),
-			),
-			html.CSS.inline(),
-			html.JS.inline("base")
-		).toString()
+//
+// Generate a simple HTML page.
+//
+var markup = new TBone.HTML(),
+	page_source = markup.html(
+		markup.head(
+			markup.title("Simple 1")
+		),
+		markup.body(
+			markup.h1("Sample 1").attr({"class": "banner"}),
+			markup.p("Hello Again World").attr({"class": "content"})
+		)
 	);
-```
 
+// Display it
+console.log(page_source);
+```

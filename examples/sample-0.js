@@ -11,26 +11,15 @@
  * Notes: runs under NodeJS, Mongo 2.2 shell and web browsers
  */
 /*jslint devel: true, node: true, maxerr: 25, indent: 4,  vars: true, sloppy: true */
-var fs = require("fs"),
-	path = require("path"),
-	TBone = require("../tbone");
+var TBone = require("../tbone"),
+	markup = new TBone.HTML();
 
-//
-// Generate a simple HTML page.
-//
-var HTML = new TBone.HTML(),
-	page_source = HTML.html(
-		HTML.head(
-			"<!-- Test comment -->",
-			HTML.title("Simple 0")
-		),
-		HTML.body(
-			HTML.h1("Sample 0"),
-			HTML.p("Hello World")
-		)
-	);
-
-// Display it
-console.log(page_source);
-// Render it to disc as sample-0.html
-//fs.writeFile("sample-0.html", page_source);
+// Displaying an HTML 5 valid HTML page.
+console.log(markup.html(
+	markup.head(
+		markup.title("Hello World")
+	),
+	markup.body(
+		markup.h1("Hello World")
+	)
+));

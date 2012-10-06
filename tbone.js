@@ -869,19 +869,12 @@
 	};
 
 
-	var CSS = String;
-	var JS = String;
-
 	try {
 		exports.HTML = HTML;
-		exports.CSS = CSS;
-		exports.JS = JS;
 	} catch (err) {
 		// Toto, I don't think we're not in Node any more
 	}
 	global.TBone = {
 		HTML: HTML,
-		CSS: CSS,
-		JS: JS
 	};
 }(this));
