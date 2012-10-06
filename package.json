@@ -1,6 +1,6 @@
 {
 	"name" : "tbone",
-	"version" : "0.1.1",
+	"version" : "0.1.2",
 	"description" : "A simple library to generate valid HTML and normalizing markup.",
 	"main" : "./js/tbone.js",
 	"repository" : { 
@@ -20,7 +20,10 @@
 		"name" : "R. S. Doiel", 
 		"url" : "https://github.com/rsdoiel"
 	}],
-	"scripts": {
+	"dependencies": {
+		"harness": "= 0.0.1"
+	},
+  	"scripts": {
 		"test": "node tests/tbone_test.js"
 	},
 	"bugs": {

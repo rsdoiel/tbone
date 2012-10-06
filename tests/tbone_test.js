@@ -12,12 +12,9 @@
  */
 /*jslint devel: true, node: true, maxerr: 50, indent: 4,  vars: true, sloppy: true */
 
-var	assert = require('assert'),
-	harness = require("../lib/harness.js"),
-	tbone = require("../tbone");
-
-var	assert = require('assert'),
-	harness = require("../lib/harness.js"),
+var	path = require("path"),
+	assert = require('assert'),
+	harness = require("harness"),
 	TBone = require('../tbone');
 
 harness.push({callback: function () {
@@ -72,45 +69,36 @@ harness.push({callback: function () {
 		expected_s,
 		tb = new TBone.HTML();
 	
-	tb.label = "p";
+	expected_s = "<p>";
+	s = tb.p();
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
 	expected_s = "<p></p>";
-	s = tb.toString();
+	s = tb.p("");
 	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
 
-	tb.label = "p";
-	tb.attributes = tb.assembleAttributes({id: "me", "class": "content"});
-	tb.content = "";
+	expected_s = '<p>Hi there</p>';
+	s = tb.p("Hi there");
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+
 	expected_s = '<p id="me" class="content"></p>';
-	s = tb.toString();
+	s = tb.p().attr({id: "me", "class": "content"});
 	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
 
-	tb.label = "p";
-	tb.attributes = tb.assembleAttributes({id: "me", "class": "content"});
-	tb.content = "Hello World";
 	expected_s = '<p id="me" class="content">Hello World</p>';
-	s = tb.toString();
+	s = tb.p("Hello World").attr({id: "me", "class": "content"});
 	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
 
-	tb.label = "";
-	tb.attributes = "";
-	tb.content = "Hello World";
 	expected_s = 'Hello World';
-	s = tb.toString();
+	s = tb.assembleTag(null, "Hello World", null);
 	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
-	
 
-	tb.label = "br";
-	tb.attributes = "";
-	tb.content = "";
 	expected_s = "<br />";
-	s = tb.toString();
+	s = tb.br();
 	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
 
-	tb.label = "br";
-	tb.attributes = tb.assembleAttributes({id: "me", "class": "content"});
-	tb.content = "";
 	expected_s = '<br id="me" class="content" />';
-	s = tb.toString();
+	s = tb.br().attr({id: "me", "class": "content"});
 	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
 
 	harness.completed("simple toString()");
@@ -121,13 +109,13 @@ harness.push({callback: function () {
 	
 	assert.ok(tb, "Should have an object created by new TBone.HTML()");
 	expected_s = "<div></div>";
-	s = tb.div().toString();
+	s = tb.div();
 	assert.equal(s, expected_s, "\n[" + s + "]\n[" + expected_s + "]");
 
 	tb.label = 'div';
 	tb.attributes = tb.assembleAttributes({id: "me"});
 	expected_s = '<div id="me"></div>';
-	s = tb.div().attr({id: "me"}).toString();
+	s = tb.div().attr({id: "me"});
 	assert.equal(s, expected_s, "\n[" + s + "]\n[" + expected_s + "]");
 	harness.completed("prototype div");
     
@@ -135,7 +123,7 @@ harness.push({callback: function () {
     tb.attributes = '';
     tb.content = '';
     expected_s = '<div>Hello World</div>';
-    s = tb.div("Hello World").toString();
+    s = tb.div("Hello World");
     assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
 
     tb.label = '';
@@ -144,7 +132,7 @@ harness.push({callback: function () {
     tb.label = 'div';
 	tb.attributes = tb.assembleAttributes({id: "me"});
 	expected_s = '<div id="me">Hello World</div>';
-	s = tb.div("Hello World").attr({id: "me"}).toString();
+	s = tb.div("Hello World").attr({id: "me"});
 	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
 
     // Now try nesting
@@ -152,29 +140,42 @@ harness.push({callback: function () {
     tb.attributes = '';
     tb.content = '';
 	expected_s = '<div><div>Hello World</div></div>';
-	s = tb.div(tb.div("Hello World")).toString();
+	s = tb.div(tb.div("Hello World"));
 	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
 
     tb.label = '';
     tb.attributes = '';
     tb.content = '';
     expected_s = '<div id="outer"><div id="inner">Hello World</div></div>';
-	s = tb.div(tb.div("Hello World").attr({id: "inner"})).attr({id: "outer"}).toString();
+	s = tb.div(tb.div("Hello World").attr({id: "inner"})).attr({id: "outer"});
 	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
 
 	expected_s = "<p></p>";
-	s = tb.p().toString();
+	s = tb.p().attr();
 	assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
 	expected_s = '<p id="me"></p>';
-	s = tb.p().attr({id: "me"}).toString();
+	s = tb.p().attr({id: "me"});
 	assert.equal(s, expected_s, "\n" + s + "\n" + expected_s + "]");
 	
     harness.completed("simple tags");
+    
+    expected_s = "<div><!-- comment --><p></p></div>"
+    s = tb.div("<!-- comment -->", "<p></p>").attr();
+	assert.equal(s, expected_s, "\n" + s + "\n" + expected_s + "]");
+
+    expected_s = "<div><!-- comment --><p></p><!-- closing comment --></div>"
+    s = tb.div("<!-- comment -->", "<p></p>", "<!-- closing comment -->").attr();
+	assert.equal(s, expected_s, "\n" + s + "\n" + expected_s + "]");
+    
+    expected_s = "<div><!-- comment --><p>Hi there.</p></div>"
+    s = tb.div("<!-- comment -->", tb.p("Hi there.")).attr();
+	assert.equal(s, expected_s, "\n" + s + "\n" + expected_s + "]");
+	harness.completed("simple tags");
 }, label: "simple tags"});
 
 harness.push({callback: function () {
-	var s, expected_s, tb = new tbone.HTML();
+	var s, expected_s, tb = new TBone.HTML();
 	
 	expected_s = '<!DOCTYPE html>\n<html lang="en"><head><title>Hello World</title></head><body><div class="content"><p>Hi there</p></div></body></html>';
 	s = tb.html(
@@ -186,239 +187,207 @@ harness.push({callback: function () {
 					tb.p("Hi there")
 				).attr({"class": "content"})
 			)
-		).attr({lang: "en"}).toString();
+		).attr({lang: "en"});
 	assert.equal(s, expected_s, "\n[" + s + "]\n[" + expected_s + "]");	
 	
     harness.completed("a simple document");
 }, label: "a simple document"});
 
-/*
 harness.push({callback: function () {
 	// Test the factory method
 	var s, expected_s, i, tb;
 
-    tb = new tbone.HTML();
+    tb = new TBone.HTML();
 
     expected_s = '<!DOCTYPE html>' + "\n" + '<html></html>';
-	s = tb.html('').toString();
+	s = tb.html('');
 	assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<!DOCTYPE html>' + "\n" + '<html lang="en"></html>';
-    s = tb.html('').attr({lang: "en"}).toString();
+    s = tb.html('').attr({lang: "en"});
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<head></head>';
-	s = tb.head('').toString();
+	s = tb.head('');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<title>hello world</title>';
-	s = tb.title('hello world').toString();
+	s = tb.title('hello world');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<link />';
-	s = tb.link('').toString();
+	s = tb.link('');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<body></body>';
-	s = tb.body('').toString();
+	s = tb.body('');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<h1>hello world</h1>';
-	s = tb.h1('hello world').toString();
+	s = tb.h1('hello world');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<h2>hello world</h2>';
-	s = tb.h2('hello world').toString();
+	s = tb.h2('hello world');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<h3>hello world</h3>';
-	s = tb.h3('hello world').toString();
+	s = tb.h3('hello world');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<h4>hello world</h4>';
-	s = tb.h4('hello world').toString();
+	s = tb.h4('hello world');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
 	expected_s = '<h5>hello world</h5>';
-	s = tb.h5('hello world').toString();
+	s = tb.h5('hello world');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<h6>hello world</h6>';
-	s = tb.h6('hello world').toString();
+	s = tb.h6('hello world');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = "<p>";
-	s = tb.p().toString();
+	s = tb.p();
+    assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
+
+	// If you have attributes, you' should have some sort of
+	// inner content...
+    expected_s = '<p id="me"></p>';
+	s = tb.p().attr({id: "me"});
+    assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
+
+    expected_s = '<p></p>';
+	s = tb.p("");
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = "<p>hello world</p>";
-	s = tb.p("hello world").toString();
+	s = tb.p("hello world");
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = "<a></a>";
-	s = tb.a("").toString();
+	s = tb.a("");
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = "<a href=\"http://example.com\">here</a>";
-	s = tb.a("here").attr({href: "http://example.com"}).toString();
+	s = tb.a("here").attr({href: "http://example.com"});
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = "<a href=\"http://example.com\" title=\"I'm here\">here</a>";
 	s = tb.a("here").attr({
         "href": "http://example.com",
         title: "I'm here"
-    }).toString();
+    });
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = "<ul></ul>";
-	s = tb.ul('').toString();
+	s = tb.ul('');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<ol></ol>';
-    s = tb.ol('').toString();
+    s = tb.ol('');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<li></li>';
-	s = tb.li('').toString();
+	s = tb.li('');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<dl></dl>';
-	s = tb.dl('').toString();
+	s = tb.dl('');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<dt></dt>';
-	s = tb.dt('').toString();
+	s = tb.dt('');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<dd></dd>';
-	s = tb.dd('').toString();
+	s = tb.dd('');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<table></table>';
-	s = tb.table('').toString();
+	s = tb.table('');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<tr></tr>';
-	s = tb.tr('').toString();
+	s = tb.tr('');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<td></td>';
-	s = tb.td('').toString();
+	s = tb.td('');
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<form></form>';
-	s = tb.form().toString();
+	s = tb.form();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<input />';
-	s = tb.input().toString();
+	s = tb.input();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<input value="Something" />';
-    s = tb.input().attr({value: "Something"}).toString();
+    s = tb.input().attr({value: "Something"});
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<select></select>';
-	s = tb.select().toString();
+	s = tb.select();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
 
     expected_s = '<option></option>';
-	s = tb.option().toString();
+	s = tb.option();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<select name="location"></select>';
-	s = tb.select().attr({name: "location"}).toString();
+	s = tb.select().attr({name: "location"});
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<option value="Los Angeles"></option>';
-	s = tb.option().attr({value: "Los Angeles"}).toString();
+	s = tb.option().attr({value: "Los Angeles"});
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<label></label>';
-	s = tb.label().toString();
+	s = tb.label();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<header></header>';
-	s = tb.header().toString();
+	s = tb.header();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
 
     expected_s = '<footer></footer>';
-	s = tb.footer().toString();
+	s = tb.footer();
     assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
-
-	// test for toHtml5Entities()
-	var test_strings = [
-		"Hello World!",
-        "“Hello World!”",
-        "Fred" + String.fromCharCode(180) + "s Car",
-        "Fred" + String.fromCharCode(8217) + "s Car",
-        "this is\nanother line.",
-        "&\nthat was it."
-	];
-	var expected_strings = [
-		"Hello World!",
-        "&ldquo;Hello World!&rdquo;",
-        "Fred&acute;s Car",
-        "Fred&rsquo;s Car",
-        "this is&NewLine;another line.",
-        "&&NewLine;that was it."
-	];
-	var result_string;
-
-	for (i = 0; i < test_strings.length && i < expected_strings.length; i += 1) {
-		result_string = tb.toHTML5Entities(test_strings[i]);
-		assert.equal(result_string, expected_strings[i], ['to Expected [', expected_strings[i], '] found [', result_string, ']'].join(""));
-	}
-
-	for (i = 0; i < test_strings.length && i < expected_strings.length; i += 1) {
-		result_string = tb.fromHTML5Entities(expected_strings[i]);
-		assert.equal(result_string, test_strings[i], ['from Expected [', test_strings[i], '] found [', result_string, ']'].join(""));
-	}
-
-	test_strings = [
-		'big <font>red</font>',
-        'big <font color=red>red</font> bus',
-        'big <font color="red">red</font> bus',
-        'big <font class=\'red-bus\' id="test" style="margin: 30px;">red</font> bus'
-	];
-	expected_strings = [
-		"big red",
-        "big red bus",
-        "big red bus",
-        "big red bus"
-	];
-
-	for (i = 0; i < test_strings.length && i < expected_strings.length; i += 1) {
-		result_string = tb.stripFontTags(test_strings[i]);
-		assert.equal(result_string, expected_strings[i], ["No. ", (i + 1), ' to Expected [', expected_strings[i], '] found [', result_string, ']'].join(""));
-	}
+    harness.completed("Tests 0.0.0 - 0.0.3e")
 }, label: "Tests 0.0.0 - 0.0.3e"});
 
 harness.push({callback: function () {
 	var s,
 		expected_s,
-		HTML = new tbone.HTML(),
-		CSS = new tbone.CSS(),
-		JS = new tbone.JS();
+		HTML = new TBone.HTML(),
+		CSS = new TBone.CSS(),
+		JS = new TBone.JS();
 
 	s = HTML.html(
-		HTML.head(
-			HTML.title("Simple 0")
-		),
-		HTML.body(
-			HTML.h1("Sample 0"),
-			HTML.p("Hello World")
-		)
-	).toString();
-	expected_s = '<!DOCTYPE html>\n<html><head><title>Simple 0</title></head><body><h1>Simple 0</h1><p>Hellow World</p></body></html>';
-	assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
-}, label: "Tests 0.1.0 - 0.1.1"});
+			HTML.head(
+				"<!-- Comment example -->",
+				HTML.title("Simple 0")
+			),
+			HTML.body(
+				HTML.h1("Sample 0"),
+				HTML.p("Hello World")
+			)
+		).trim();
 
-*/
+	expected_s =
+		"<!DOCTYPE html>\n<html><head><!-- Comment example --><title>Simple 0</title></head><body><h1>Simple 0</h1><p>Hello World</p></body></html>".trim();
+
+	assert.strictEqual(s.length, expected_s.length, "Should be same length: " + s.length + " ~ " + expected_s.length);
+	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
+	
+	harness.completed("Tests 0.1.0 - 0.1.3");
+}, label: "Tests 0.1.0 - 0.1.3"});
 
 if (require.main === module) {
-	harness.RunIt("tbone_test.js", 10, true);
+	harness.RunIt(path.basename(module.filename), 10);
 } else {
 	exports.RunIt = harness.RunIt;
 }

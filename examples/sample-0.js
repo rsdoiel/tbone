@@ -21,15 +21,16 @@ var fs = require("fs"),
 var HTML = new TBone.HTML(),
 	page_source = HTML.html(
 		HTML.head(
+			"<!-- Test comment -->",
 			HTML.title("Simple 0")
 		),
 		HTML.body(
 			HTML.h1("Sample 0"),
 			HTML.p("Hello World")
 		)
-	).toString();
+	);
 
 // Display it
 console.log(page_source);
 // Render it to disc as sample-0.html
-fs.writeFile("sample-0.html", page_source);
+//fs.writeFile("sample-0.html", page_source);

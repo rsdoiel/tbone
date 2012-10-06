@@ -26,6 +26,9 @@
      * @return a Trimmed string
      */
 	var trim = function (s) {
+		if (s === undefined) {
+			return "";
+		}
 		return s.replace(/^\s+|\s+$/g, "");
 	}; /* End: trim() */
 
@@ -59,18 +62,8 @@
 		return words.join(" ");
 	}; /* End: capitalize() */
 
-	var HTML = function (config) {
-		var i;
-		this.label = "";
-		this.content = "";
-		this.attributes = "";
-		
-		for (i in config) {
-			if (config.hasOwnProperty(i)) {
-				this[i] = config[i];
-			}
-		}
-	};
+	// Extend the String object
+	var HTML = String;
 
 	// Utility functions
 	HTML.prototype.trim = trim;
@@ -78,16 +71,18 @@
 	
 	
 	/**
-	* assembleAttributes - formats a valid set of attribute strings.
-	* @param attributes - either an associative array or formatted string.
-	* @return a string representation of the attributes.
-	*/
+	 * assembleAttributes - formats a valid set of attribute strings.
+	 * @param attributes - either an associative array or formatted string.
+	 * @return a string representation of the attributes.
+	 */
 	HTML.prototype.assembleAttributes = function (attributes) {
 		var attr = '', key, value;
 	
 		if (attributes === undefined) {
 			return '';
-		} else if (typeof attributes === 'object') {
+		}
+		
+		if (typeof attributes === 'object') {
 			for (key in attributes) {
 				if (attributes.hasOwnProperty(key)) {
 					if (typeof key !== "function") {
@@ -101,7 +96,9 @@
 				}
 			}
 			return trim(attr);
-		} else if (typeof attributes === "string") {
+		}
+		
+		if (typeof attributes === "string") {
 			return trim(attributes);
 		}
 		throw "assembleAttributes() can't process type " + typeof attributes;
@@ -154,36 +151,23 @@
 		return attributes;
 	}; /* END: disassembleAttributes() */
 	
-	// Assembles the attribute list for HTML object
-	HTML.prototype.attr = function (attributes) {
-		var ky, attrs = {};
-
-		if (typeof attributes === "string") {
-			this.attributes = attributes;
-		} else if (typeof attributes === "object") {
-			for (ky in attributes) {
-				if (attributes.hasOwnProperty(ky)) {
-					attrs[ky] = attributes[ky];
-				}
-			}
-			// convert the object to a string expected for this.attributes
-			this.attributes = this.assembleAttributes(attrs);
-		}
-		return this;
-	}; /* END: attr(), sets all attributes */
 	
     // assembleTag - given a label, some content and attributes
     // assemble an HTML tag as a string.
     // @param label - the tag to assemble (e.g. "div")
     // @param content - a string of content to wrap in the tag
-    // @param attributes - a string of attributes to use in openning of the tag
+    // @param attributes - a string of attributes to use in opening of the tag
     // @return string
     HTML.prototype.assembleTag = function (label, content, attributes) {
         var parts = [],
 			self_closing = [
-				"a", "br", "link", "img", "input"
+				"br", "link", "img", "input"
 			];
 		
+		if (typeof content === "object" &&
+				typeof content.join === "function") {
+			content = content.join("");
+		}
 		// self inclosing tags, e.g. <br />
 		if (label) {
 			if (self_closing.indexOf(label) >= 0) {
@@ -191,7 +175,7 @@
 				if (label) {
 					parts.push('<');
 					parts.push(label);
-					if (this.attributes) {
+					if (attributes) {
 						parts.push(" ");
 						parts.push(attributes);
 					}
@@ -200,14 +184,14 @@
 				return parts.join("");
 			}
 			
-			if (this.label === "html") {
+			if (label === "html") {
 				parts.push("<!DOCTYPE html>\n");
 			}
 			// open ended tags, e.g. <p>
 			// tags that expected content, e.g. <h1></h1>
 			parts.push('<');
 			parts.push(label);
-			if (this.attributes) {
+			if (attributes) {
 				parts.push(" ");
 				parts.push(attributes);
 			}
@@ -224,98 +208,256 @@
         return content;
     }; /* END: assembleTag() */
 
-	// assembleContent - assemble a tag's inner content
-    HTML.prototype.assembleContent = function (args) {
-        var i = 0,
-            parts = [],
-            elem;
+	/**
+	 * attr - Given some HTML markup, add attributes
+	 * and return as a string.
+	 * @param attributes - an object or string of attributes
+	 * @return string
+	 */
+    HTML.prototype.attr = function (attributes) {
+    	var src = this.toString().replace(/<!DOCTYPE html>\n/, ''),
+    		label,
+    		content = "",
+    		attrs,
+    		start, end,
+    		toks;
 
-        if (args.length > 0) {
-            for (i = 0; i < args.length; i += 1) {
-                if (typeof args[i] === "string") {
-                    parts.push(args[i]);
-                } else if (typeof args[i] === "object") {
-                    //parts.push((new HTML(args[i])).toString());
-                	parts.push(this.assembleTag(args[i].label, 
-                			args[i].content, args[i].attributes));
-                }
-            }
-            return parts.join("");
-        }
-        return "";
-    }; /* END: assembleContent */
+    	// Find the label
+    	start = src.match(/<\w+/);
+    	label = (start[0]).substr(1);
 
-	HTML.prototype.toString = function () {
-		var src = "";
-
-		src = this.assembleTag(this.label, this.content, this.attributes);
-		this.label = "";
-		this.content = "";
-		this.attributes = "";
-		return src;
-	}; /* END: toString() */
+    	// Check if we're in a self-closing tag
+    	if (src.substr(-2) !== "/>") {
+			// Now parse for content
+			start = src.indexOf('>') + 1;
+			end = src.lastIndexOf('<');
+			if (start <= end) {
+				end = end - start;
+				content = src.substr(start, end);
+			}
+    	}
+    	if (typeof attributes === "object") {
+			attrs = this.assembleAttributes(attributes);
+    	} else {
+    		attrs = attributes;
+    	}
+    	return this.assembleTag(label, content, attrs);
+    };
 
     // Generate a html tag
 	HTML.prototype.html = function () {
 		var args = Array.prototype.slice.call(arguments);
-		this.label = "html";
-		this.content = this.assembleContent(args);
-		return this;
+		return this.assembleTag("html", args, "");
 	};
 
     // Generate a head tag
 	HTML.prototype.head = function () {
 		var args = Array.prototype.slice.call(arguments);
-		this.label = "body";
-		this.content = this.assembleContent(args);
-		return this;
+		return this.assembleTag("head", args, "");
 	};
 
-    // Generate a head tag
-	HTML.prototype.head = function () {
+    // Generate a meta tag
+	HTML.prototype.meta = function () {
 		var args = Array.prototype.slice.call(arguments);
-		this.label = "body";
-		this.content = this.assembleContent(args);
-		return this;
+		return this.assembleTag("meta", args, "");
 	};
 
     // Generate a title tag
 	HTML.prototype.title = function () {
 		var args = Array.prototype.slice.call(arguments);
-		this.label = "title";
-		this.content = this.assembleContent(args);
-		return this;
+		return this.assembleTag("title", args, "");
 	};
 
     // Generate a body tag
 	HTML.prototype.body = function () {
 		var args = Array.prototype.slice.call(arguments);
-		this.label = "body";
-		this.content = this.assembleContent(args);
-		return this;
+		return this.assembleTag("body", args, "");
 	};
 
     // Generate a div tag
 	HTML.prototype.div = function () {
 		var args = Array.prototype.slice.call(arguments);
-		this.label = "div";
-		this.content = this.assembleContent(args);
-		return this;
+		return this.assembleTag("div", args, "");
+	};
+
+    // Generate a span tag
+	HTML.prototype.span = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("span", args, "");
+	};
+
+    // Generate a h1 tag
+	HTML.prototype.h1 = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("h1", args, "");
+	};
+
+    // Generate a h2 tag
+	HTML.prototype.h2 = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("h2", args, "");
+	};
+
+    // Generate a h3 tag
+	HTML.prototype.h3 = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("h3", args, "");
+	};
+
+    // Generate a h4 tag
+	HTML.prototype.h4 = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("h4", args, "");
+	};
+
+    // Generate a h5 tag
+	HTML.prototype.h5 = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("h5", args, "");
+	};
+
+    // Generate a h6 tag
+	HTML.prototype.h6 = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("h6", args, "");
 	};
 
 	// Generate a p tag
 	HTML.prototype.p = function () {
 		var args = Array.prototype.slice.call(arguments);
-		this.label = "p";
-		this.content = this.assembleContent(args);
-		return this;
+		if (args.length === 0) {
+			return '<p>';
+		}
+		return this.assembleTag("p", args, "");
 	};
 
+	// Generate a br tag
+	HTML.prototype.br = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("br", args, "");
+	};
+
+	// Generate a link tag
+	HTML.prototype.link = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("link", args, "");
+	};
+
+	// Generate an anchor tag
+	HTML.prototype.a = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("a", args, "");
+	};
+
+	// Generate a ul tag
+	HTML.prototype.ul = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("ul", args, "");
+	};
+
+	// Generate a ol tag
+	HTML.prototype.ol = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("ol", args, "");
+	};
+
+	// Generate a li tag
+	HTML.prototype.li = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("li", args, "");
+	};
+
+	// Generate a dl tag
+	HTML.prototype.dl = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("dl", args, "");
+	};
+
+	// Generate a dt tag
+	HTML.prototype.dt = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("dt", args, "");
+	};
+
+	// Generate a dd tag
+	HTML.prototype.dd = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("dd", args, "");
+	};
+
+	// Generate a table tag
+	HTML.prototype.table = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("table", args, "");
+	};
+
+	// Generate a tr tag
+	HTML.prototype.tr = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("tr", args, "");
+	};
+
+	// Generate a td tag
+	HTML.prototype.td = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("td", args, "");
+	};
+
+	// Generate a form tag
+	HTML.prototype.form = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("form", args, "");
+	};
+
+	// Generate a input tag
+	HTML.prototype.input = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("input", args, "");
+	};
+
+	// Generate a select tag
+	HTML.prototype.select = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("select", args, "");
+	};
+
+	// Generate a option tag
+	HTML.prototype.option = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("option", args, "");
+	};
+
+	// Generate a label tag
+	HTML.prototype.label = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("label", args, "");
+	};
+
+	// Generate a header tag
+	HTML.prototype.header = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("header", args, "");
+	};
+
+	// Generate a footer tag
+	HTML.prototype.footer = function () {
+		var args = Array.prototype.slice.call(arguments);
+		return this.assembleTag("footer", args, "");
+	};
+
+	var CSS = String;
+	var JS = String;
 
 	try {
 		exports.HTML = HTML;
+		exports.CSS = CSS;
+		exports.JS = JS;
 	} catch (err) {
-		// We're not in node
-		global.HTML = HTML;
+		// Toto, I don't think we're not in Node any more
 	}
+	global.TBone = {
+		HTML: HTML,
+		CSS: CSS,
+		JS: JS
+	};
 }(this));

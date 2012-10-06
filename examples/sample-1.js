@@ -27,9 +27,9 @@ var HTML = new TBone.HTML(),
 			HTML.h1("Sample 1").attr({"class": "banner"}),
 			HTML.p("Hello Again World").attr({"class": "content"})
 		)
-	).toString();
+	);
 
 // Display it
 console.log(page_source);
-// Render it to disc as sample-0.html
-fs.writeFile("sample-0.html", page_source);
+// Render it to disc as sample-1.html
+//fs.writeFile("sample-1.html", page_source);
