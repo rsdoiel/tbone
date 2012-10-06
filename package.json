@@ -21,7 +21,7 @@
 		"url" : "https://github.com/rsdoiel"
 	}],
 	"dependencies": {
-		"harness": "= 0.0.1"
+		"harness": ">= 0.0.1"
 	},
   	"scripts": {
 		"test": "node tests/tbone_test.js"
