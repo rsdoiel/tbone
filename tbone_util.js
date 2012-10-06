@@ -1,3 +1,17 @@
+/**
+ * tbone_util.js - a set of utility methods left over from re-writing tbone.js.
+ * These will probably be abandoned in future releases.
+ *
+ * author R. S. Doiel, <rsdoiel@gmail.com>
+ *
+ * copyright (c) 2011 all rights reserved
+ *
+ * Released under the Simplified BSD License.
+ * See: http://opensource.org/licenses/bsd-license.php
+ *
+ * Notes: runs under NodeJS, Mongo 2.2 shell and web browsers
+ */
+/*jslint devel: true, node: true, maxerr: 25, indent: 4,  vars: true, sloppy: true */
 (function (global) {
 	//
 	// from HTML_UTILEntities(), toHTML_UTILEntities() are content normalization
@@ -242,18 +256,16 @@
 		].join("|"),
 		re_NewLine = new RegExp(new_line_encodings, 'g');
 
-	var HTML_UTIL = functin () {};
-
 	// HTML_UTIL 5 entity and utility methods
-	HTML_UTIL.prototype.toHTML_UTIL5Entities = function (s) {
+	var toHTML5Entities = function (s) {
 		return s.replace(re_NewLine, NewLine).replace(re_quot, quot).replace(re_apos, apos).replace(re_acute, acute).replace(re_sbquo, sbquo).replace(re_bdquo, bdquo).replace(re_hellip, hellip).replace(re_dagger, dagger).replace(re_Dagger, Dagger).replace(re_lsquo, lsquo).replace(re_rsquo, rsquo).replace(re_ldquo, ldquo).replace(re_rdquo, rdquo).replace(re_bull, bull).replace(re_ndash, ndash).replace(re_mdash, mdash).replace(re_copy, copyright_mark).replace(re_nbsp, nbsp).replace(re_laquo, laquo).replace(re_raquo, raquo);
 	};
 
-	HTML_UTIL.prototype.fromHTML_UTIL5Entities = function (s) {
+	var fromHTML5Entities = function (s) {
 		return s.replace(re_NewLine, cc_NewLine).replace(re_quot,  cc_quot).replace(re_apos, cc_apos).replace(re_acute, cc_acute).replace(re_sbquo, cc_sbquo).replace(re_bdquo, cc_bdquo).replace(re_hellip, cc_hellip).replace(re_dagger, cc_dagger).replace(re_Dagger, cc_Dagger).replace(re_lsquo, cc_lsquo).replace(re_rsquo, cc_rsquo).replace(re_ldquo, cc_ldquo).replace(re_rdquo, cc_rdquo).replace(re_bull, cc_bull).replace(re_ndash, cc_ndash).replace(re_mdash, cc_mdash).replace(re_copy, cc_copyright_mark).replace(re_nbsp, cc_nbsp).replace(re_laquo, cc_laquo).replace(re_raquo, cc_raquo);
 	};
 
-	HTML_UTIL.prototype.stripFontTags = function (s) {
+	var stripFontTags = function (s) {
 		var reFontTag = new RegExp(
 			'<font[^>]*>|<font>|</font>',
 			'gi'
@@ -263,9 +275,15 @@
 	};
 
 	try {
-		exports.HTML_UTIL = HTML_UTIL;
+		exports.toHTML5Entities = toHTML5Entities;
+		exports.toHTML5Entities = fromHTML5Entities;
+		exports.stripFontTags = stripFontTags;
 	} catch (err) {
 		// Toto, I don't think we're not in Node any more
 	}
-	global.HTML_UTIL = HTML_UTIL;
+	global.TBone_Util = {
+		toHTML5Entities: toHTML5Entities,
+		fromHTML5Entities: fromHTML5Entities,
+		stripFontTags: stripFontTags
+	};
 }(this));
