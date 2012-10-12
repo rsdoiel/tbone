@@ -1,8 +1,8 @@
 {
 	"name" : "tbone",
-	"version" : "0.1.4",
+	"version" : "0.1.5",
 	"description" : "A simple library to generate valid HTML markup.",
-	"main" : "./js/tbone.js",
+	"main" : "./tbone.js",
 	"repository" : { 
 		"type" : "git", 
 		"url" : "http://github.com/rsdoiel/tbone.git"
