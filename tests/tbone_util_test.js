@@ -18,7 +18,7 @@ var path = require("path"),
 	harness = require("harness"),
 	tb = require("../tbone_util");
 
-harness.push({callback: function () {
+harness.push({callback: function (test_label) {
 	//
 	// fromHTML5Entities(), toHTML5Entities() are content normalization
 	// methods to improve the quality of the tbone output
@@ -77,7 +77,7 @@ harness.push({callback: function () {
 		assert.equal(result_string, expected_strings[i], ["No. ", (i + 1), ' to Expected [', expected_strings[i], '] found [', result_string, ']'].join(""));
 	}
 			  
-	harness.completed("prototype");
+	harness.completed(test_label);
 }, label: "prototype"});
 
 harness.RunIt(path.basename(module.filename), 10);

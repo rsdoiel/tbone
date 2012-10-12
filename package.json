@@ -1,6 +1,6 @@
 {
 	"name" : "tbone",
-	"version" : "0.1.3",
+	"version" : "0.1.4",
 	"description" : "A simple library to generate valid HTML markup.",
 	"main" : "./js/tbone.js",
 	"repository" : { 
@@ -21,7 +21,7 @@
 		"url" : "https://github.com/rsdoiel"
 	}],
 	"dependencies": {
-		"harness": ">= 0.0.2"
+		"harness": ">= 0.0.3"
 	},
   	"scripts": {
 		"test": "node tests/tbone_test.js"

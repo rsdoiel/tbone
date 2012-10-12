@@ -17,7 +17,7 @@ var	assert = require('assert'),
 	harness = require("harness"),
 	TBone = require('../tbone');
 
-harness.push({callback: function () {
+harness.push({callback: function (test_label) {
 	var s,
 		expected_s,
 		threw_error = false,
@@ -61,10 +61,10 @@ harness.push({callback: function () {
 		threw_error = true;
 	}
 	assert.strictEqual(threw_error, true, "Should throw an error when passed a non-string");
-	harness.completed("attributes");
+	harness.completed(test_label);
 }, label: "attributes"});
 
-harness.push({callback: function () {
+harness.push({callback: function (test_label) {
 	var s,
 		expected_s,
 		tb = new TBone.HTML();
@@ -101,10 +101,10 @@ harness.push({callback: function () {
 	s = tb.br().attr({id: "me", "class": "content"});
 	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
 
-	harness.completed("simple toString()");
+	harness.completed(test_label);
 }, label: "simple toString()"});
 
-harness.push({callback: function () {
+harness.push({callback: function (test_label) {
 	var s, expected_s, tb = new TBone.HTML();
 	
 	assert.ok(tb, "Should have an object created by new TBone.HTML()");
@@ -117,7 +117,7 @@ harness.push({callback: function () {
 	expected_s = '<div id="me"></div>';
 	s = tb.div().attr({id: "me"});
 	assert.equal(s, expected_s, "\n[" + s + "]\n[" + expected_s + "]");
-	harness.completed("prototype div");
+	harness.completed(test_label);
 	
 	tb.label = '';
 	tb.attributes = '';
@@ -172,10 +172,10 @@ harness.push({callback: function () {
 	expected_s = "<div><!-- comment --><p>Hi there.</p></div>";
 	s = tb.div("<!-- comment -->", tb.p("Hi there.")).attr();
 	assert.equal(s, expected_s, "\n" + s + "\n" + expected_s + "]");
-	harness.completed("simple tags");
+	harness.completed(test_label);
 }, label: "simple tags"});
 
-harness.push({callback: function () {
+harness.push({callback: function (test_label) {
 	var s, expected_s, tb = new TBone.HTML();
 	
 	expected_s = '<!DOCTYPE html>\n<html lang="en"><head><title>Hello World</title></head><body><div class="content"><p>Hi there</p></div></body></html>';
@@ -191,10 +191,10 @@ harness.push({callback: function () {
 	).attr({lang: "en"});
 	assert.equal(s, expected_s, "\n[" + s + "]\n[" + expected_s + "]");
 	
-	harness.completed("a simple document");
+	harness.completed(test_label);
 }, label: "a simple document"});
 
-harness.push({callback: function () {
+harness.push({callback: function (test_label) {
 	// Test the factory method
 	var s, expected_s, i, tb;
 
@@ -357,10 +357,10 @@ harness.push({callback: function () {
 	expected_s = '<footer></footer>';
 	s = tb.footer();
 	assert.equal(s, expected_s, "\n" + s + "\n" + expected_s);
-	harness.completed("Tests 0.0.0 - 0.0.3e");
+	harness.completed(test_label);
 }, label: "Tests 0.0.0 - 0.0.3e"});
 
-harness.push({callback: function () {
+harness.push({callback: function (test_label) {
 	var s,
 		expected_s,
 		HTML = new TBone.HTML();
@@ -382,10 +382,10 @@ harness.push({callback: function () {
 	assert.strictEqual(s.length, expected_s.length, "Should be same length: " + s.length + " ~ " + expected_s.length);
 	assert.strictEqual(s, expected_s, "\n" + s + "\n" + expected_s);
 	
-	harness.completed("Tests 0.1.0 - 0.1.2");
+	harness.completed(test_label);
 }, label: "Tests 0.1.0 - 0.1.2"});
 
-harness.push({callback: function () {
+harness.push({callback: function (test_label) {
 	var expected_s,
 		s,
 		tb = new TBone.HTML();
@@ -920,7 +920,7 @@ harness.push({callback: function () {
 	// Elements starting with Z (None)
 	//
 	
-	harness.completed("Check for HTML5 tags");
+	harness.completed(test_label);
 }, label: "Check for HTML5 tags"});
 
 harness.RunIt("tbone_test.js", 10);
