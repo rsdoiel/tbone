@@ -16,7 +16,13 @@
 var path = require("path"),
 	assert = require("assert"),
 	harness = require("harness"),
-	tb = require("../tbone_util");
+	tb = require("../tbone_util"),
+	test_name = "tbone_util_test.js";
+
+try {
+	test_name = path.basename(module.filename);
+} catch (err) {
+}
 
 harness.push({callback: function (test_label) {
 	//
@@ -80,4 +86,4 @@ harness.push({callback: function (test_label) {
 	harness.completed(test_label);
 }, label: "prototype"});
 
-harness.RunIt(path.basename(module.filename), 10);
+harness.RunIt(test_name, 10);

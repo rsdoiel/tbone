@@ -13,7 +13,45 @@
 var Harness = function (global) {
 	var test_groups = [],
 		running_tests = [],
+		skipped_tests = [],
+		platform = "unknown",
 		complete_called = false;
+
+	// Decide what platform we're running on.
+	var inMongo = function () {
+		var t = false;
+		try {
+			t = (process === undefined && windows === undefined);
+		} catch (err) {
+		}
+		return t;
+	};
+	
+	var inNode = function () {
+		var t = false;
+		try {
+			t = (process !== undefined);
+		} catch (err) {
+		}
+		return t;
+	};
+	
+	var inBrowser = function () {
+		var t = false;
+		try {
+			t = (window !== undefined);
+		} catch (err) {
+		}
+		return t;
+	};
+	
+	if (inNode()) {
+		platform = "node";
+	} else if (inBrowser()) {
+		platform = "browser";
+	} else {
+		platform = "mongo";
+	}
 	
 	// Several methods to make testing
 	// harness.js easier.
@@ -35,6 +73,9 @@ var Harness = function (global) {
 		}
 		if (test.label === undefined) {
 			throw "missing test label.";
+		}
+		if (test.targets === undefined) {
+			test.targets = [];
 		}
 		test_groups.push(test);
 	};
@@ -60,10 +101,17 @@ var Harness = function (global) {
 			if (group_test  &&
 					typeof group_test.callback === "function" &&
 					typeof group_test.label === "string") {
-				console.log("\tStarting " + group_test.label + " ...");
-				running_tests.push(group_test.label);
-				console.log("\t\t" + group_test.label + " called");
-				group_test.callback();
+				if (group_test.targets.length > 0 &&
+					group_test.targets.indexOf(platform) < 0) {
+					console.log("\tSkipping " + group_test.label);
+					skipped_tests.push(group_test.label);
+					console.log("\t\t" + group_test.label + " Skipped, OK");
+				} else {
+					console.log("\tStarting " + group_test.label + " ...");
+					running_tests.push(group_test.label);
+					console.log("\t\t" + group_test.label + " called");
+					group_test.callback(group_test.label);
+				}
 			} else if (group_test === undefined) {
 				if (complete_called === false) {
 					if (clearInterval !== undefined) {
@@ -84,7 +132,7 @@ var Harness = function (global) {
 						}
 					});
 				} else {
-					console.log(module_name.trim() + " Success!");
+					console.log(module_name + " Success!");
 				}
 				try {
 					clearInterval(int_id);
@@ -92,7 +140,7 @@ var Harness = function (global) {
 					console.log("clearInterval() not available");
 				}
 			} else {
-				throw module_name.trim() + " Failed!";
+				throw module_name + " Failed!";
 			}
 		};
 		
@@ -104,10 +152,17 @@ var Harness = function (global) {
 				if (group_test  &&
 						typeof group_test.callback === "function" &&
 						typeof group_test.label === "string") {
-					console.log("\tStarting " + group_test.label + " ...");
-					running_tests.push(group_test.label);
-					console.log("\t\t" + group_test.label + " called");
-					group_test.callback();
+					if (group_test.targets.length > 0 &&
+						group_test.targets.indexOf(platform) < 0) {
+						console.log("\tSkipping " + group_test.label);
+						skipped_tests.push(group_test.label);
+						console.log("\t\t" + group_test.label + " Skipped, OK");
+					} else {
+						console.log("\tStarting " + group_test.label + " ...");
+						running_tests.push(group_test.label);
+						console.log("\t\t" + group_test.label + " called");
+						group_test.callback(group_test.label);
+					}
 				} else if (group_test === undefined) {
 					if (complete_called === false) {
 						throw "harness.completed() never called by test group(s).";
@@ -121,11 +176,11 @@ var Harness = function (global) {
 						});
 					}
 				} else {
-					throw module_name.trim() + " Failed!";
+					throw module_name + " Failed!";
 				}
 				group_test = test_groups.shift();
 			}
-			console.log(module_name.trim() + " Success!");
+			console.log(module_name + " Success!");
 		};
 		
 		if (module_name === undefined) {
@@ -134,26 +189,34 @@ var Harness = function (global) {
 		if (test_delay === undefined) {
 			test_delay = 1000;
 		}
-	
-		console.log("Starting [" + module_name.trim() + "] ...");
+
+		console.log("Starting [" + module_name + "] ...");
 		try {
 			int_id = setInterval(run, test_delay);
 		} catch(err) {
 			runSync();
 		}
 	};
+	
+	var skipped = function () {
+		return skipped_tests.length;
+	};
 
 	this.counts = counts;
+	this.skipped = skipped;
 	this.push = push;
 	this.completed = completed;
 	this.RunIt = RunIt;
+	this.platform = platform;
 
 	try {
 		exports.counts = counts;
+		exports.skipped = skipped;
 		exports.push = push;
 		exports.completed = completed;
 		exports.RunIt = RunIt;
+		exports.platform = platform;
 	} catch (err) {
-		console.log("Running in browser.");
+		console.log("Running in", this.platform);
 	}
 }, harness = new Harness(this);

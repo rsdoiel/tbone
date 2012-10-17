@@ -15,7 +15,14 @@
 var	path = require("path"),
 	assert = require('assert'),
 	harness = require("harness"),
-	TBone = require('../tbone');
+	TBone = require('../tbone'),
+	test_name = "tbone_test.js";
+
+try {
+	test_name = path.basename(module.filename);
+} catch (err) {
+}
+
 
 harness.push({callback: function (test_label) {
 	var s,
@@ -923,8 +930,4 @@ harness.push({callback: function (test_label) {
 	harness.completed(test_label);
 }, label: "Check for HTML5 tags"});
 
-if (require.main === module) {
-	harness.RunIt(path.basename(module.filename), 10);
-} else {
-	exports.RunIt = harness.RunIt;
-}
+harness.RunIt(test_name, 10);
