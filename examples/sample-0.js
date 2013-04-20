@@ -8,7 +8,7 @@
  * Released under the Simplified BSD License.
  * See: http://opensource.org/licenses/bsd-license.php
  *
- * Notes: runs under NodeJS, Mongo 2.2 shell and web browsers
+ * Notes: runs under NodeJS and web browsers
  */
 /*jslint devel: true, node: true, maxerr: 25, indent: 4,  vars: true, sloppy: true */
 var TBone = require("../tbone"),

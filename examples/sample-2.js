@@ -1,5 +1,5 @@
 /**
- * simple-0.js - this generates a simple "Hello World" page.
+ * simple-2.js - this generates a simple "Hello World" page.
  *
  * author R. S. Doiel, <rsdoiel@gmail.com>
  *
@@ -8,25 +8,29 @@
  * Released under the Simplified BSD License.
  * See: http://opensource.org/licenses/bsd-license.php
  *
- * Notes: runs under NodeJS, Mongo 2.2 shell and web browsers
+ * Notes: runs under NodeJS and web browsers
  */
 /*jslint devel: true, node: true, maxerr: 25, indent: 4,  vars: true, sloppy: true */
-var TBone = require("../tbone"),
-	markup = new TBone.HTML(),
-	page_source;
+var YUI = require("yui").YUI;
 
-//
-// Generate a simple HTML page.
-//
-page_source = markup.html(
-	markup.head(
-		markup.title("Simple 1")
-	),
-	markup.body(
-		markup.h1("Sample 1").attr({"class": "banner"}),
-		markup.p("Hello Again World").attr({"class": "content"})
-	)
-);
+YUI().use("tbone", function (Y) {
+    var TBone = Y.TBone,
+	    markup = new TBone.HTML(),
+	    page_source;
 
-// Display it
-console.log(page_source);
+    //
+    // Generate a simple HTML page.
+    //
+    page_source = markup.html(
+	    markup.head(
+	    	markup.title("Sample 2")
+	    ),
+	    markup.body(
+	    	markup.h1("Sample 2").attr({"class": "banner"}),
+		    markup.p("Hello Again World").attr({"class": "content"})
+	    )
+    );
+
+    // Display it
+    Y.log(page_source);
+});

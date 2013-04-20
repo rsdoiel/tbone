@@ -18,7 +18,8 @@
  */
 /*jslint devel: true, node: true, maxerr: 25, indent: 4,  vars: true, sloppy: true */
 
-(function (global) {
+YUI.add("tbone", function (Y) {
+    Y.namespace("TBone");
 	/**
 	 * trim - a convenience function to Trim the whitespace from the 
 	 * start and end of a string.
@@ -868,13 +869,7 @@
 		return this.assembleTag("wbr", args, "");
 	};
 
-
-	try {
-		exports.HTML = HTML;
-	} catch (err) {
-		// Toto, I don't think we're not in Node any more
-	}
-	global.TBone = {
+	Y.TBone = {
 		HTML: HTML,
 	};
-}(this));
+});
