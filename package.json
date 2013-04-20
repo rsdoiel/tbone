@@ -25,7 +25,7 @@
         "yuitest": "0.7.9"
 	},
   	"scripts": {
-		"test": "node tests/tbone_test.js"
+		"test": "node tbone_test.js"
 	},
 	"bugs": {
 		"url": "http://github.com/rsdoiel/tbone/issues"
