@@ -3,6 +3,16 @@
 
 These are explorations which may someday be implemented in TBone.
 
+## 2013-04-20
+
+Since TBone is largely superceded by some very convient template engines
+(e.g. Mustache and Handlebars) it is worth thinking about larger semantic
+elements combined with integration IO to APIs to assemble useful semantic
+blocks. It should support not just the Microformat 2.0 spec but also allow
+useful namespacing of CSS attributes.
+
+
+
 ## Folding in CSS/JS with concatenation
 
 TBone provides a limited facility to concatenate CSS or JavaScript files. Both
