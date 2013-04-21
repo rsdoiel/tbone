@@ -1,3 +1,5 @@
 .git
 go
 php
+node_modules
+depreciated

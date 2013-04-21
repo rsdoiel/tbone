@@ -11,26 +11,24 @@
  * Notes: runs under NodeJS and web browsers
  */
 /*jslint devel: true, node: true, maxerr: 25, indent: 4,  vars: true, sloppy: true */
-var YUI = require("yui").YUI;
+var TBone = require("../tbone"),
+    markup = new TBone.HTML(),
+    page_source;
 
-YUI().use("tbone", function (Y) {
-    var TBone = Y.TBone,
-	    markup = new TBone.HTML(),
-	    page_source;
 
-    //
-    // Generate a simple HTML page.
-    //
-    page_source = markup.html(
-	    markup.head(
-	    	markup.title("Sample 2")
-	    ),
-	    markup.body(
-	    	markup.h1("Sample 2").attr({"class": "banner"}),
-		    markup.p("Hello Again World").attr({"class": "content"})
-	    )
-    );
+//
+// Generate a simple HTML page.
+//
+page_source = markup.html(
+    markup.head(
+    	markup.title("Sample 2")
+    ),
+    markup.body(
+    	markup.h1("Sample 2").attr({"class": "banner"}),
+	    markup.p("Hello Again World").attr({"class": "content"})
+    )
+);
 
-    // Display it
-    Y.log(page_source);
-});
+// Display it
+console.log(page_source);
+

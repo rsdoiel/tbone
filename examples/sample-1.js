@@ -13,8 +13,15 @@
 /*jslint devel: true, node: true, maxerr: 25, indent: 4,  vars: true, sloppy: true */
 var YUI = require("yui").YUI;
 
-YUI().use("tbone", function (Y) {
-    var TBone = require("../tbone"),
+YUI({
+    debug: true,
+    modules: {
+        "tbone": {
+            fullpath: "../tbone.js"
+        }
+    }
+}).use("tbone", function (Y) {
+    var TBone = Y.TBone,
 	    markup = new TBone.HTML(),
 	    page_source;
 
@@ -35,3 +42,4 @@ YUI().use("tbone", function (Y) {
     // Display it
     Y.log(page_source);
 });
+

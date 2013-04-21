@@ -16,7 +16,7 @@
 //var YUI = require("yui").YUI;
 
 if (typeof require !== "undefined") {
-    YUI = require("yui").YUI;
+    var YUI = require("yui").YUI;
 }
 
 YUI({
@@ -24,7 +24,7 @@ YUI({
     debug: true,
     modules: {
         "tbone": {
-            fullpath: "./tbone.js"
+            fullpath: "./src/gallery-tbone/tbone.js"
         }
     }
 }).use("test", "tbone", function (Y) {

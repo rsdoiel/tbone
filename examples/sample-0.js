@@ -11,15 +11,25 @@
  * Notes: runs under NodeJS and web browsers
  */
 /*jslint devel: true, node: true, maxerr: 25, indent: 4,  vars: true, sloppy: true */
-var TBone = require("../tbone"),
-	markup = new TBone.HTML();
+var YUI = require("yui").YUI;
 
-// Displaying an HTML 5 valid HTML page.
-console.log(markup.html(
-	markup.head(
-		markup.title("Hello World")
-	),
-	markup.body(
-		markup.h1("Hello World")
-	)
-));
+YUI({
+    modules: {
+        "tbone": {
+            fullpath: "../tbone.js"
+        }
+    }
+}).use("tbone", function (Y) {
+    var TBone = Y.TBone,
+	    markup = new TBone.HTML();
+
+    // Displaying an HTML 5 valid HTML page.
+    console.log(markup.html(
+	    markup.head(
+		    markup.title("Hello World")
+	    ),
+	    markup.body(
+		    markup.h1("Hello World")
+	    )
+    ));
+});

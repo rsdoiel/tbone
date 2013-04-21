@@ -16,7 +16,14 @@
  *
  * Notes: runs under NodeJS, Mongo 2.2 shell and web browsers
  */
-/*jslint devel: true, node: true, maxerr: 25, indent: 4,  vars: true, sloppy: true */
+
+/*jslint devel: true, maxerr: 25, indent: 4,  vars: true, sloppy: true */
+/*global YUI */
+
+// If we're in Node load as a Node module
+if (typeof require !== "undefined") {
+    var YUI = require("yui").YUI;
+}
 
 YUI.add("tbone", function (Y) {
     Y.namespace("TBone");
@@ -869,7 +876,11 @@ YUI.add("tbone", function (Y) {
 		return this.assembleTag("wbr", args, "");
 	};
 
+    if (typeof exports !== "undefined") {
+        exports.HTML = HTML;
+    }
+
 	Y.TBone = {
-		HTML: HTML,
+		HTML: HTML
 	};
 });
